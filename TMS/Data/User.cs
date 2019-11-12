@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+<<<<<<< HEAD
 using System.Runtime.CompilerServices;
+=======
+>>>>>>> a9dd8ae37b1ebab926dc466c335b57580a65d5c9
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +22,6 @@ namespace TMS.Data
     {
         private const int SaltLength = 16;
         private const int HashLength = 20;
-
         private int UserID { get; set; }
 
         private string Username { get; set; }
