@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,16 +31,16 @@ namespace TMS.Data
         Reefer = 1
     }
 
-    class Contract
+    public class Contract
     {
-        private String Client { get; set; }
+        public String Client { get; set; }
 
-        private JobType JobType { get; set; }
-        private VanType VanType { get; set; }
+        public JobType JobType { get; set; }
+        public VanType VanType { get; set; }
 
-        private int Quantity { get; set; }
+        public int Quantity { get; set; }
 
-        private City origin;
-        private City destination;
+        public City Origin;
+        public City Destination;
     }
 }
