@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,14 +33,16 @@ namespace TMS.Data
 
     class Contract
     {
-        private String Client { get; set; }
+        public uint ContractID { get; set; }
+        public uint CarrierID { get; set; }
+        public String Client { get; set; }
 
-        private JobType JobType { get; set; }
-        private VanType VanType { get; set; }
+        public JobType JobType { get; set; }
+        public VanType VanType { get; set; }
 
-        private int Quantity { get; set; }
+        public uint Quantity { get; set; }
 
-        private City origin;
-        private City destination;
+        public City origin;
+        public City destination;
     }
 }
