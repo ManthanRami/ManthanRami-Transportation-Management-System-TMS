@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using static TMS.Data.City;
 
 namespace TMS.Data
 {
-    class CmpDal
+    public class CmpDal
     {
-        private string connectionString =
+        private readonly string connectionString =
             ConfigurationManager.ConnectionStrings["CMPConnectionString"].ConnectionString;
 
         public List<Contract> GetContracts()
@@ -20,9 +21,11 @@ namespace TMS.Data
 
             const string queryString = "SELECT * FROM Contract";
 
-            using (MySqlConnection myConn = new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                MySqlCommand query = new MySqlCommand(queryString);
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
                 MySqlDataReader reader = query.ExecuteReader();
 
                 DataTable table = new DataTable();
@@ -32,15 +35,24 @@ namespace TMS.Data
                 {
                     Contract contract = new Contract();
 
-                    contract.ContractID = (uint) row["ContractID"];
-                    contract.CarrierID = (uint) row["CarrierID"];
-                    contract.Client = (string) row["Client"];
-                    contract.JobType = (JobType) row["JobType"];
-                    contract.VanType = (VanType) row["VanType"];
-                    contract.Quantity = (uint) row["Quantity"];
+                    contract.Client = (string) row["Client_Name"];
+                    contract.JobType = (JobType) row["Job_Type"];
+                    contract.VanType = (VanType) row["Van_Type"];
+                    contract.Quantity = (int) row["Quantity"];
+
+                    City origin;
+                    City destination;
+
+                    Enum.TryParse((string) row["Origin"], out origin);
+                    Enum.TryParse((string) row["Destination"], out destination);
+
+                    contract.Origin = origin;
+                    contract.Destination = destination;
 
                     contracts.Add(contract);
                 }
+
+                conn.Close();
             }
 
             return contracts;

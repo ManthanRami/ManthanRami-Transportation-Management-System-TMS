@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,17 @@ namespace TMS
         public MainWindow()
         {
             InitializeComponent();
+
+            List<Contract> contracts;
+
+            CmpDal cmp = new CmpDal();
+
+            contracts = cmp.GetContracts();
+
+            foreach (var contract in contracts)
+            {
+                Trace.WriteLine(contract.Client + " " + contract.Quantity + " " + contract.JobType.ToString() + " " + contract.VanType.ToString());
+            }
         }
     }
 }

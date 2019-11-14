@@ -15,7 +15,7 @@ namespace TMS.Data
         Admin = 2
     }
 
-    class User
+    public class User
     {
         private const int SaltLength = 16;
         private const int HashLength = 20;

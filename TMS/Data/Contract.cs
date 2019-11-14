@@ -31,18 +31,16 @@ namespace TMS.Data
         Reefer = 1
     }
 
-    class Contract
+    public class Contract
     {
-        public uint ContractID { get; set; }
-        public uint CarrierID { get; set; }
         public String Client { get; set; }
 
         public JobType JobType { get; set; }
         public VanType VanType { get; set; }
 
-        public uint Quantity { get; set; }
+        public int Quantity { get; set; }
 
-        public City origin;
-        public City destination;
+        public City Origin;
+        public City Destination;
     }
 }

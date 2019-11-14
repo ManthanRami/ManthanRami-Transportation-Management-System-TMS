@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace TMS.Data
 {
-    class TmsDal
+    public class TmsDal
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
-
-        public List<>
     }
 }
