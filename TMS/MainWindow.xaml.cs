@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMS.Data;
+using TMS.Exceptions;
 
 namespace TMS
 {
@@ -27,20 +28,23 @@ namespace TMS
         protected string username;
         protected string password;
         protected bool allowLogin;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            List<Contract> contracts;
+            TmsDal dal = new TmsDal();
 
-            CmpDal cmp = new CmpDal();
+            User user = new User();
+            user.Username = "admin";
+            user.Password = "password";
+            user.Email = "admin@test.com";
+            user.FirstName = "Testing";
+            user.LastName = "Testerson";
+            user.Type = UserType.Admin;
 
-            contracts = cmp.GetContracts();
-
-            foreach (var contract in contracts)
-            {
-                Trace.WriteLine(contract.Client + " " + contract.Quantity + " " + contract.JobType.ToString() + " " + contract.VanType.ToString());
-            }
+            dal.CreateUser(user);
+            //uint id = dal.GetUserID("admin");
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace TMS.Data
         public void CreateUser(User user)
         {
             const string queryString =
-                "INSERT INTO `User` VALUES (NULL, '@username', '@password', '@email', '@firstname', '@lastname', @usertype);";
+                "INSERT INTO `User` VALUES (NULL, @username, @password, @email, @firstname, @lastname, @usertype);";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -27,8 +28,9 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@username", user.Username);
                 query.Parameters.AddWithValue("@password", user.Password);
                 query.Parameters.AddWithValue("@email", user.Email);
-                query.Parameters.AddWithValue("@firstname", user.Username);
-                query.Parameters.AddWithValue("@lastname", user.Username);
+                query.Parameters.AddWithValue("@firstname", user.FirstName);
+                query.Parameters.AddWithValue("@lastname", user.LastName);
+                query.Parameters.AddWithValue("@usertype", (int) user.Type);
 
                 if (query.ExecuteNonQuery() != 1)
                 {

@@ -3,7 +3,7 @@ USE TMS;
 
 CREATE TABLE IF NOT EXISTS `User` (
 	UserID			INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	Username		VARCHAR(32) NOT NULL,
+	Username		VARCHAR(32) NOT NULL UNIQUE,
     `Password`		VARCHAR(64) NOT NULL,
     Email			VARCHAR(32) NOT NULL,
     FirstName		VARCHAR(32) NOT NULL,
@@ -55,4 +55,4 @@ CREATE TABLE IF NOT EXISTS Contract (
 );
 
 /* TEST DATA */
-INSERT INTO `User` VALUES (NULL, "admin", "password", "admin@test.com", "Testing", "Testerson", 2);
+INSERT INTO `User` VALUES (NULL, 'admin', '@password', 'admin@test.com', 'testing', 'testerson', 2);

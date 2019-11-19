@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMS.Data;
 using TMS.Exceptions;
@@ -6,7 +7,7 @@ using TMS.Exceptions;
 namespace TMS_Test_Suite
 {
     [TestClass]
-    class TmsDalTest
+    public class UnitTest1
     {
         [TestMethod]
         public void TestCreateUser()

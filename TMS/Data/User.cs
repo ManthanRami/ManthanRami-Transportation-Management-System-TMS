@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -19,23 +20,26 @@ namespace TMS.Data
     {
         public const int SaltLength = 16;
         public const int HashLength = 20;
+        public const int HashIterations = 10000;
+
         public int UserID { get; set; }
 
         public string Username { get; set; }
 
+        private string password;
         public string Password
         {
             get
             {
                 // Decode Base64 password
-                byte[] hashBytes = Convert.FromBase64String(Password);
+                byte[] hashBytes = Convert.FromBase64String(password);
 
                 // Extract just the password hash bytes while ignoring the salt bytes
                 byte[] hash = new byte[HashLength];
                 Array.Copy(hashBytes, SaltLength, hash, 0, HashLength);
 
                 // Return the hash without the salt
-                return Convert.ToString(hash);
+                return Convert.ToBase64String(hash);
             }
             set
             {
@@ -44,7 +48,7 @@ namespace TMS.Data
                 new RNGCryptoServiceProvider().GetBytes(salt);
 
                 // Hash the password
-                var pbkdf2 = new Rfc2898DeriveBytes(value, salt, 10000);
+                var pbkdf2 = new Rfc2898DeriveBytes(value, salt, HashIterations);
                 byte[] hash = pbkdf2.GetBytes(HashLength);
 
                 byte[] hashBytes = new byte[SaltLength + HashLength];
@@ -52,7 +56,7 @@ namespace TMS.Data
                 Array.Copy(hash, 0, hashBytes, SaltLength, HashLength);
 
                 // Encode and set password
-                Password = Convert.ToBase64String(hashBytes);
+                password = Convert.ToBase64String(hashBytes);
             }
         }
 
