@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS `User` (
 	Username		VARCHAR(32) NOT NULL,
     `Password`		VARCHAR(64) NOT NULL,
     Email			VARCHAR(32) NOT NULL,
+    FirstName		VARCHAR(32) NOT NULL,
+    LastName		VARCHAR(32) NOT NULL,
     UserType		TINYINT DEFAULT 0,
     
     PRIMARY KEY (UserID)
@@ -51,3 +53,6 @@ CREATE TABLE IF NOT EXISTS Contract (
     
     PRIMARY KEY (ContractID)
 );
+
+/* TEST DATA */
+INSERT INTO `User` VALUES (NULL, "admin", "password", "admin@test.com", "Testing", "Testerson", 2);
