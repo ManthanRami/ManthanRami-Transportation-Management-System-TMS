@@ -10,5 +10,5 @@ C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\Login
 C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\Login_Window.exe
 C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\Login_Window.pdb
 C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\Login_Window.csprojAssemblyReference.cache
-C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\MainWindow.g.cs
-C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\MainWindow.baml
+C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\Login.g.cs
+C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\Login_Window\obj\Debug\Login.baml

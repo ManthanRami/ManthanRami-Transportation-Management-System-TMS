@@ -15,14 +15,25 @@ using System.Windows.Shapes;
 
 namespace TMS
 {
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        protected string username;
+        protected string password;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            username = UserNameBox.Text;
+            password = PasswordBox.Password;
         }
     }
 }

@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TMS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="TMS LOGIN" MinHeight="600" MinWidth="600" MaxHeight="600" MaxWidth="600" Background="Gray">
+    <Border Background="DarkGray"  CornerRadius="20" Margin="25,25,25,25">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,25,0,0">
+            <Border Background="Gray"  CornerRadius="20" Margin="0,25,0,0" Height="45">
+                <TextBlock   x:Name="LoginTitle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35"  TextWrapping="Wrap" Text="OHST LOGIN" Height="Auto" Width="auto" IsEnabled="False"/>
+            </Border>
+            <TextBlock   x:Name="TxtBlockUserName" Margin="0,35,0,0" FontSize="24"  TextWrapping="Wrap" Text="USER NAME:" Height="39" Width="140" IsEnabled="False"/>
+            <TextBox     x:Name="UserNameBox"   VerticalAlignment="Top" HorizontalAlignment="Center" Height="39"  Width="283" FontSize="24"   MaxLength="20" />
+            <TextBlock   x:Name="TxtBlockPassword" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="24"  TextWrapping="Wrap" Text="PASSWORD:"  Margin="0,15,0,0" Height="39" Width="140" IsEnabled="False"/>
+            <PasswordBox x:Name="PasswordBox"   VerticalAlignment="Top" HorizontalAlignment="Center" Height="39"  Width="283" FontSize="24" MaxLength="18" />
+            <Button Content="LOGIN" Margin="60, 25"   FontSize="25" Width="240" Height="50" Click="btnLogin_Click" />
+        </StackPanel>
+    </Border>
 </Window>
