@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMS", "TMS\TMS.csproj", "{004D6AE3-790D-461E-8985-88D15DE9C911}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login_Window", "Login_Window\Login_Window.csproj", "{156A3274-34E5-4AEA-BEA8-D908CC2DA06D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{004D6AE3-790D-461E-8985-88D15DE9C911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{004D6AE3-790D-461E-8985-88D15DE9C911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{004D6AE3-790D-461E-8985-88D15DE9C911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{156A3274-34E5-4AEA-BEA8-D908CC2DA06D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{156A3274-34E5-4AEA-BEA8-D908CC2DA06D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{156A3274-34E5-4AEA-BEA8-D908CC2DA06D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{156A3274-34E5-4AEA-BEA8-D908CC2DA06D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
