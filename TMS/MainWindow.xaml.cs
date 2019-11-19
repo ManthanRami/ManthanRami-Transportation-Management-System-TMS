@@ -17,11 +17,16 @@ using TMS.Data;
 
 namespace TMS
 {
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        protected string username;
+        protected string password;
+        protected bool allowLogin;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +40,38 @@ namespace TMS
             foreach (var contract in contracts)
             {
                 Trace.WriteLine(contract.Client + " " + contract.Quantity + " " + contract.JobType.ToString() + " " + contract.VanType.ToString());
+            }
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            username = UserNameBox.Text;
+            password = PasswordBox.Password;
+
+            if(username=="" && password=="" )
+            {
+                Error.Content = "Please Enter Usename and Password !!";
+            }
+            else if(username=="")
+            {
+                Error.Content = "Please Enter the Username !!";
+            }
+            else if(password=="")
+            {
+                Error.Content = "Please Enter the Password !!";
+            }
+            LoginAccess obj = new LoginAccess();
+            allowLogin = obj.verifyAccount(username, password);
+            
+            if(allowLogin)
+            {
+
+            }
+            else
+            {
+                Error.Content = "Your Passoword or Username is incorrect !!";
+                UserNameBox.Text = "";
+                PasswordBox.Password = "";
             }
         }
     }
