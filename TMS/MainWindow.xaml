@@ -16,6 +16,7 @@
             <TextBlock   x:Name="TxtBlockPassword" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="24"  TextWrapping="Wrap" Text="PASSWORD:"  Margin="0,15,0,0" Height="39" Width="140" IsEnabled="False"/>
             <PasswordBox x:Name="PasswordBox"   VerticalAlignment="Top" HorizontalAlignment="Center" Height="39"  Width="283" FontSize="24" MaxLength="18" />
             <Button Content="LOGIN" Margin="60, 25"   FontSize="25" Width="240" Height="50" Click="btnLogin_Click" />
+            <Label x:Name="Error"  Foreground="#FFCD2B2B" Margin="122,0,100,0"/>
         </StackPanel>
     </Border>
 </Window>

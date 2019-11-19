@@ -24,7 +24,7 @@ namespace TMS
     {
         protected string username;
         protected string password;
-
+        protected bool allowLogin;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +34,32 @@ namespace TMS
         {
             username = UserNameBox.Text;
             password = PasswordBox.Password;
+
+            if(username=="" && password=="" )
+            {
+                Error.Content = "Please Enter Usename and Password !!";
+            }
+            else if(username=="")
+            {
+                Error.Content = "Please Enter the Username !!";
+            }
+            else if(password=="")
+            {
+                Error.Content = "Please Enter the Password !!";
+            }
+            LoginAccess obj = new LoginAccess();
+            allowLogin = obj.verifyAccount(username, password);
+            
+            if(allowLogin)
+            {
+
+            }
+            else
+            {
+                Error.Content = "Your Passoword or Username is incorrect !!";
+                UserNameBox.Text = "";
+                PasswordBox.Password = "";
+            }
         }
     }
 }
