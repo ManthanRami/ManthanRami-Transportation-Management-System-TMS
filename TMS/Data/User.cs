@@ -17,13 +17,13 @@ namespace TMS.Data
 
     public class User
     {
-        private const int SaltLength = 16;
-        private const int HashLength = 20;
-        private int UserID { get; set; }
+        public const int SaltLength = 16;
+        public const int HashLength = 20;
+        public int UserID { get; set; }
 
-        private string Username { get; set; }
+        public string Username { get; set; }
 
-        private string Password
+        public string Password
         {
             get
             {
@@ -56,6 +56,9 @@ namespace TMS.Data
             }
         }
 
-        private UserType Type { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public UserType Type { get; set; }
     }
 }
