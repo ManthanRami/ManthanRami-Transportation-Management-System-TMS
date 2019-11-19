@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TMS.Exceptions
 {
-    class UserNotExistException : Exception
+    public class UserNotExistException : Exception
     {
         public UserNotExistException()
         {

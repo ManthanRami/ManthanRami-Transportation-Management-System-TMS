@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CmpDalTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TmsDalTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
