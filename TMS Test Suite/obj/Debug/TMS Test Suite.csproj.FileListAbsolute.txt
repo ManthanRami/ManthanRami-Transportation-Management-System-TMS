@@ -20,3 +20,5 @@ C:\Users\Duncan Snider\Desktop\TMS\TMS Test Suite\obj\Debug\TMS Test Suite.cspro
 C:\Users\Duncan Snider\Desktop\TMS\TMS Test Suite\obj\Debug\TMS Test Suite.dll
 C:\Users\Duncan Snider\Desktop\TMS\TMS Test Suite\obj\Debug\TMS Test Suite.pdb
 C:\Users\Duncan Snider\Desktop\TMS\TMS Test Suite\bin\Debug\TMS Test Suite.dll.config
+C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\TMS Test Suite\obj\Debug\TMS Test Suite.dll
+C:\Users\macca\Documents\GitHub\SQ-TMS-Repo\TMS-404\TMS Test Suite\obj\Debug\TMS Test Suite.pdb

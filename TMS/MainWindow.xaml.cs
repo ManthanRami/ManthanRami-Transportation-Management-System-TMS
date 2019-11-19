@@ -24,23 +24,28 @@ namespace TMS
     /// </summary>
     public partial class MainWindow : Window
     {
+        // For testing purposes
+        bool testingNoValidation = true;
+
         protected string username;
         protected string password;
         protected bool allowLogin;
+
+        protected bool newPageLoaded;
         public MainWindow()
         {
             InitializeComponent();
 
-            List<Contract> contracts;
+            //List<Contract> contracts;
 
-            CmpDal cmp = new CmpDal();
+            //CmpDal cmp = new CmpDal();
 
-            contracts = cmp.GetContracts();
+            //contracts = cmp.GetContracts();
 
-            foreach (var contract in contracts)
-            {
-                Trace.WriteLine(contract.Client + " " + contract.Quantity + " " + contract.JobType.ToString() + " " + contract.VanType.ToString());
-            }
+            //foreach (var contract in contracts)
+            //{
+            //    Trace.WriteLine(contract.Client + " " + contract.Quantity + " " + contract.JobType.ToString() + " " + contract.VanType.ToString());
+            //}
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -48,31 +53,77 @@ namespace TMS
             username = UserNameBox.Text;
             password = PasswordBox.Password;
 
-            if(username=="" && password=="" )
+            if (testingNoValidation == false)
             {
-                Error.Content = "Please Enter Usename and Password !!";
-            }
-            else if(username=="")
-            {
-                Error.Content = "Please Enter the Username !!";
-            }
-            else if(password=="")
-            {
-                Error.Content = "Please Enter the Password !!";
-            }
-            LoginAccess obj = new LoginAccess();
-            allowLogin = obj.verifyAccount(username, password);
-            
-            if(allowLogin)
-            {
+                if (username == "" && password == "")
+                {
+                    Error.Content = "Please Enter Usename and Password !!";
+                }
+                else if (username == "")
+                {
+                    Error.Content = "Please Enter the Username !!";
+                }
+                else if (password == "")
+                {
+                    Error.Content = "Please Enter the Password !!";
+                }
+                LoginAccess obj = new LoginAccess();
+                allowLogin = obj.verifyAccount(username, password);
 
+                if (allowLogin)
+                {
+
+                }
+                else
+                {
+                    Error.Content = "Your Password or Username is incorrect !!";
+                    UserNameBox.Text = "";
+                    PasswordBox.Password = "";
+                }
             }
-            else
+
+
+            if (testingNoValidation == true)
             {
-                Error.Content = "Your Passoword or Username is incorrect !!";
-                UserNameBox.Text = "";
-                PasswordBox.Password = "";
+                // Will need to be put into proper if statements when user type is determined properly
+                if (username == "admin")
+                {
+                    AdminWindow admin = new AdminWindow();
+                
+                    admin.Show();
+
+                    newPageLoaded = true;
+                }
+            
+
+                if (username == "buyer")
+                {
+                    BuyerWindow buyer = new BuyerWindow();
+                
+                    buyer.Show();
+                    newPageLoaded = true;
+                }
+            
+
+                if (username == "planner")
+                {
+                    PlannerWindow planner = new PlannerWindow();
+                
+                    planner.Show();
+                    newPageLoaded = true;
+                }
+
+                if (newPageLoaded == true)
+                {
+                    this.Close();
+                }
+                else
+                {
+
+                }
             }
+
+
         }
     }
 }

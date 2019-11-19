@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -57,13 +57,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuyerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BuyerWindow.xaml.cs">
+      <DependentUpon>BuyerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginAccess.cs" />
     <Compile Include="Data\CmpDal.cs" />
@@ -74,8 +88,92 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages_UI\Pages_Admin\AdminStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\DBMSConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\InitiateBackup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\LogDirectoryOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyCarrierData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyFeeData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyRateData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyRouteData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ReviewLogFiles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\BuyerStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Planner\PlannerStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlannerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages_UI\Pages_Admin\AdminStartup.xaml.cs">
+      <DependentUpon>AdminStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\DBMSConfig.xaml.cs">
+      <DependentUpon>DBMSConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\InitiateBackup.xaml.cs">
+      <DependentUpon>InitiateBackup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\LogDirectoryOptions.xaml.cs">
+      <DependentUpon>LogDirectoryOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyCarrierData.xaml.cs">
+      <DependentUpon>ModifyCarrierData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyFeeData.xaml.cs">
+      <DependentUpon>ModifyFeeData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyRateData.xaml.cs">
+      <DependentUpon>ModifyRateData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyRouteData.xaml.cs">
+      <DependentUpon>ModifyRouteData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ReviewLogFiles.xaml.cs">
+      <DependentUpon>ReviewLogFiles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\BuyerStartup.xaml.cs">
+      <DependentUpon>BuyerStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\PlannerStartup.xaml.cs">
+      <DependentUpon>PlannerStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlannerWindow.xaml.cs">
+      <DependentUpon>PlannerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
