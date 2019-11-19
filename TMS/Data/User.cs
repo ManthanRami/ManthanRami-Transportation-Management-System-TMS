@@ -19,6 +19,7 @@ namespace TMS.Data
     {
         private const int SaltLength = 16;
         private const int HashLength = 20;
+        private UserType Type { get; set; }
         private int UserID { get; set; }
 
         private string Username { get; set; }
@@ -54,8 +55,23 @@ namespace TMS.Data
                 // Encode and set password
                 Password = Convert.ToBase64String(hashBytes);
             }
-        }
 
-        private UserType Type { get; set; }
+        }
+        /*====================================================================================================================================
+        /// <summary>
+        /// This function will verify user account in database if it is exist or given info is wrong 
+        /// </summary>
+        /// <param name="username">string     username : Username provided by the TMS application userto login in to thhe application.</param>
+        /// <param name="password">string     password : Password provided by the TMS application user to login in to the application.</param>
+        /// <returns>bool       loginOk  : True  if the user provided right information of the account otherwise False.</returns>
+        =======================================================================================================================================*/
+        public User VerifyAccount(string username, string password)
+        {                  
+            // code to communicate with the database,account table to verify
+
+            return this;
+        }
+    
     }
+       
 }
