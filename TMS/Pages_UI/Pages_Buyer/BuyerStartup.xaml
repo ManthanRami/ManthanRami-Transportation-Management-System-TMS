@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BuyerStartup">
 
-    <Grid>
-        
+    <Grid Background="DarkSlateBlue">
+        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
     </Grid>
 </Page>
