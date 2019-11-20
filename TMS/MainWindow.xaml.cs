@@ -32,19 +32,6 @@ namespace TMS
         public MainWindow()
         {
             InitializeComponent();
-
-            TmsDal dal = new TmsDal();
-
-            User user = new User();
-            user.Username = "admin";
-            user.Password = "password";
-            user.Email = "admin@test.com";
-            user.FirstName = "Testing";
-            user.LastName = "Testerson";
-            user.Type = UserType.Admin;
-
-            dal.CreateUser(user);
-            //uint id = dal.GetUserID("admin");
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)

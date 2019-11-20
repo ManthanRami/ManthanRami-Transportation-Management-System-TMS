@@ -1,3 +1,5 @@
 /.vs
 /TMS/bin
 /TMS/obj
+/TMS Test Suite/bin
+/TMS Test Suite/obj

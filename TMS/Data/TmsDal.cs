@@ -24,7 +24,7 @@ namespace TMS.Data
             {
                 conn.Open();
 
-                MySqlCommand query = new MySqlCommand(queryString);
+                MySqlCommand query = new MySqlCommand(queryString, conn);
                 query.Parameters.AddWithValue("@username", user.Username);
                 query.Parameters.AddWithValue("@password", user.Password);
                 query.Parameters.AddWithValue("@email", user.Email);
@@ -41,15 +41,17 @@ namespace TMS.Data
             }
         }
 
-        public uint GetUserID(string username)
+        public int GetUserID(string username)
         {
-            const string queryString = "SELECT UserID FROM `User` WHERE `User`.`Username` = '@username' LIMIT 1;";
+            Trace.WriteLine(connectionString);
+
+            const string queryString = "SELECT UserID FROM `User` WHERE `User`.`Username` = @username LIMIT 1;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
-                MySqlCommand query = new MySqlCommand(queryString);
+                MySqlCommand query = new MySqlCommand(queryString, conn);
                 query.Parameters.AddWithValue("@username", username);
 
                 MySqlDataReader reader = query.ExecuteReader();
@@ -59,12 +61,12 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
-                    throw new UserNotExistException("There is no account associated with username '" + username + "'");
+                    throw new UserNotExistsException("There is no account associated with username '" + username + "'");
                 }
 
                 conn.Close();
 
-                return (uint) table.Rows[0]["UserID"];
+                return (int) table.Rows[0]["UserID"];
             }
         }
     }

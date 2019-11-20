@@ -55,4 +55,4 @@ CREATE TABLE IF NOT EXISTS Contract (
 );
 
 /* TEST DATA */
-INSERT INTO `User` VALUES (NULL, 'admin', '@password', 'admin@test.com', 'testing', 'testerson', 2);
+INSERT INTO `User` VALUES (NULL, 'admin', 'password', 'admin@test.com', 'testing', 'testerson', 2);

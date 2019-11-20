@@ -61,10 +61,34 @@ namespace TMS.Data
         }
 
         public string Email { get; set; }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
         public UserType Type { get; set; }
+
+        public bool ComparePassword(string password)
+        {
+            byte[] hashBytes = Convert.FromBase64String(password);
+
+            // Extract the salt
+            byte[] salt = new byte[SaltLength];
+            Array.Copy(hashBytes, 0, salt, 0, SaltLength);
+
+            // Hash the password being tested with the same salt used in registration
+            Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, HashIterations);
+            byte[] hash = pbkdf2.GetBytes(HashLength);
+
+            // Compare the passwords. Since they were hashed with the same salt, they will be
+            // their hash results will be the same as long as the passwords match.
+            for (int i = 0; i < HashLength; i++)
+            {
+                // If the hash results don't match, return false as the user is not authorized
+                if (hashBytes[i + SaltLength] != hash[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
