@@ -14,7 +14,9 @@ namespace TMS.Data
         Buyer = 1,
         Admin = 2
     }
-
+    /// <summary>
+    /// This class will represent the user who is acessing to the TMS application
+    /// </summary>
     public class User
     {
         private const int SaltLength = 16;
