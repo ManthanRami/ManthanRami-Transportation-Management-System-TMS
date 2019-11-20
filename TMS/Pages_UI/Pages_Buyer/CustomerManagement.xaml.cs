@@ -10,25 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TMS
+namespace TMS.Pages_UI.Pages_Buyer
 {
     /// <summary>
-    /// Interaction logic for PlannerWindow.xaml
+    /// Interaction logic for CustomerManagement.xaml
     /// </summary>
-    public partial class PlannerWindow : Window
+    public partial class CustomerManagement : Page
     {
-        public PlannerWindow()
+        public CustomerManagement()
         {
             InitializeComponent();
-        }
-
-        private void PlannerLogout_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow login = new MainWindow();
-            login.Show();
-            this.Close();
         }
     }
 }

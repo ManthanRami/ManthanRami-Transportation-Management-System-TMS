@@ -128,6 +128,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages_UI\Pages_Buyer\CompletedOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\ContractMarketplace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\CustomerManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\InitiateNewOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages_UI\Pages_Planner\PlannerStartup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -167,6 +183,18 @@
     </Compile>
     <Compile Include="Pages_UI\Pages_Buyer\BuyerStartup.xaml.cs">
       <DependentUpon>BuyerStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\CompletedOrders.xaml.cs">
+      <DependentUpon>CompletedOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\ContractMarketplace.xaml.cs">
+      <DependentUpon>ContractMarketplace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\CustomerManagement.xaml.cs">
+      <DependentUpon>CustomerManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\InitiateNewOrder.xaml.cs">
+      <DependentUpon>InitiateNewOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages_UI\Pages_Planner\PlannerStartup.xaml.cs">
       <DependentUpon>PlannerStartup.xaml</DependentUpon>

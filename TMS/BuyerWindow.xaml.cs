@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TMS.Pages_UI.Pages_Buyer;
 
 namespace TMS
 {
@@ -29,6 +30,25 @@ namespace TMS
             MainWindow login = new MainWindow();
             login.Show();
             this.Close();
+        }
+
+        private void Marketplace_Click(object sender, RoutedEventArgs e)
+        {
+            BuyerMain.Content = new ContractMarketplace();
+        }
+
+        private void Cust_Management_Click(object sender, RoutedEventArgs e)
+        {
+            BuyerMain.Content = new CustomerManagement();
+        }
+        private void New_Order_Click(object sender, RoutedEventArgs e)
+        {
+            BuyerMain.Content = new InitiateNewOrder();
+        }
+
+        private void Completed_Orders_Click(object sender, RoutedEventArgs e)
+        {
+            BuyerMain.Content = new CompletedOrders();
         }
     }
 }

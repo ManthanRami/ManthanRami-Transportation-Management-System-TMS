@@ -36,6 +36,11 @@ namespace TMS
         {
             InitializeComponent();
 
+
+            if (testingNoValidation == true)
+            {
+                LoginTitle.Text = "OHST LOGIN TESTING";
+            }
             //List<Contract> contracts;
 
             //CmpDal cmp = new CmpDal();
