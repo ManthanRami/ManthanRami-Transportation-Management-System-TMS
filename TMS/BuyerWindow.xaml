@@ -1,0 +1,24 @@
+﻿<Window x:Class="TMS.BuyerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TMS"
+        mc:Ignorable="d"
+        Title="BuyerWindow" Height="450" Width="800">
+
+
+    <Viewbox>
+        <Grid>
+            <Border Background="Gray" Margin="0,-42,0,335" Height="45" MinWidth="798" MaxWidth="798">
+                <TextBlock   x:Name="BuyerTitle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35"  TextWrapping="Wrap" Text="OHST BUYER" Height="Auto" Width="auto" IsEnabled="False"/>
+            </Border>
+            <Button Content="Contract Marketplace" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,7,0,0"  Click="Marketplace_Click"/>
+            <Button Content="Customer Management" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,59,0,0"  Click="Cust_Management_Click"/>
+            <Button Content="Initiate New Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,112,0,0"  Click="New_Order_Click"/>
+            <Button Content="Completed Orders" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47" Margin="2,165,0,0"      Click="Completed_Orders_Click"/>
+            <Button Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="677,-43,0,0"            Click="BuyerLogout_Click"/>
+            <Frame  x:Name="BuyerMain"   Content="Pages will load into here" Margin="126, 7, 5, -38" NavigationUIVisibility="Hidden" Background="Gainsboro"/>
+        </Grid>
+    </Viewbox>
+</Window>
