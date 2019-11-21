@@ -82,7 +82,6 @@
     <Compile Include="Exceptions\CouldNotInsertException.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotExistsException.cs" />
-    <Compile Include="LoginAccess.cs" />
     <Compile Include="Data\CmpDal.cs" />
     <Compile Include="Data\Contract.cs" />
     <Compile Include="Data\TmsDal.cs" />

@@ -63,8 +63,8 @@ namespace TMS
                 {
                     Error.Content = "Please Enter the Password !!";
                 }
-                LoginAccess obj = new LoginAccess();
-                allowLogin = obj.verifyAccount(username, password);
+                //LoginAccess obj = new LoginAccess();
+                //allowLogin = obj.verifyAccount(username, password);
 
                 if (allowLogin)
                 {
