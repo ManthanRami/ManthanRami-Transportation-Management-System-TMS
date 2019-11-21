@@ -76,19 +76,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     <Compile Include="BuyerWindow.xaml.cs">
       <DependentUpon>BuyerWindow.xaml</DependentUpon>
     </Compile>
-=======
     <Compile Include="Exceptions\CouldNotInsertException.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotExistsException.cs" />
->>>>>>> origin/staging
     <Compile Include="LoginAccess.cs" />
->>>>>>> origin/staging
     <Compile Include="Data\CmpDal.cs" />
     <Compile Include="Data\Contract.cs" />
     <Compile Include="Data\TmsDal.cs" />
