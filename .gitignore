@@ -1,4 +1,7 @@
 /.vs
 /TMS/bin
 /TMS/obj
-App.config
+/TMS Test Suite/bin
+/TMS Test Suite/obj
+/TestResults
+/packages

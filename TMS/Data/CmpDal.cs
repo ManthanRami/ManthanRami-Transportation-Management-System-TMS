@@ -19,7 +19,7 @@ namespace TMS.Data
         {
             List<Contract> contracts = new List<Contract>();
 
-            const string queryString = "SELECT * FROM Contract";
+            const string queryString = "SELECT * FROM Contract;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
