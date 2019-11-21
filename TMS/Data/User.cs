@@ -24,6 +24,7 @@ namespace TMS.Data
         public const int HashLength = 20;
         public const int HashIterations = 10000;
 
+        public uint UserID { get; set; }
         public string Username { get; set; }
 
         private string password;
