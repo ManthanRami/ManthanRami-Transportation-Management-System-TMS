@@ -70,6 +70,29 @@ namespace TMS.Data
             }
         }
 
+        public void CreateCarrier(Carrier carrier)
+        {
+            const string queryString =
+                "INSERT INTO `Carrier` VALUES (NULL, @depotCity, @ftlAvailability, @ltlAvailability);";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
+                query.Parameters.AddWithValue("ftlAvailability", carrier.FtlAvailability);
+                query.Parameters.AddWithValue("ltlAvailability", carrier.LtlAvailability);
+
+                if (query.ExecuteNonQuery() != 1)
+                {
+                    throw new CouldNotInsertException();
+                }
+
+                conn.Close();
+            }
+        }
+
         public List<Carrier> GetCarriers()
         {
             List<Carrier> carriers = new List<Carrier>();
