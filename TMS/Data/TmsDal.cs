@@ -90,13 +90,7 @@ namespace TMS.Data
                 {
                     Carrier carrier = new Carrier();
 
-                    carrier.CarrierID = (uint) row["CarrierID"];
-                    carrier.FtlAvailability = (int) row["FtlAvailability"];
-                    carrier.LtlAvailability = (int) row["LtlAvailability"];
-
-                    City depot;
-                    Enum.TryParse((string)row["DepotCity"], out depot);
-                    carrier.DepotCity = depot;
+                    PopulateCarrier(ref carrier, row);
 
                     carriers.Add(carrier);
                 }
@@ -105,6 +99,48 @@ namespace TMS.Data
             }
 
             return carriers;
+        }
+
+        public Carrier GetCarrier(uint carrierId)
+        {
+            Carrier carrier = new Carrier();
+
+            const string queryString = "SELECT * FROM `Carrier` WHERE `Carrier`.`CarrierID` = @carrierId LIMIT 1";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                if (table.Rows.Count == 0)
+                {
+                    throw new CarrierNotExistsException("No carrier by that ID could be found");
+                }
+
+                PopulateCarrier(ref carrier, table.Rows[0]);
+
+                conn.Close();
+            }
+
+            return carrier;
+        }
+
+        private void PopulateCarrier(ref Carrier carrier, DataRow row)
+        {
+            carrier.CarrierID = (uint)row["CarrierID"];
+            carrier.FtlAvailability = (int)row["FtlAvailability"];
+            carrier.LtlAvailability = (int)row["LtlAvailability"];
+
+            City depot;
+            Enum.TryParse((string)row["DepotCity"], out depot);
+            carrier.DepotCity = depot;
         }
     }
 }
