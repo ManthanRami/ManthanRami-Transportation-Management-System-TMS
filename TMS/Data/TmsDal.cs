@@ -15,7 +15,7 @@ namespace TMS.Data
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
 
-        public void CreateUser(User user)
+        public User CreateUser(User user)
         {
             const string queryString =
                 "INSERT INTO `User` VALUES (NULL, @username, @password, @email, @firstname, @lastname, @usertype);";
@@ -37,8 +37,13 @@ namespace TMS.Data
                     throw new CouldNotInsertException();
                 }
 
+                // Update the passed in user object to include the it's new ID
+                user.UserID = GetLastInsertId(conn);
+
                 conn.Close();
             }
+
+            return user;
         }
 
         public int GetUserID(string username)
