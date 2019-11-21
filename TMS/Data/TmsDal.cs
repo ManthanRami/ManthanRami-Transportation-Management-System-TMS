@@ -84,30 +84,16 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("ftlAvailability", carrier.FtlAvailability);
                 query.Parameters.AddWithValue("ltlAvailability", carrier.LtlAvailability);
 
-                // Insert new carrier
                 if (query.ExecuteNonQuery() != 1)
                 {
                     throw new CouldNotInsertException();
                 }
 
-                // Grab the new carrier's ID
-                query = new MySqlCommand("SELECT LAST_INSERT_ID() as CarrierID;");
-
-                MySqlDataReader reader = query.ExecuteReader();
-
-                DataTable table = new DataTable();
-                table.Load(reader);
-
-                if (table.Rows.Count == 0)
-                {
-                    throw new CouldNotGetIdException("Could not get the ID of the created carrier");
-                }
-
-                // Modify the passed in carrier class to include the inserted carrier's ID
-                carrier.CarrierID = (uint) table.Rows[0]["CarrierID"];
-
                 conn.Close();
             }
+
+            // Update the passed in carrier object to include the it's new ID
+            carrier.CarrierID = GetLastInsertId();
 
             return carrier;
         }
@@ -183,6 +169,26 @@ namespace TMS.Data
             City depot;
             Enum.TryParse((string)row["DepotCity"], out depot);
             carrier.DepotCity = depot;
+        }
+
+        private uint GetLastInsertId()
+        {
+            uint id;
+
+            const string queryString = "SELECT LAST_INSERT_ID() as CarrierID;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+
+                id = (uint) query.ExecuteScalar();
+
+                conn.Close();
+            }
+
+            return id;
         }
     }
 }
