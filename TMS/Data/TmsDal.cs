@@ -69,5 +69,42 @@ namespace TMS.Data
                 return (int) table.Rows[0]["UserID"];
             }
         }
+
+        public List<Carrier> GetCarriers()
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = "SELECT * FROM `Carrier`;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    carrier.CarrierID = (uint) row["CarrierID"];
+                    carrier.FtlAvailability = (int) row["FtlAvailability"];
+                    carrier.LtlAvailability = (int) row["LtlAvailability"];
+
+                    City depot;
+                    Enum.TryParse((string)row["DepotCity"], out depot);
+                    carrier.DepotCity = depot;
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            return carriers;
+        }
     }
 }
