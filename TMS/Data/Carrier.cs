@@ -13,5 +13,8 @@ namespace TMS.Data
 
         public int FtlAvailability { get; set; }
         public int LtlAvailability { get; set; }
+        public float FTLRate { get; set; }
+        public float LTLRate { get; set; }
+        public float ReeferCharge { get; set; }
     }
 }
