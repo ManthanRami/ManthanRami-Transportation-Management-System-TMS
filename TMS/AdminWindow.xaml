@@ -1,0 +1,27 @@
+﻿<Window x:Class="TMS.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TMS"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="450" Width="800"
+        x:Name="AdminScreen">
+    <Viewbox>
+        <Grid>
+            <Border Background="Gray" Margin="0,-42,0,335" Height="45" MinWidth="798" MaxWidth="798">
+                <TextBlock   x:Name="AdminTitle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35"  TextWrapping="Wrap" Text="OHST ADMINISTATOR" Height="Auto" Width="auto" IsEnabled="False"/>
+            </Border>
+            <Button Content="Review Log Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"       Margin="2,7,0,0"        Click="Review_Click"/>
+            <Button Content="Log Directory Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"  Margin="2,52,0,0"       Click="LogDirectory_Click"/>
+            <Button Content="DBMS Config" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"            Margin="2,98,0,0"       Click="DBMS_Config_Click"/>
+            <Button Content="Initiate Backup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47"        Margin="2,144,0,0"      Click="Backup_Click"/>
+            <Button Content="Modify Carrier Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"    Margin="2,191,0,0"      Click="CarrierData_Click"/>
+            <Button Content="Modify Rate Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"       Margin="2,237,0,0"      Click="RateData_Click"/>
+            <Button Content="Modify Fee Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47"        Margin="2,283,0,0"      Click="FeeData_Click"/>
+            <Button Content="Modify Route Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"      Margin="2,330,0,-38"    Click="RouteData_Click"/>
+            <Frame  x:Name="AdminMain"   Margin="126, 7, 5, -38" NavigationUIVisibility="Hidden" Background="Gainsboro"/>
+            <Button Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"                 Margin="677,-43,0,0"    Click="AdminLogout_Click"/>
+        </Grid>
+    </Viewbox>
+</Window>

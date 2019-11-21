@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -19,26 +20,35 @@ namespace TMS.Data
     /// </summary>
     public class User
     {
+<<<<<<< HEAD
         private const int SaltLength = 16;
         private const int HashLength = 20;
         private UserType Type { get; set; }
         private int UserID { get; set; }
+=======
+        public const int SaltLength = 16;
+        public const int HashLength = 20;
+        public const int HashIterations = 10000;
+>>>>>>> origin/staging
 
-        private string Username { get; set; }
+        public int UserID { get; set; }
 
-        private string Password
+        public string Username { get; set; }
+
+        private string password;
+        public string Password
         {
             get
             {
                 // Decode Base64 password
-                byte[] hashBytes = Convert.FromBase64String(Password);
+                byte[] hashBytes = Convert.FromBase64String(password);
 
                 // Extract just the password hash bytes while ignoring the salt bytes
                 byte[] hash = new byte[HashLength];
                 Array.Copy(hashBytes, SaltLength, hash, 0, HashLength);
 
                 // Return the hash without the salt
-                return Convert.ToString(hash);
+                return Convert.ToBase64String(hash);
             }
             set
             {
@@ -47,7 +57,7 @@ namespace TMS.Data
                 new RNGCryptoServiceProvider().GetBytes(salt);
 
                 // Hash the password
-                var pbkdf2 = new Rfc2898DeriveBytes(value, salt, 10000);
+                var pbkdf2 = new Rfc2898DeriveBytes(value, salt, HashIterations);
                 byte[] hash = pbkdf2.GetBytes(HashLength);
 
                 byte[] hashBytes = new byte[SaltLength + HashLength];
@@ -55,7 +65,7 @@ namespace TMS.Data
                 Array.Copy(hash, 0, hashBytes, SaltLength, HashLength);
 
                 // Encode and set password
-                Password = Convert.ToBase64String(hashBytes);
+                password = Convert.ToBase64String(hashBytes);
             }
 
         }
@@ -71,9 +81,42 @@ namespace TMS.Data
         {                  
             // code to communicate with the database,account table to verify
 
+<<<<<<< HEAD
             return this;
         }
     
+=======
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public UserType Type { get; set; }
+
+        public bool ComparePassword(string password)
+        {
+            byte[] hashBytes = Convert.FromBase64String(password);
+
+            // Extract the salt
+            byte[] salt = new byte[SaltLength];
+            Array.Copy(hashBytes, 0, salt, 0, SaltLength);
+
+            // Hash the password being tested with the same salt used in registration
+            Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, HashIterations);
+            byte[] hash = pbkdf2.GetBytes(HashLength);
+
+            // Compare the passwords. Since they were hashed with the same salt, they will be
+            // their hash results will be the same as long as the passwords match.
+            for (int i = 0; i < HashLength; i++)
+            {
+                // If the hash results don't match, return false as the user is not authorized
+                if (hashBytes[i + SaltLength] != hash[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+>>>>>>> origin/staging
     }
        
 }
