@@ -81,19 +81,19 @@ namespace TMS.Data
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
                 query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
-                query.Parameters.AddWithValue("ftlAvailability", carrier.FtlAvailability);
-                query.Parameters.AddWithValue("ltlAvailability", carrier.LtlAvailability);
+                query.Parameters.AddWithValue("@ftlAvailability", carrier.FtlAvailability);
+                query.Parameters.AddWithValue("@ltlAvailability", carrier.LtlAvailability);
 
                 if (query.ExecuteNonQuery() != 1)
                 {
                     throw new CouldNotInsertException();
                 }
 
+                // Update the passed in carrier object to include the it's new ID
+                carrier.CarrierID = GetLastInsertId(conn);
+
                 conn.Close();
             }
-
-            // Update the passed in carrier object to include the it's new ID
-            carrier.CarrierID = GetLastInsertId();
 
             return carrier;
         }
@@ -171,24 +171,28 @@ namespace TMS.Data
             carrier.DepotCity = depot;
         }
 
-        private uint GetLastInsertId()
+        /// <summary>
+        /// This method returns the result of SELECT LAST_INSERT_ID(). This method MUST be provided an
+        /// open connection. DO NOT close the connection until AFTER this command was executed.
+        /// </summary>
+        /// <param name="conn">MySqlConnection conn</param>
+        /// <returns>uint</returns>
+        private uint GetLastInsertId(MySqlConnection conn)
         {
-            uint id;
+            const string queryString = "SELECT LAST_INSERT_ID();";
 
-            const string queryString = "SELECT LAST_INSERT_ID() as CarrierID;";
+            MySqlCommand query = new MySqlCommand(queryString, conn);
 
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            object scalar = query.ExecuteScalar();
+
+            if (scalar == null)
             {
-                conn.Open();
-
-                MySqlCommand query = new MySqlCommand(queryString, conn);
-
-                id = (uint) query.ExecuteScalar();
-
-                conn.Close();
+                throw new CouldNotGetIdException();
             }
 
-            return id;
+            ulong id = (ulong) scalar;
+
+            return (uint) id;
         }
     }
 }
