@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace TMS.Data
 {
+    /// <summary>
+    /// The UserType enum provides a more readable reference to the kind of user accessing the application.
+    /// </summary>
     public enum UserType
     {
         Planner = 0,
@@ -26,9 +29,7 @@ namespace TMS.Data
 
         public uint UserID { get; set; }
         public string Username { get; set; }
-
         private string password;
-
         public string Password
         {
             get

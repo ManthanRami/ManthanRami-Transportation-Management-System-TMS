@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMS.Exceptions
 {
+    /// <summary>
+    /// This exception is thrown when access is attempted to a carrier that doesn't exist
+    /// </summary>
     public class CarrierNotExistsException : Exception
     {
         public CarrierNotExistsException()

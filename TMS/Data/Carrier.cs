@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace TMS.Data
 {
+    /// <summary>
+    /// The Carrier class models the carrier table found within the TMS database.
+    ///
+    /// It contains a variety of properties to provide programmers an easy to use interface
+    /// with the carrier data.
+    /// </summary>
     public class Carrier
     {
         public uint CarrierID { get; set; }

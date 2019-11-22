@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMS.Exceptions
 {
+    /// <summary>
+    /// This exception is thrown when access to the last inserted ID is attempted, but failed.
+    /// </summary>
     public class CouldNotGetIdException : Exception
     {
         public CouldNotGetIdException()

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMS.Exceptions
 {
+    /// <summary>
+    /// This exception is thrown when creation of a non-unique user is attempted.
+    /// </summary>
     public class UserExistsException : Exception
     {
         public UserExistsException()

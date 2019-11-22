@@ -11,10 +11,25 @@ using TMS.Exceptions;
 
 namespace TMS.Data
 {
+    /// <summary>
+    /// TmsDal provides an interface for the rest of the application to interact with the TMS database.
+    /// It contains methods to do a variety of CRUD actions on a variety of tables.
+    /// </summary>
     public class TmsDal
     {
+        /// <summary>
+        /// This string is our TMS DB connection string drawn from App.config
+        /// </summary>
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
 
+        /// <summary>
+        /// CreateUser() takes in a User object with it's desired values set, and inserts it into the TMS database.
+        ///
+        /// It then grabs that new User's ID and updates the User object before returning the now fully useable
+        /// User object.
+        /// </summary>
+        /// <param name="user">User user</param>
+        /// <returns>User user</returns>
         public User CreateUser(User user)
         {
             const string queryString =
@@ -46,6 +61,13 @@ namespace TMS.Data
             return user;
         }
 
+        /// <summary>
+        /// GetUserID() takes a username as a parameter, and attempts to find a user with that username.
+        ///
+        /// Once found, it returns their UserID.
+        /// </summary>
+        /// <param name="username">string username</param>
+        /// <returns>uint userid</returns>
         public uint GetUserID(string username)
         {
             Trace.WriteLine(connectionString);
@@ -75,6 +97,13 @@ namespace TMS.Data
             }
         }
 
+        /// <summary>
+        /// CreateCarrier inserts a carrier into the TMS database. It takes a Carrier object, inserts it
+        /// and then updates the passed in Carrier object with it's new CarrierID before returning the
+        /// now fully useable Carrier object.
+        /// </summary>
+        /// <param name="carrier">Carrier carrier</param>
+        /// <returns>Carrier</returns>
         public Carrier CreateCarrier(Carrier carrier)
         {
             const string queryString =
@@ -103,6 +132,10 @@ namespace TMS.Data
             return carrier;
         }
 
+        /// <summary>
+        /// GetCarriers() returns a list of carriers in the TMS database.
+        /// </summary>
+        /// <returns>List<Carrier></returns>
         public List<Carrier> GetCarriers()
         {
             List<Carrier> carriers = new List<Carrier>();
@@ -134,6 +167,12 @@ namespace TMS.Data
             return carriers;
         }
 
+        /// <summary>
+        /// GetCarrier() takes in a CarrierID, checks the database for a matching carrier and if found
+        /// it returns a Carrier object representing the found carrier.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <returns>Carrier</returns>
         public Carrier GetCarrier(uint carrierId)
         {
             Carrier carrier = new Carrier();
@@ -165,6 +204,12 @@ namespace TMS.Data
             return carrier;
         }
 
+        /// <summary>
+        /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
+        /// the data row into the carrier object.
+        /// </summary>
+        /// <param name="carrier">ref Carrier carrier</param>
+        /// <param name="row">DataRow row</param>
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
             carrier.CarrierID = (uint)row["CarrierID"];
