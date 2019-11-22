@@ -19,23 +19,32 @@ using System.Windows.Shapes;
 namespace TMS
 {
 
-
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// This is the Logging Screen for the user to by which TMS system can identify the user and navigate the user throught 
+    /// the Application according to their roles 
     /// </summary>
+    //=======================================================================================================================
     public partial class MainWindow : Window
     {
 
         protected string username;
         protected string password;
         protected bool newPageLoaded;
-
+        
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        //=======================================================================================================================
+        /// <summary>
+        /// Description :   btnLogin_Click function will call two different function called ValidateFields & DisplayScreen
+        ///                 which allows user to navugate through the TMS application
+        /// </summary>
+        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button.</param>
+        /// <param name="e">    Contains state information and event data associated with a routed event.</param>
+        //=======================================================================================================================
+        public void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string whichScreen = ""; 
             whichScreen=ValidateFields(UserNameBox, PasswordBox);
@@ -55,7 +64,7 @@ namespace TMS
         ///                     to login in</param>
         /// <returns></returns>
         //========================================================================================================================
-        private string ValidateFields(TextBox name, PasswordBox pass)
+        public string ValidateFields(TextBox name, PasswordBox pass)
         {
             username = name.Text;
             password = pass.Password;
@@ -98,30 +107,36 @@ namespace TMS
         /// </summary>
         /// <param name="Screen"> Name of the Screen need to be display after the login Screen.</param>
         //======================================================================================================================
-        private void DisplayScreen(string Screen)
+        public int DisplayScreen(string Screen)
         {
+            int userType = 0;
+
             if (Screen == "admin")
             {
                 AdminWindow admin = new AdminWindow();
                 admin.Show();
                 newPageLoaded = true;
+                userType = 1;
             }
             else if (Screen == "buyer")
             {
                 BuyerWindow buyer = new BuyerWindow();
                 buyer.Show();
                 newPageLoaded = true;
+                userType = 2;
             }
             else if (Screen == "planner")
             {
                 PlannerWindow planner = new PlannerWindow();
                 planner.Show();
                 newPageLoaded = true;
+                userType = 3;
             }
             if (newPageLoaded == true)
             {
                 this.Close();
             }
+            return userType;
         }
     }
 }
