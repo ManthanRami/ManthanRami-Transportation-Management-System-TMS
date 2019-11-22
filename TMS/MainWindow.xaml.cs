@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -9,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TMS.Data;
-using TMS.Exceptions;
+
 
 namespace TMS
 {
@@ -66,21 +63,29 @@ namespace TMS
             if (username == "" && password == "")
             {
                 username = "";
+                name.Text="";
+                pass.Password = "";
                 Error.Content = "Please Enter Usename and Password !!";
             }
             else if (username == "")
             {
                 username = "";
+                name.Text = "";
+                pass.Password = "";
                 Error.Content = "Please Enter the Username !!";
             }
             else if (password == "")
             {
                 username = "";
+                name.Text = "";
+                pass.Password = "";
                 Error.Content = "Please Enter the Password !!";
             }            
             else if(username!="admin"&&username!="buyer"&&username!="planner")
             {
                 username = "";
+                name.Text = "";
+                pass.Password = "";
                 Error.Content = "Please Enter Appropriate User Name !!";              
             }
             
