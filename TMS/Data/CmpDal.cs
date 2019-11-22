@@ -6,15 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using static TMS.Data.City;
 
 namespace TMS.Data
 {
+    /// <summary>
+    /// CmpDal provides an interface for the rest of the application to interact with the CMP Database.
+    /// CmpDal allows the application to access the contract marketplace database.
+    /// </summary>
     public class CmpDal
     {
+        /// <summary>
+        /// This string is our CMP DB connection string drawn from App.config
+        /// </summary>
         private readonly string connectionString =
             ConfigurationManager.ConnectionStrings["CMPConnectionString"].ConnectionString;
 
+        /// <summary>
+        /// GetContracts() returns a list of contracts currently on the contract marketplace
+        /// </summary>
+        /// <returns>List<Contract></returns>
         public List<Contract> GetContracts()
         {
             List<Contract> contracts = new List<Contract>();
