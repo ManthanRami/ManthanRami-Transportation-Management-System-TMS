@@ -7,8 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReviewLogFiles">
-    
+
     <Grid Background="Gray">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50"/>
+        
     </Grid>
+          
 </Page>

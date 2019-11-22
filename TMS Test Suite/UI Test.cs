@@ -18,7 +18,7 @@ namespace TMS_Test_Suite
         public void TestAdminLogin()
         {
             int testUser = 0;
-            MainWindow UI = new MainWindow();
+            LoginScreen UI = new LoginScreen();
             testUser=UI.DisplayScreen("admin");
             Assert.AreEqual(1, 1); 
         }
@@ -34,7 +34,7 @@ namespace TMS_Test_Suite
         public void TestBuyerLogin()
         {
             int testUser = 0;
-            MainWindow UI = new MainWindow();
+            LoginScreen UI = new LoginScreen();
             testUser=UI.DisplayScreen("buyer");
             Assert.AreEqual(1, 1); 
         }
@@ -50,7 +50,7 @@ namespace TMS_Test_Suite
         public void TestPlannerLogin()
         {
             int testUser = 0;
-            MainWindow UI = new MainWindow();
+            LoginScreen UI = new LoginScreen();
             testUser=UI.DisplayScreen("Planner");
             Assert.AreEqual(1, 1); 
         }
@@ -66,7 +66,7 @@ namespace TMS_Test_Suite
         public void TestNotMemberLogin()
         {
             int testUser = 0;
-            MainWindow UI = new MainWindow();
+            LoginScreen UI = new LoginScreen();
             testUser=UI.DisplayScreen("Jack");
             Assert.AreEqual(0, 0); 
         }

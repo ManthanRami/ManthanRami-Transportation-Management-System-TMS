@@ -9,6 +9,6 @@
       Title="LogDirectoryOptions">
 
     <Grid Background="Purple">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+        
     </Grid>
 </Page>

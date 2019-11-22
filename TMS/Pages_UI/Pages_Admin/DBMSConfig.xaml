@@ -9,6 +9,6 @@
       Title="DBMSConfig">
 
     <Grid Background="Lavender">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+        
     </Grid>
 </Page>

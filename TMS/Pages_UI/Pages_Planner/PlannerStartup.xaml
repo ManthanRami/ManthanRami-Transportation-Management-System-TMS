@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Planner"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BuyerPlanner">
+      Title="PlannerStartup">
 
     <Grid Background="ForestGreen">
         <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />

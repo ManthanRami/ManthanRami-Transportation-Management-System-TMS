@@ -8,6 +8,6 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ModifyRateData">
     <Grid Background="Yellow">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+
     </Grid>
 </Page>

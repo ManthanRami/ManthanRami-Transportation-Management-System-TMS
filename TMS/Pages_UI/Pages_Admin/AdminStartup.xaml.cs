@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for AdminStartup.xaml
+    /// This is the admin startup page.  It is responsible for displaying 
     /// </summary>
+    //=======================================================================================================================
     public partial class AdminStartup : Page
     {
         public AdminStartup()

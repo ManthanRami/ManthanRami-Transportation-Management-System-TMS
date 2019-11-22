@@ -10,6 +10,6 @@
       x:Name="AdminPage1">
 
     <Grid Background="Firebrick">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+        
     </Grid>
 </Page>
