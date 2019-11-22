@@ -1,3 +1,9 @@
+/*==============================================================
+* Team Name		: Team 404 
+* Team ID		: 404
+* Description	: This file contains Databse design which is 
+				  is used for TMS Application.
+===============================================================*/
 CREATE DATABASE IF NOT EXISTS TMS;
 USE TMS;
 

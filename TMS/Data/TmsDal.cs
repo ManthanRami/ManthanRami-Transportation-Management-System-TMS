@@ -15,6 +15,13 @@ namespace TMS.Data
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
 
+        //=========================================================================================================================
+        /// <summary>
+        /// Description :   CreateUser will create a user for TMS application with user's username password, First name, Last name, 
+        ///                 Email ID and Account Type
+        /// </summary>
+        /// <param name="user">Object user </param>
+        //=========================================================================================================================
         public void CreateUser(User user)
         {
             const string queryString =
@@ -40,7 +47,14 @@ namespace TMS.Data
                 conn.Close();
             }
         }
-
+        //=========================================================================================================================
+        /// <summary>
+        /// Description :   GetUserID function will take the unique username of user and search it into the database to check if 
+        ///                 the user account is exist or not.
+        /// </summary>
+        /// <param name="username"> Name of the current user (one who trying to loggin into the TMS Application)</param>
+        /// <returns> It returns integer  </returns>
+        //=========================================================================================================================
         public int GetUserID(string username)
         {
             Trace.WriteLine(connectionString);
