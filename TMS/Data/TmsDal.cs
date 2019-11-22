@@ -46,7 +46,7 @@ namespace TMS.Data
             return user;
         }
 
-        public int GetUserID(string username)
+        public uint GetUserID(string username)
         {
             Trace.WriteLine(connectionString);
 
@@ -71,7 +71,7 @@ namespace TMS.Data
 
                 conn.Close();
 
-                return (int) table.Rows[0]["UserID"];
+                return (uint) table.Rows[0]["UserID"];
             }
         }
 
