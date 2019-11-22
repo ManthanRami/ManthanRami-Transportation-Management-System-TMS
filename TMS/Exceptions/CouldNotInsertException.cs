@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMS.Exceptions
 {
+    /// <summary>
+    /// This exception is thrown when an database insertion is attempted but failed.
+    /// </summary>
     public class CouldNotInsertException : Exception
     {
         public CouldNotInsertException()

@@ -19,7 +19,7 @@ namespace TMS_Test_Suite
             {
                 conn.Open();
                 
-                const string queryString = "TRUNCATE TABLE `User`";
+                const string queryString = "TRUNCATE TABLE `User`;";
                 MySqlCommand query = new MySqlCommand(queryString, conn);
                 query.ExecuteNonQuery();
 
@@ -73,6 +73,31 @@ namespace TMS_Test_Suite
             }
 
             Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestCreateCarrier()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Windsor;
+            carrier.FtlAvailability = 100;
+            carrier.LtlAvailability = 50;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+            Assert.IsTrue(carrier.CarrierID > 0);
         }
     }
 }

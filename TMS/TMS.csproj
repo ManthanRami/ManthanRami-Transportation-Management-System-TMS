@@ -79,6 +79,9 @@
     <Compile Include="BuyerWindow.xaml.cs">
       <DependentUpon>BuyerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Carrier.cs" />
+    <Compile Include="Exceptions\CarrierNotExistsException.cs" />
+    <Compile Include="Exceptions\CouldNotGetIdException.cs" />
     <Compile Include="Exceptions\CouldNotInsertException.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotExistsException.cs" />

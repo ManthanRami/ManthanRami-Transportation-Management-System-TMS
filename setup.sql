@@ -1,3 +1,5 @@
+DROP DATABASE TMS;
+
 CREATE DATABASE IF NOT EXISTS TMS;
 USE TMS;
 
@@ -23,36 +25,50 @@ CREATE TABLE IF NOT EXISTS Carrier (
 );
 
 CREATE TABLE IF NOT EXISTS FTLRate (
-	CarrierID	INT UNSIGNED NOT NULL UNIQUE REFERENCES Carrier(CarrierID),
+	CarrierID	INT UNSIGNED NOT NULL UNIQUE,
     Rate		FLOAT NOT NULL,
     
-    PRIMARY KEY (CarrierID)
+    PRIMARY KEY (CarrierID),
+    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
 CREATE TABLE IF NOT EXISTS LTLRate (
-	CarrierID	INT UNSIGNED NOT NULL UNIQUE REFERENCES Carrier(CarrierID),
+	CarrierID	INT UNSIGNED NOT NULL UNIQUE,
     Rate		FLOAT NOT NULL,
     
-    PRIMARY KEY (CarrierID)
+    PRIMARY KEY (CarrierID),
+    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
 CREATE TABLE IF NOT EXISTS ReeferCharge (
-	CarrierID	INT UNSIGNED NOT NULL UNIQUE REFERENCES Carrier(CarrierID),
+	CarrierID	INT UNSIGNED NOT NULL UNIQUE,
     Charge		FLOAT NOT NULL,
     
-    PRIMARY KEY (CarrierID)
+    PRIMARY KEY (CarrierID),
+    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
 CREATE TABLE IF NOT EXISTS Contract (
 	ContractID	INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    CarrierID	INT UNSIGNED NOT NULL REFERENCES Carrier(CarrierID),
+    CarrierID	INT UNSIGNED NOT NULL,
     `Client`	VARCHAR(64) NOT NULL,
     Quantity	INT UNSIGNED NOT NULL,
     LoadType	TINYINT NOT NULL,
     VanType		TINYINT NOT NULL,
     
-    PRIMARY KEY (ContractID)
+    PRIMARY KEY (ContractID),
+    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
 /* TEST DATA */
 INSERT INTO `User` VALUES (NULL, 'admin', 'password', 'admin@test.com', 'testing', 'testerson', 2);
+INSERT INTO `Carrier` VALUES (NULL, "Windsor", 100, 283);
+INSERT INTO `FTLRate` VALUES (1, 1.89);
+
+SELECT * FROM `Carrier`;
+SELECT LAST_INSERT_ID() as CarrierID;
+
+/*
+DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;
+DELETE FROM `Carrier` WHERE `Carrier`.`CarrierID` = 1;
+*/

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMS.Exceptions
 {
+    /// <summary>
+    /// This exception is thrown when access to a non-existent user is attempted.
+    /// </summary>
     public class UserNotExistsException : Exception
     {
         public UserNotExistsException()
