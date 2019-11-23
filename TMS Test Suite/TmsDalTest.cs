@@ -102,6 +102,49 @@ namespace TMS_Test_Suite
         }
 
         [TestMethod]
+        public void TestGetCarrier()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Hamilton;
+            carrier.FtlAvailability = 20;
+            carrier.LtlAvailability = 13;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            try
+            {
+                carrier = dal.GetCarrier(carrier.CarrierID);
+            }
+            catch (CarrierNotExistsException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestGetCarriers()
+        {
+            TmsDal dal = new TmsDal();
+
+            List<Carrier> carriers = dal.GetCarriers();
+
+            Assert.IsFalse(carriers.Count == 0);
+        }
+
+        [TestMethod]
         public void TestUpdateCarrier()
         {
             Carrier carrier = new Carrier();
