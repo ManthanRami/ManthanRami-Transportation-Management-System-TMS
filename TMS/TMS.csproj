@@ -100,7 +100,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Admin.cs" />
-    <Compile Include="AdminWindow.xaml.cs">
     <Compile Include="Pages_UI\Pages_Planner\CustomerManagement.xaml.cs">
       <DependentUpon>CustomerManagement.xaml</DependentUpon>
     </Compile>
@@ -118,7 +117,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Buyer.cs" />
-    <Compile Include="BuyerWindow.xaml.cs">
     <Compile Include="Windows_UI\BuyerWindow.xaml.cs">
       <DependentUpon>BuyerWindow.xaml</DependentUpon>
     </Compile>
