@@ -5,11 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Admin"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+     d:DesignHeight="360" d:DesignWidth="665"
+      
       Title="AdminStartup"
       x:Name="AdminPage1">
 
     <Grid Background="Firebrick">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+        <TextBlock x:Name="TemporaryText" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Text="PLANNER START SCREEN WIP" FontSize="48" Height="auto" Width="auto" />
     </Grid>
 </Page>

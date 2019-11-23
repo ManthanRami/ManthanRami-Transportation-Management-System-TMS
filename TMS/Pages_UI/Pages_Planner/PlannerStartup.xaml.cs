@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 
 namespace TMS.Pages_UI.Pages_Planner
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for PlannerStartup.xaml
+    /// This is the Startup page for the Planner. They will be provided with a dashboard style display upon logging in.
     /// </summary>
+    //=======================================================================================================================
     public partial class PlannerStartup : Page
     {
         public PlannerStartup()

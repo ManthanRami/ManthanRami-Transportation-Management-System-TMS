@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* FILE          : 	File Name
+* PROJECT       : 	Course Code - Assignment Name
+* PROGRAMMER    : 	Alex MacCumber - 8573909
+* FIRST VERSION : 	Date Started YYYY-MM-DD
+* DESCRIPTION   : 	Description of what this file does
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,27 +29,27 @@ namespace TMS
 
     //=======================================================================================================================
     /// <summary>
-    /// This is the Logging Screen for the user to by which TMS system can identify the user and navigate the user throught 
-    /// the Application according to their roles 
+    /// This is the Login Screen for the user that enables the TMS system to identify the user and navigate the user throught 
+    /// the Application according to their role
     /// </summary>
     //=======================================================================================================================
-    public partial class MainWindow : Window
+    public partial class LoginScreen : Window
     {
 
         protected string username;
         protected string password;
         protected bool newPageLoaded;
         
-        public MainWindow()
+        public LoginScreen()
         {
             InitializeComponent();
         }
         //=======================================================================================================================
         /// <summary>
-        /// Description :   btnLogin_Click function will call two different function called ValidateFields & DisplayScreen
-        ///                 which allows user to navugate through the TMS application
+        /// Description :   btnLogin_Click function calls two different functions called ValidateFields & DisplayScreen
+        ///                 which allows user to navigate through the TMS application
         /// </summary>
-        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button.</param>
+        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button).</param>
         /// <param name="e">    Contains state information and event data associated with a routed event.</param>
         //=======================================================================================================================
         public void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -69,7 +77,7 @@ namespace TMS
             username = name.Text;
             password = pass.Password;
 
-            if (username == "" && password == "")
+            if ((username == "") && (password == ""))
             {
                 username = "";
                 name.Text="";
@@ -90,7 +98,7 @@ namespace TMS
                 pass.Password = "";
                 Error.Content = "Please Enter the Password !!";
             }            
-            else if(username!="admin"&&username!="buyer"&&username!="planner")
+            else if((username!="admin") && (username!="buyer") && (username!="planner"))
             {
                 username = "";
                 name.Text = "";
