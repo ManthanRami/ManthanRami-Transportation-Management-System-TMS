@@ -1,4 +1,32 @@
-﻿using System;
+﻿/*
+* FILE          : 	File Name
+* PROJECT       : 	Course Code - Assignment Name
+* PROGRAMMER    : 	Alex MacCumber - 8573909
+* FIRST VERSION : 	Date Started YYYY-MM-DD
+* DESCRIPTION   : 	Description of what this file does
+*/
+
+
+//=======================================================================================================================
+// WIP NOTES
+//=======================================================================================================================
+// Planner needs to be able to:
+// Get orders from buyers that are waiting for a carrier / carriers to be applied to the order
+    // Trip Management? Fulfill Order?  Fetch Awaiting Orders?
+// Produce reports of aggregate activity in the OHST
+// Confirm Complete Orders
+// Active order Summary screen
+// Generate Summary report of all invoice data for
+    // All time
+    // or
+    // Past two weeks of simulated Time
+// Simulate time has passed
+    // Buttons with increments? Dropdown to select number of hours to simulate?
+//=======================================================================================================================
+//=======================================================================================================================
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +52,12 @@ namespace TMS
     //=======================================================================================================================
     public partial class PlannerWindow : Window
     {
+
+        //=======================================================================================================================
+        /// <summary>
+        ///     Initializes the planner window screen and sets the contain of its main screen to a planner startup page.
+        /// </summary>
+        //=======================================================================================================================
         public PlannerWindow()
         {
             InitializeComponent();
@@ -39,11 +73,27 @@ namespace TMS
         /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button).</param>
         /// <param name="e">    Contains state information and event data associated with a routed event.</param>
         //=======================================================================================================================
-        private void PlannerLogout_Click(object sender, RoutedEventArgs e)
+        private void btnPlanner_Logout_Click(object sender, RoutedEventArgs e)
         {
             LoginScreen login = new LoginScreen();
             login.Show();
             this.Close();
         }
+
+        //=======================================================================================================================
+        /// <summary>
+        /// Description :   btnActive_Orders_Click pulls up a summary screen of all the active orders.
+        /// </summary>
+        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button).</param>
+        /// <param name="e">    Contains state information and event data associated with a routed event.</param>
+        //=======================================================================================================================
+        private void btnActive_Orders_Click(object sender, RoutedEventArgs e)
+        {
+            PlannerMain.Content = new ViewActiveOrders();
+        }
+
+  
+
+
     }
 }

@@ -13,16 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TMS.Pages_UI.Pages_Admin
+namespace TMS.Pages_UI.Pages_Planner
 {
-    //=======================================================================================================================
     /// <summary>
-    /// This is the Startup page for the Admin. They will be provided with a dashboard style display upon logging in.
+    /// Interaction logic for ViewActiveOrders.xaml
     /// </summary>
-    //=======================================================================================================================
-    public partial class AdminStartup : Page
+    public partial class ViewActiveOrders : Page
     {
-        public AdminStartup()
+        public ViewActiveOrders()
         {
             InitializeComponent();
         }

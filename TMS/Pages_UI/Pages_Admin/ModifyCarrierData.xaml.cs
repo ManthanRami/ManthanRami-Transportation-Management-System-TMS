@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* FILE          : 	File Name
+* PROJECT       : 	Course Code - Assignment Name
+* PROGRAMMER    : 	Alex MacCumber - 8573909
+* FIRST VERSION : 	Date Started YYYY-MM-DD
+* DESCRIPTION   : 	Description of what this file does
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +23,12 @@ using System.Windows.Shapes;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for ModifyCarrierData.xaml
+    /// This is the page for the Admin that contains the options and input fields needed to allow them to modify the data
+    /// for carriers.  Including: Adding new carriers, removing carriers, and modify existing carrier data.
     /// </summary>
+    //=======================================================================================================================
     public partial class ModifyCarrierData : Page
     {
         public ModifyCarrierData()

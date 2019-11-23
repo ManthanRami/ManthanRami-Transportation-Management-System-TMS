@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* FILE          : 	File Name
+* PROJECT       : 	Course Code - Assignment Name
+* PROGRAMMER    : 	Alex MacCumber - 8573909
+* FIRST VERSION : 	Date Started YYYY-MM-DD
+* DESCRIPTION   : 	Description of what this file does
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +34,11 @@ namespace TMS
     //=======================================================================================================================
     public partial class AdminWindow : Window
     {
+        //=======================================================================================================================
+        /// <summary>
+        ///     Initializes the Admin window screen and sets the contain of its main screen to an admin startup page.
+        /// </summary>
+        //=======================================================================================================================
         public AdminWindow()
         {
             InitializeComponent();

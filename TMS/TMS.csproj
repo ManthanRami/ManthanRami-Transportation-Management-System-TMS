@@ -75,6 +75,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages_UI\Pages_Planner\CustomerManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows_UI\AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,10 +95,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows_UI\MainWindow.xaml">
+    <Page Include="Windows_UI\LoginScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Pages_UI\Pages_Planner\CustomerManagement.xaml.cs">
+      <DependentUpon>CustomerManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml.cs">
+      <DependentUpon>InitiateNewOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
+      <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows_UI\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -107,8 +128,8 @@
     <Compile Include="Data\Contract.cs" />
     <Compile Include="Data\TmsDal.cs" />
     <Compile Include="Data\User.cs" />
-    <Compile Include="Windows_UI\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Windows_UI\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages_UI\Pages_Admin\AdminStartup.xaml">

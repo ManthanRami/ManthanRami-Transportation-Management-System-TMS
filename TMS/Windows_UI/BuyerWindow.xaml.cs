@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+* FILE          : 	File Name
+* PROJECT       : 	Course Code - Assignment Name
+* PROGRAMMER    : 	Alex MacCumber - 8573909
+* FIRST VERSION : 	Date Started YYYY-MM-DD
+* DESCRIPTION   : 	Description of what this file does
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +32,13 @@ namespace TMS
     //=======================================================================================================================
     public partial class BuyerWindow : Window
     {
+
+
+        //=======================================================================================================================
+        /// <summary>
+        ///     Initializes the Buyer window screen and sets the contain of its main screen to a buyer startup page.
+        /// </summary>
+        //=======================================================================================================================
         public BuyerWindow()
         {
             InitializeComponent();
@@ -69,6 +84,7 @@ namespace TMS
         //=======================================================================================================================
         private void btnCust_Management_Click(object sender, RoutedEventArgs e)
         {
+            
             BuyerMain.Content = new CustomerManagement();
         }
 
