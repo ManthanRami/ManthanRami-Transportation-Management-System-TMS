@@ -75,26 +75,47 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AdminWindow.xaml">
+    <Page Include="Pages_UI\Pages_Planner\CustomerManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BuyerWindow.xaml">
+    <Page Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\BuyerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\LoginScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AdminWindow.xaml.cs">
+    <Compile Include="Pages_UI\Pages_Planner\CustomerManagement.xaml.cs">
+      <DependentUpon>CustomerManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml.cs">
+      <DependentUpon>InitiateNewOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
+      <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows_UI\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BuyerWindow.xaml.cs">
+    <Compile Include="Windows_UI\BuyerWindow.xaml.cs">
       <DependentUpon>BuyerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Carrier.cs" />
@@ -108,8 +129,8 @@
     <Compile Include="Data\Contract.cs" />
     <Compile Include="Data\TmsDal.cs" />
     <Compile Include="Data\User.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Windows_UI\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages_UI\Pages_Admin\AdminStartup.xaml">
@@ -172,7 +193,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PlannerWindow.xaml">
+    <Page Include="Windows_UI\PlannerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,7 +244,7 @@
     <Compile Include="Pages_UI\Pages_Planner\PlannerStartup.xaml.cs">
       <DependentUpon>PlannerStartup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PlannerWindow.xaml.cs">
+    <Compile Include="Windows_UI\PlannerWindow.xaml.cs">
       <DependentUpon>PlannerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

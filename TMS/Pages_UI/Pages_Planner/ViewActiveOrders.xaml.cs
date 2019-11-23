@@ -1,12 +1,4 @@
-﻿/*
-* FILE          : 	File Name
-* PROJECT       : 	Course Code - Assignment Name
-* PROGRAMMER    : 	Alex MacCumber - 8573909
-* FIRST VERSION : 	Date Started YYYY-MM-DD
-* DESCRIPTION   : 	Description of what this file does
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,16 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TMS.Pages_UI.Pages_Admin
+namespace TMS.Pages_UI.Pages_Planner
 {
     //=======================================================================================================================
     /// <summary>
-    /// This is the page for the Admin that contains the options and input fields needed to allow them to modify rate data.
+    /// This is the Active Orders page for the Planner. They will be provided with an overview off all the currently active
+    /// orders.
     /// </summary>
     //=======================================================================================================================
-    public partial class ModifyRateData : Page
+    public partial class ViewActiveOrders : Page
     {
-        public ModifyRateData()
+        public ViewActiveOrders()
         {
             InitializeComponent();
         }

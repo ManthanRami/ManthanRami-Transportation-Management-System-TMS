@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 
 namespace TMS.Pages_UI.Pages_Buyer
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for BuyerStartup.xaml
+    /// This is the Startup page for the Buyer. They will be provided with a dashboard style display upon logging in.
     /// </summary>
+    //=======================================================================================================================
     public partial class BuyerStartup : Page
     {
         public BuyerStartup()
