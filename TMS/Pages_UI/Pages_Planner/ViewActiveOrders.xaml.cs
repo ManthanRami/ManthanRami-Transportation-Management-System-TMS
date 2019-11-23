@@ -15,9 +15,12 @@ using System.Windows.Shapes;
 
 namespace TMS.Pages_UI.Pages_Planner
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for ViewActiveOrders.xaml
+    /// This is the Active Orders page for the Planner. They will be provided with an overview off all the currently active
+    /// orders.
     /// </summary>
+    //=======================================================================================================================
     public partial class ViewActiveOrders : Page
     {
         public ViewActiveOrders()

@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 
 namespace TMS.Pages_UI.Pages_Planner
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for InitiateNewOrder.xaml
+    /// Standing in as a temp page for the planner, will be replaced in next merge / update.
     /// </summary>
+    //=======================================================================================================================
     public partial class InitiateNewOrder : Page
     {
         public InitiateNewOrder()
