@@ -1,4 +1,4 @@
-/*DROP DATABASE TMS;*/
+DROP DATABASE TMS;
 
 CREATE DATABASE IF NOT EXISTS TMS;
 USE TMS;
@@ -62,11 +62,17 @@ CREATE TABLE IF NOT EXISTS Contract (
 
 /* TEST DATA */
 INSERT INTO `User` VALUES (NULL, 'admin', 'password', 'admin@test.com', 'testing', 'testerson', 2);
+SELECT * FROM `User`;
+
 INSERT INTO `Carrier` VALUES (NULL, "Windsor", 100, 283);
 INSERT INTO `FTLRate` VALUES (1, 1.89);
 
 SELECT * FROM `Carrier`;
+UPDATE `Carrier` SET `Carrier`.`FtlAvailability` = 50 WHERE `Carrier`.`CarrierID` = LAST_INSERT_ID();
+
 SELECT LAST_INSERT_ID() as CarrierID;
+
+
 
 /*
 DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;

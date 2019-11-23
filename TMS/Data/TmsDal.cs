@@ -70,7 +70,7 @@ namespace TMS.Data
         /// <returns>uint userid</returns>
         public uint GetUserID(string username)
         {
-            Trace.WriteLine(connectionString);
+            uint UserID;
 
             const string queryString = "SELECT UserID FROM `User` WHERE `User`.`Username` = @username LIMIT 1;";
 
@@ -93,8 +93,10 @@ namespace TMS.Data
 
                 conn.Close();
 
-                return (uint) table.Rows[0]["UserID"];
+                UserID = (uint) (int) table.Rows[0]["UserID"];
             }
+
+            return UserID;
         }
 
         /// <summary>
@@ -197,6 +199,42 @@ namespace TMS.Data
                 }
 
                 PopulateCarrier(ref carrier, table.Rows[0]);
+
+                conn.Close();
+            }
+
+            return carrier;
+        }
+
+        /// <summary>
+        /// UpdateCarrier takes a CarrierID and a carrier object with the needed changes and updates
+        /// the carrier matching that ID in the database.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="carrier">Carrier carrier</param>
+        /// <returns>Carrier</returns>
+        public Carrier UpdateCarrier(uint carrierId, Carrier carrier)
+        {
+            const string queryString = @"UPDATE `Carrier` SET 
+                                        `Carrier`.`DepotCity` = @depotCity,
+                                        `Carrier`.`FtlAvailability` = @ftlAvailability,
+                                        `Carrier`.`LtlAvailability` = @ltlAvailability
+                                        WHERE `Carrier`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
+                query.Parameters.AddWithValue("@ftlAvailability", carrier.FtlAvailability);
+                query.Parameters.AddWithValue("@ltlAvailability", carrier.LtlAvailability);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
 
                 conn.Close();
             }

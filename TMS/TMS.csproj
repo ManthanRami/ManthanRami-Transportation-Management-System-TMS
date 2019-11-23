@@ -101,6 +101,7 @@
     <Compile Include="Exceptions\CarrierNotExistsException.cs" />
     <Compile Include="Exceptions\CouldNotGetIdException.cs" />
     <Compile Include="Exceptions\CouldNotInsertException.cs" />
+    <Compile Include="Exceptions\CouldNotUpdateException.cs" />
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotExistsException.cs" />
     <Compile Include="Data\CmpDal.cs" />

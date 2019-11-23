@@ -100,5 +100,42 @@ namespace TMS_Test_Suite
             Assert.IsFalse(excepted);
             Assert.IsTrue(carrier.CarrierID > 0);
         }
+
+        [TestMethod]
+        public void TestUpdateCarrier()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Windsor;
+            carrier.LtlAvailability = 10;
+            carrier.FtlAvailability = 22;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            // Insert carrier
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Update values
+            carrier.DepotCity = City.London;
+
+            try
+            {
+                carrier = dal.UpdateCarrier(carrier.CarrierID, carrier);
+            }
+            catch (CouldNotUpdateException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
     }
 }
