@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `User` (
 CREATE TABLE IF NOT EXISTS Carrier (
 	CarrierID		INT UNSIGNED NOT NULL AUTO_INCREMENT,
     DepotCity		VARCHAR(32) NOT NULL,
-    FtlAvailability	SMALLINT NOT NULL,
-    LtlAvailability	SMALLINT NOT NULL,
+    FtlAvailability	INT NOT NULL,
+    LtlAvailability	INT NOT NULL,
     
     PRIMARY KEY (CarrierID)
 );
@@ -78,3 +78,5 @@ SELECT LAST_INSERT_ID() as CarrierID;
 DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;
 DELETE FROM `Carrier` WHERE `Carrier`.`CarrierID` = 1;
 */
+
+SELECT COUNT(CarrierID) FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;

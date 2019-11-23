@@ -180,5 +180,95 @@ namespace TMS_Test_Suite
 
             Assert.IsFalse(excepted);
         }
+
+        [TestMethod]
+        public void TestSetFtlRate()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Oshawa;
+            carrier.LtlAvailability = 8;
+            carrier.FtlAvailability = 18;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            // Insert carrier
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Try inserting a new ftl rate
+            try
+            {
+                dal.SetFtlRate(carrier.CarrierID, (float) 250.89);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Then try updating the existing rate
+            try
+            {
+                dal.SetFtlRate(carrier.CarrierID, (float) 180.20);
+            }
+            catch (CouldNotUpdateException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestSetLtlRate()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Ottawa;
+            carrier.LtlAvailability = 9;
+            carrier.FtlAvailability = 19;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            // Insert carrier
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Try inserting a new ltl rate
+            try
+            {
+                dal.SetLtlRate(carrier.CarrierID, (float) 250.89);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Then try updating the existing rate
+            try
+            {
+                dal.SetLtlRate(carrier.CarrierID, (float) 180.20);
+            }
+            catch (CouldNotUpdateException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
     }
 }

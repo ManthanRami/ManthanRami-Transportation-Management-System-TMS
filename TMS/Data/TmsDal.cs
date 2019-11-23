@@ -242,6 +242,88 @@ namespace TMS.Data
             return carrier;
         }
 
+        public void SetFtlRate(uint carrierId, float ftlRate)
+        {
+            const string existsQueryString =
+                "SELECT COUNT(CarrierID) FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = @carrierId";
+            const string insertQueryString = "INSERT INTO `FTLRate` VALUES (@carrierId, @ftlRate);";
+            const string updateQueryString = "UPDATE `FTLRate` SET `FTLRate`.`Rate` = @ftlRate WHERE `FTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(existsQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                int result = (int) (long) query.ExecuteScalar();
+
+                // Determine which string we're going to use. If the rate already exists in the table, then
+                // we want to update it. Otherwise, we're going to insert.
+                string settingQuery = result == 0 ? insertQueryString : updateQueryString;
+
+
+                query = new MySqlCommand(settingQuery, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.Parameters.AddWithValue("@ftlRate", ftlRate);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    if (settingQuery == insertQueryString)
+                    {
+                        throw new CouldNotInsertException();
+                    }
+                    else
+                    {
+                        throw new CouldNotUpdateException();
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        public void SetLtlRate(uint carrierId, float ltlRate)
+        {
+            const string existsQueryString =
+                "SELECT COUNT(CarrierID) FROM `LTLRate` WHERE `LTLRate`.`CarrierID` = @carrierId";
+            const string insertQueryString = "INSERT INTO `LTLRate` VALUES (@carrierId, @ltlRate);";
+            const string updateQueryString = "UPDATE `LTLRate` SET `LTLRate`.`Rate` = @ltlRate WHERE `LTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(existsQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                int result = (int) (long) query.ExecuteScalar();
+
+                // Determine which string we're going to use. If the rate already exists in the table, then
+                // we want to update it. Otherwise, we're going to insert.
+                string settingQuery = result == 0 ? insertQueryString : updateQueryString;
+
+
+                query = new MySqlCommand(settingQuery, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.Parameters.AddWithValue("@ltlRate", ltlRate);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    if (settingQuery == insertQueryString)
+                    {
+                        throw new CouldNotInsertException();
+                    }
+                    else
+                    {
+                        throw new CouldNotUpdateException();
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
         /// <summary>
         /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
         /// the data row into the carrier object.
@@ -250,12 +332,12 @@ namespace TMS.Data
         /// <param name="row">DataRow row</param>
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
-            carrier.CarrierID = (uint)row["CarrierID"];
-            carrier.FtlAvailability = (int)row["FtlAvailability"];
-            carrier.LtlAvailability = (int)row["LtlAvailability"];
+            carrier.CarrierID = (uint) (int) row["CarrierID"];
+            carrier.FtlAvailability = (int) row["FtlAvailability"];
+            carrier.LtlAvailability = (int) row["LtlAvailability"];
 
             City depot;
-            Enum.TryParse((string)row["DepotCity"], out depot);
+            Enum.TryParse((string) row["DepotCity"], out depot);
             carrier.DepotCity = depot;
         }
 
