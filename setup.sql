@@ -79,4 +79,4 @@ DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;
 DELETE FROM `Carrier` WHERE `Carrier`.`CarrierID` = 1;
 */
 
-SELECT COUNT(CarrierID) FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;
+SELECT * FROM ReeferCharge;

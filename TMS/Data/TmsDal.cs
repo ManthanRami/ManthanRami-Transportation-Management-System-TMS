@@ -242,6 +242,12 @@ namespace TMS.Data
             return carrier;
         }
 
+        /// <summary>
+        /// SetReeferCharge takes a CarrierID and a ftlRate, and either creates a new row
+        /// in the FTLRate table or updates an existing one.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="ftlRate">float ftlRate</param>
         public void SetFtlRate(uint carrierId, float ftlRate)
         {
             const string existsQueryString =
@@ -283,6 +289,12 @@ namespace TMS.Data
             }
         }
 
+        /// <summary>
+        /// SetReeferCharge takes a CarrierID and a ltlRate, and either creates a new row
+        /// in the LTLRate table or updates an existing one.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="ltlRate">float ltlRate</param>
         public void SetLtlRate(uint carrierId, float ltlRate)
         {
             const string existsQueryString =
@@ -307,6 +319,53 @@ namespace TMS.Data
                 query = new MySqlCommand(settingQuery, conn);
                 query.Parameters.AddWithValue("@carrierId", carrierId);
                 query.Parameters.AddWithValue("@ltlRate", ltlRate);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    if (settingQuery == insertQueryString)
+                    {
+                        throw new CouldNotInsertException();
+                    }
+                    else
+                    {
+                        throw new CouldNotUpdateException();
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// SetReeferCharge takes a CarrierID and a reeferCharge, and either creates a new row
+        /// in the ReeferCharge table or updates an existing one.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="reeferCharge">float reeferCharge</param>
+        public void SetReeferCharge(uint carrierId, float reeferCharge)
+        {
+            const string existsQueryString =
+                "SELECT COUNT(CarrierID) FROM `ReeferCharge` WHERE `ReeferCharge`.`CarrierID` = @carrierId";
+            const string insertQueryString = "INSERT INTO `ReeferCharge` VALUES (@carrierId, @reeferCharge);";
+            const string updateQueryString = "UPDATE `ReeferCharge` SET `ReeferCharge`.`Charge` = @reeferCharge WHERE `ReeferCharge`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(existsQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                int result = (int)(long)query.ExecuteScalar();
+
+                // Determine which string we're going to use. If the rate already exists in the table, then
+                // we want to update it. Otherwise, we're going to insert.
+                string settingQuery = result == 0 ? insertQueryString : updateQueryString;
+
+
+                query = new MySqlCommand(settingQuery, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.Parameters.AddWithValue("@reeferCharge", reeferCharge);
 
                 if (query.ExecuteNonQuery() == 0)
                 {

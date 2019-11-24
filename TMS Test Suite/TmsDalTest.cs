@@ -270,5 +270,50 @@ namespace TMS_Test_Suite
 
             Assert.IsFalse(excepted);
         }
+
+        [TestMethod]
+        public void TestSetReeferCharge()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Ottawa;
+            carrier.LtlAvailability = 9;
+            carrier.FtlAvailability = 19;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            // Insert carrier
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Try inserting a new ltl rate
+            try
+            {
+                dal.SetReeferCharge(carrier.CarrierID, (float) 49.99);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            // Then try updating the existing rate
+            try
+            {
+                dal.SetReeferCharge(carrier.CarrierID, (float) 44.99);
+            }
+            catch (CouldNotUpdateException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
     }
 }
