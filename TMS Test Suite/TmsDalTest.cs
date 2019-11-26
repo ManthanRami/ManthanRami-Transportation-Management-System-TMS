@@ -81,6 +81,8 @@ namespace TMS_Test_Suite
         [TestMethod]
         public void TestCreateCarrier()
         {
+            TruncateTable("User");
+
             Carrier carrier = new Carrier();
             carrier.DepotCity = City.Windsor;
             carrier.FtlAvailability = 100;
@@ -333,6 +335,27 @@ namespace TMS_Test_Suite
                 customer = dal.CreateCustomer(customer);
             }
             catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestGetCustomer()
+        {
+            TmsDal dal = new TmsDal();
+
+            Customer customer;
+
+            bool excepted = false;
+
+            try
+            {
+                customer = dal.GetCustomer("Test");
+            }
+            catch (CustomerNotExistsException)
             {
                 excepted = true;
             }
