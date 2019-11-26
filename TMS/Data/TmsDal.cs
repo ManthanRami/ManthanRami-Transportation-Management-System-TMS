@@ -383,6 +383,63 @@ namespace TMS.Data
             }
         }
 
+        public Customer CreateCustomer(Customer customer)
+        {
+            const string queryString = "INSERT INTO `Customer` VALUES (NULL, @customerName);";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerName", customer.Name);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotInsertException();
+                }
+
+                // Update the customer's ID
+                customer.CustomerID = GetLastInsertId(conn);
+
+                conn.Close();
+            }
+
+            return customer;
+        }
+
+        public Customer GetCustomer(string customerName)
+        {
+            Customer customer = new Customer();
+
+            const string queryString = "SELECT * FROM `Customer` WHERE `Customer`.`CustomerName` = @customerName LIMIT 1;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerName", customerName);
+
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                if (table.Rows.Count == 0)
+                {
+                    throw new CustomerNotExistsException();
+                }
+
+                customer.CustomerID = (uint) (int) table.Rows[0]["CustomerID"];
+                customer.Name = (string) table.Rows[0]["CustomerName"];
+
+                conn.Close();
+            }
+
+            return customer;
+        }
+
         /// <summary>
         /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
         /// the data row into the carrier object.
