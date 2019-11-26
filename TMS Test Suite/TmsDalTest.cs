@@ -13,14 +13,16 @@ namespace TMS_Test_Suite
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
 
-        public void TruncateUserTable()
+        public void TruncateTable(string tableName)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
                 
-                const string queryString = "TRUNCATE TABLE `User`;";
+                const string queryString = "TRUNCATE TABLE @table;";
+
                 MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@table", tableName);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -30,7 +32,7 @@ namespace TMS_Test_Suite
         [TestMethod]
         public void TestCreateUser()
         {
-            TruncateUserTable();
+            TruncateTable("User");
 
             TmsDal dal = new TmsDal();
 
@@ -309,6 +311,28 @@ namespace TMS_Test_Suite
                 dal.SetReeferCharge(carrier.CarrierID, (float) 44.99);
             }
             catch (CouldNotUpdateException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestCreateCustomer()
+        {
+            Customer customer = new Customer();
+            customer.Name = "Test";
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            try
+            {
+                customer = dal.CreateCustomer(customer);
+            }
+            catch (CouldNotInsertException)
             {
                 excepted = true;
             }
