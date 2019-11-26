@@ -1,5 +1,8 @@
 DROP DATABASE TMS;
 
+DROP USER IF EXISTS 'tms'@'localhost';
+CREATE USER 'tms'@'localhost' IDENTIFIED BY 'tmsPassword*2019';
+
 CREATE DATABASE IF NOT EXISTS TMS;
 USE TMS;
 
