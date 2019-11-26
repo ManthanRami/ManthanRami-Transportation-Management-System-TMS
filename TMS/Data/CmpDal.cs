@@ -45,6 +45,10 @@ namespace TMS.Data
                 {
                     Contract contract = new Contract();
 
+                    // TODO: Customer needs to be created here from the client_name field.
+                    // TODO: Customer table takes an ID and a Name and must be created if it
+                    // TODO: doesn't already exist.
+
                     contract.Client = (string) row["Client_Name"];
                     contract.JobType = (JobType) row["Job_Type"];
                     contract.VanType = (VanType) row["Van_Type"];

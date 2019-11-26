@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace TMS.Utils
         ERROR
     }
 
-    public enum LogType
+    public enum LogOrigin
     {
         UI,
         DATABASE,
@@ -22,19 +23,29 @@ namespace TMS.Utils
 
     public class Logger
     {
-        public static void Info(string message)
+        public static void Info(LogOrigin origin, string message)
         {
             throw new NotImplementedException();
         }
 
-        public static void Warn(string message)
+        public static void Warn(LogOrigin origin, string message)
         {
             throw new NotImplementedException();
         }
 
-        public void Error(string message)
+        public static void Error(LogOrigin origin, string message)
         {
             throw new NotImplementedException();
+        }
+
+        private static void WriteLog(LogLevel level, string line)
+        {
+            using (StreamWriter logFile =
+                new StreamWriter(Path.Combine("./logs", DateTime.Now.ToShortDateString() + ".log")))
+            {
+                logFile.WriteAsync(line);
+            }
+            
         }
     }
 }

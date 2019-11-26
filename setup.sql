@@ -64,6 +64,13 @@ CREATE TABLE IF NOT EXISTS Contract (
     FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
+CREATE TABLE IF NOT EXISTS Customer (
+	CustomerID		INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    CustomerName	VARCHAR(48) NOT NULL,
+    
+    PRIMARY KEY (CustomerID)
+);
+
 /* TEST DATA */
 INSERT INTO `User` VALUES (NULL, 'admin', 'password', 'admin@test.com', 'testing', 'testerson', 2);
 SELECT * FROM `User`;
