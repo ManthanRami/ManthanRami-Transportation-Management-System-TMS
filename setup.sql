@@ -83,11 +83,4 @@ UPDATE `Carrier` SET `Carrier`.`FtlAvailability` = 50 WHERE `Carrier`.`CarrierID
 
 SELECT LAST_INSERT_ID() as CarrierID;
 
-
-
-/*
-DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;
-DELETE FROM `Carrier` WHERE `Carrier`.`CarrierID` = 1;
-*/
-
-SELECT * FROM ReeferCharge;
+SELECT * FROM `Customer`;

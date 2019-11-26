@@ -19,10 +19,9 @@ namespace TMS_Test_Suite
             {
                 conn.Open();
                 
-                const string queryString = "TRUNCATE TABLE @table;";
+                string queryString = "TRUNCATE TABLE " + tableName + ";";
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
-                query.Parameters.AddWithValue("@table", tableName);
                 query.ExecuteNonQuery();
 
                 conn.Close();
@@ -323,6 +322,8 @@ namespace TMS_Test_Suite
         [TestMethod]
         public void TestCreateCustomer()
         {
+            TruncateTable("Customer");
+
             Customer customer = new Customer();
             customer.Name = "Test";
 

@@ -100,6 +100,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Admin.cs" />
+    <Compile Include="Data\Customer.cs" />
+    <Compile Include="Data\DataMap.cs" />
+    <Compile Include="Exceptions\CustomerNotExistsException.cs" />
     <Compile Include="Pages_UI\Pages_Planner\CustomerManagement.xaml.cs">
       <DependentUpon>CustomerManagement.xaml</DependentUpon>
     </Compile>

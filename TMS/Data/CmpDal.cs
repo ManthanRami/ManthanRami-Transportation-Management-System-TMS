@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using TMS.Exceptions;
+using TMS.Utils;
 
 namespace TMS.Data
 {
@@ -41,9 +43,30 @@ namespace TMS.Data
                 DataTable table = new DataTable();
                 table.Load(reader);
 
+                TmsDal dal = new TmsDal();
+
                 foreach (DataRow row in table.Rows)
                 {
                     Contract contract = new Contract();
+
+                    Customer customer = new Customer();
+                    customer.Name = (string) row["Client_Name"];
+
+                    try
+                    {
+                        customer = dal.GetCustomer(customer.Name);
+                    }
+                    catch (CustomerNotExistsException)
+                    {
+                        try
+                        {
+                            customer = dal.CreateCustomer(customer);
+                        }
+                        catch (CouldNotInsertException)
+                        {
+                            Logger.Error(LogOrigin.DATABASE, "Could not create customer");
+                        }
+                    }
 
                     // TODO: Customer needs to be created here from the client_name field.
                     // TODO: Customer table takes an ID and a Name and must be created if it
