@@ -8,7 +8,24 @@
       d:DesignHeight="360" d:DesignWidth="665"
       Title="DBMSConfig">
 
-    <Grid Background="Lavender">
+    <Grid Background="LightGray">
+        
+        <TextBlock  Text="DBMS Settings"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
+                    IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
+        
+        <TextBlock  Text="IP ADDRESS :"         Margin="156,149,359,176"    Width="150" Height="35" IsEnabled="False"       FontSize="25"/>
+        
+        <TextBox    x:Name="txtIP_Address"      Margin="317,149,158,176"    Height="35" Width="190" Background="GhostWhite" FontSize="25" 
+                    IsReadOnly="False"          RenderTransformOrigin="0.494,0.248" Text="" MaxLength="15"/>
+        
+        <TextBlock  Text="Port Number :"        Margin="146,199,359,126"    Height="35"   Width="160"  IsEnabled="False" FontSize="25"/>
+        
+        <TextBox    x:Name="txtPort_Number"     Margin="317,199,158,126"    Background="GhostWhite"    Height="35" Width="190" 
+                    IsReadOnly="False"          FontSize="25" Text=""/>
+        
+        <Button     x:Name="btnSave_Edits"      Margin="260,262,359,73"     Height="25" Content="Save" Click="btnSave_Edits_Click" />
+        
+        <Button     x:Name="btnEdit_Options"    Margin="317,262,300,73"     Height="25" Content="Edit" Click="btnEdit_Options_Click" />
         
     </Grid>
 </Page>

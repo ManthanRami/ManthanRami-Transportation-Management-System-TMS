@@ -7,8 +7,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="665"
       Title="ModifyCarrierData">
-    
-    <Grid Background="OrangeRed">
 
+    <Grid Background="LightGray">
+        <TextBlock  Text="Carrier ID :"         Margin="26,145,546,190"      Width="95" Height="25"  IsEnabled="False" />
+        <TextBox    x:Name="txtCarrier_ID"      Margin="126,149,431,191"     Background="GhostWhite" Height="20" IsReadOnly="False" />
+        <TextBlock  Text="Depot City :"         Margin="26,182,546,153"      Width="95" Height="25"  IsEnabled="False" />
+        <TextBox    x:Name="txtDepot_City"      Margin="126,182,431,158"     Background="GhostWhite" Height="20" IsReadOnly="False" />
+        <TextBlock  Text="FTL Availability :"   Margin="26,219,546,116"      Width="95" Height="25"  IsEnabled="False" />
+        <TextBox    x:Name="txtFTL_Avail"      Margin="126,219,431,121"     Background="GhostWhite" Height="20" IsReadOnly="False" ToolTip="FTL - Full Truck Load"/>
+        <TextBlock  Text="LTL Availability :"   Margin="26,256,546,79"      Width="95" Height="25"  IsEnabled="False" />
+        <TextBox    x:Name="txtLTL_Avail"      Margin="126,256,431,84"     Background="GhostWhite" Height="20" IsReadOnly="False" ToolTip="LTL - Less Than Load"/>
+        <TextBlock  Text="DBMS Settings"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
+            IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
     </Grid>
 </Page>

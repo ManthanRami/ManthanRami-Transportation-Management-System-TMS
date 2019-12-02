@@ -8,8 +8,8 @@
      d:DesignHeight="360" d:DesignWidth="665"
       Title="BuyerStartup">
 
-    <Grid Background="DarkSlateBlue">
+    <Grid Background="LightGray">
         <TextBlock x:Name="TemporaryText" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                   Text="BUYER START SCREEN WIP" FontSize="48" Height="auto" Width="auto" />
+                   Text="Please Select a Task on The Right" FontSize="40" Height="auto" Width="auto" />
     </Grid>
 </Page>
