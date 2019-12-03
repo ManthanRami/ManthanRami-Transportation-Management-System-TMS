@@ -243,6 +243,204 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// SetReeferCharge takes a CarrierID and a ftlRate, and either creates a new row
+        /// in the FTLRate table or updates an existing one.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="ftlRate">float ftlRate</param>
+        public void SetFtlRate(uint carrierId, float ftlRate)
+        {
+            const string existsQueryString =
+                "SELECT COUNT(CarrierID) FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = @carrierId";
+            const string insertQueryString = "INSERT INTO `FTLRate` VALUES (@carrierId, @ftlRate);";
+            const string updateQueryString = "UPDATE `FTLRate` SET `FTLRate`.`Rate` = @ftlRate WHERE `FTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(existsQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                int result = (int) (long) query.ExecuteScalar();
+
+                // Determine which string we're going to use. If the rate already exists in the table, then
+                // we want to update it. Otherwise, we're going to insert.
+                string settingQuery = result == 0 ? insertQueryString : updateQueryString;
+
+
+                query = new MySqlCommand(settingQuery, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.Parameters.AddWithValue("@ftlRate", ftlRate);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    if (settingQuery == insertQueryString)
+                    {
+                        throw new CouldNotInsertException();
+                    }
+                    else
+                    {
+                        throw new CouldNotUpdateException();
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// SetReeferCharge takes a CarrierID and a ltlRate, and either creates a new row
+        /// in the LTLRate table or updates an existing one.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="ltlRate">float ltlRate</param>
+        public void SetLtlRate(uint carrierId, float ltlRate)
+        {
+            const string existsQueryString =
+                "SELECT COUNT(CarrierID) FROM `LTLRate` WHERE `LTLRate`.`CarrierID` = @carrierId";
+            const string insertQueryString = "INSERT INTO `LTLRate` VALUES (@carrierId, @ltlRate);";
+            const string updateQueryString = "UPDATE `LTLRate` SET `LTLRate`.`Rate` = @ltlRate WHERE `LTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(existsQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                int result = (int) (long) query.ExecuteScalar();
+
+                // Determine which string we're going to use. If the rate already exists in the table, then
+                // we want to update it. Otherwise, we're going to insert.
+                string settingQuery = result == 0 ? insertQueryString : updateQueryString;
+
+
+                query = new MySqlCommand(settingQuery, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.Parameters.AddWithValue("@ltlRate", ltlRate);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    if (settingQuery == insertQueryString)
+                    {
+                        throw new CouldNotInsertException();
+                    }
+                    else
+                    {
+                        throw new CouldNotUpdateException();
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// SetReeferCharge takes a CarrierID and a reeferCharge, and either creates a new row
+        /// in the ReeferCharge table or updates an existing one.
+        /// </summary>
+        /// <param name="carrierId">uint carrierId</param>
+        /// <param name="reeferCharge">float reeferCharge</param>
+        public void SetReeferCharge(uint carrierId, float reeferCharge)
+        {
+            const string existsQueryString =
+                "SELECT COUNT(CarrierID) FROM `ReeferCharge` WHERE `ReeferCharge`.`CarrierID` = @carrierId";
+            const string insertQueryString = "INSERT INTO `ReeferCharge` VALUES (@carrierId, @reeferCharge);";
+            const string updateQueryString = "UPDATE `ReeferCharge` SET `ReeferCharge`.`Charge` = @reeferCharge WHERE `ReeferCharge`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(existsQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                int result = (int)(long)query.ExecuteScalar();
+
+                // Determine which string we're going to use. If the rate already exists in the table, then
+                // we want to update it. Otherwise, we're going to insert.
+                string settingQuery = result == 0 ? insertQueryString : updateQueryString;
+
+
+                query = new MySqlCommand(settingQuery, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.Parameters.AddWithValue("@reeferCharge", reeferCharge);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    if (settingQuery == insertQueryString)
+                    {
+                        throw new CouldNotInsertException();
+                    }
+                    else
+                    {
+                        throw new CouldNotUpdateException();
+                    }
+                }
+
+                conn.Close();
+            }
+        }
+
+        public Customer CreateCustomer(Customer customer)
+        {
+            const string queryString = "INSERT INTO `Customer` VALUES (NULL, @customerName);";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerName", customer.Name);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotInsertException();
+                }
+
+                // Update the customer's ID
+                customer.CustomerID = GetLastInsertId(conn);
+
+                conn.Close();
+            }
+
+            return customer;
+        }
+
+        public Customer GetCustomer(string customerName)
+        {
+            Customer customer = new Customer();
+
+            const string queryString = "SELECT * FROM `Customer` WHERE `Customer`.`CustomerName` = @customerName LIMIT 1;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerName", customerName);
+
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                if (table.Rows.Count == 0)
+                {
+                    throw new CustomerNotExistsException();
+                }
+
+                customer.CustomerID = (uint) (int) table.Rows[0]["CustomerID"];
+                customer.Name = (string) table.Rows[0]["CustomerName"];
+
+                conn.Close();
+            }
+
+            return customer;
+        }
+
+        /// <summary>
         /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
         /// the data row into the carrier object.
         /// </summary>
@@ -250,12 +448,12 @@ namespace TMS.Data
         /// <param name="row">DataRow row</param>
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
-            carrier.CarrierID = (uint)row["CarrierID"];
-            carrier.FtlAvailability = (int)row["FtlAvailability"];
-            carrier.LtlAvailability = (int)row["LtlAvailability"];
+            carrier.CarrierID = (uint) (int) row["CarrierID"];
+            carrier.FtlAvailability = (int) row["FtlAvailability"];
+            carrier.LtlAvailability = (int) row["LtlAvailability"];
 
             City depot;
-            Enum.TryParse((string)row["DepotCity"], out depot);
+            Enum.TryParse((string) row["DepotCity"], out depot);
             carrier.DepotCity = depot;
         }
 
