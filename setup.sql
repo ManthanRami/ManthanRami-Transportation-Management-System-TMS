@@ -5,8 +5,7 @@ USE TMS;
 DROP USER IF EXISTS 'tms'@'localhost';
 CREATE USER 'tms'@'localhost' IDENTIFIED BY 'tmsPassword*2019';
 
-GRANT SELECT, INSERT, UPDATE, DELETE, DROP ON tms.* TO 'tms'@'localhost';
-
+GRANT SELECT, INSERT, UPDATE, DELETE, DROP ON `tms`.* TO 'tms'@'localhost';
 
 CREATE TABLE IF NOT EXISTS `User` (
 	UserID			INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -23,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `User` (
 CREATE TABLE IF NOT EXISTS Carrier (
 	CarrierID		INT UNSIGNED NOT NULL AUTO_INCREMENT,
     DepotCity		VARCHAR(32) NOT NULL,
-    FtlAvailability	SMALLINT NOT NULL,
-    LtlAvailability	SMALLINT NOT NULL,
+    FtlAvailability	INT NOT NULL,
+    LtlAvailability	INT NOT NULL,
     
     PRIMARY KEY (CarrierID)
 );
@@ -65,6 +64,13 @@ CREATE TABLE IF NOT EXISTS Contract (
     FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
+CREATE TABLE IF NOT EXISTS Customer (
+	CustomerID		INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    CustomerName	VARCHAR(48) NOT NULL,
+    
+    PRIMARY KEY (CustomerID)
+);
+
 /* TEST DATA */
 INSERT INTO `User` VALUES (NULL, 'admin', 'password', 'admin@test.com', 'testing', 'testerson', 2);
 SELECT * FROM `User`;
@@ -77,9 +83,4 @@ UPDATE `Carrier` SET `Carrier`.`FtlAvailability` = 50 WHERE `Carrier`.`CarrierID
 
 SELECT LAST_INSERT_ID() as CarrierID;
 
-
-
-/*
-DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = 1;
-DELETE FROM `Carrier` WHERE `Carrier`.`CarrierID` = 1;
-*/
+SELECT * FROM `Customer`;
