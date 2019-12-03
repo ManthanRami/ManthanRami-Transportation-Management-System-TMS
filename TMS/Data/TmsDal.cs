@@ -408,6 +408,26 @@ namespace TMS.Data
             return customer;
         }
 
+        public void DeleteCustomer(uint customerId)
+        {
+            const string queryString = "DELETE FROM `TMS`.`Customer` WHERE `Customer`.`CustomerID` = @customerId;"
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerId", customerId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotDeleteException("No user exists with that ID");
+                }
+
+                conn.Close();
+            }
+        }
+
         public Customer GetCustomer(string customerName)
         {
             Customer customer = new Customer();
