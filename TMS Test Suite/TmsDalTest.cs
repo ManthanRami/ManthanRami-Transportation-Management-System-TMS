@@ -363,5 +363,28 @@ namespace TMS_Test_Suite
 
             Assert.IsFalse(excepted);
         }
+
+        [TestMethod]
+        public void TestDeleteCustomer()
+        {
+            Customer customer = new Customer();
+            customer.Name = "Test";
+
+            TmsDal dal = new TmsDal();
+            customer = dal.CreateCustomer(customer);
+
+            bool excepted = false;
+
+            try
+            {
+                dal.DeleteCustomer(customer.CustomerID);
+            }
+            catch (CouldNotDeleteException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
     }
 }

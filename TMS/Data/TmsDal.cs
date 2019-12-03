@@ -410,7 +410,7 @@ namespace TMS.Data
 
         public void DeleteCustomer(uint customerId)
         {
-            const string queryString = "DELETE FROM `TMS`.`Customer` WHERE `Customer`.`CustomerID` = @customerId;"
+            const string queryString = "DELETE FROM `TMS`.`Customer` WHERE `Customer`.`CustomerID` = @customerId;";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
