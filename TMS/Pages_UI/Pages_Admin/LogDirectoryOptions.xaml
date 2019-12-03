@@ -8,7 +8,8 @@
       d:DesignHeight="360" d:DesignWidth="665"
       Title="LogDirectoryOptions">
 
-    <Grid Background="Purple">
-        
+    <Grid Background="LightGray">
+        <TextBlock  Text="Log Directory Settings"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
+                    IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
     </Grid>
 </Page>

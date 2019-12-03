@@ -36,5 +36,16 @@ namespace TMS.Pages_UI.Pages_Admin
         {
             InitializeComponent();
         }
+
+        private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
+        {
+            txtIP_Address.IsReadOnly = false;
+            txtPort_Number.IsReadOnly = false;
+        }
     }
 }
