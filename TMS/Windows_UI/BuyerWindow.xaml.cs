@@ -42,7 +42,7 @@ namespace TMS
         public BuyerWindow()
         {
             InitializeComponent();
-            BuyerMain.Content = new BuyerStartup();
+            BuyerMain.Content = new BuyerStartup();         
         }
 
         //=======================================================================================================================

@@ -22,7 +22,20 @@ namespace TMS.Data
         /// </summary>
         private readonly string connectionString =
             ConfigurationManager.ConnectionStrings["CMPConnectionString"].ConnectionString;
+        public CmpDal()
+        {
+            const string queryString = "use cmp;";
 
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+                conn.Close();
+            }
+            
+        }
         /// <summary>
         /// GetContracts() returns a list of contracts currently on the contract marketplace
         /// </summary>
@@ -67,7 +80,6 @@ namespace TMS.Data
                             Logger.Error(LogOrigin.DATABASE, "Could not create customer");
                         }
                     }
-
                     // TODO: Customer needs to be created here from the client_name field.
                     // TODO: Customer table takes an ID and a Name and must be created if it
                     // TODO: doesn't already exist.
@@ -88,10 +100,8 @@ namespace TMS.Data
 
                     contracts.Add(contract);
                 }
-
                 conn.Close();
             }
-
             return contracts;
         }
     }

@@ -9,6 +9,6 @@
       Title="CustomerManagement">
 
     <Grid Background="Cyan">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+        <DataGrid AutoGenerateColumns="true"  CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="CustomerData"></DataGrid>
     </Grid>
 </Page>

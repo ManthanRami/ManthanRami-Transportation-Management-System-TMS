@@ -533,6 +533,29 @@ namespace TMS.Data
             return customer;
         }
 
+
+        public List<Customer> GetAllCustomer()
+        {
+            List<Customer> custList = new List<Customer>();
+            const string queryString = "SELECT * FROM `Customer`;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);             
+                MySqlDataReader reader = query.ExecuteReader();
+                while (reader.Read())
+                {
+                    custList.Add(new Customer() { CustomerID = Convert.ToUInt32(reader["CustomerID"].ToString()), Name = reader["CustomerName"].ToString() });
+                }
+                reader.Close();
+                conn.Close();
+            }
+
+            return custList;
+        }
+
         /// <summary>
         /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
         /// the data row into the carrier object.
