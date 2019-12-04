@@ -8,7 +8,20 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InitiateNewOrder">
 
-    <Grid Background="Crimson">
-        <Button x:Name="AdminLogout" Content="Logout" Height="25" Width="50" />
+    <Grid Background="White" >
+        <Button Content="Connect To database" Name="INI" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.027,-2" Click="INI_Click" Margin="26,10,0,0"/>
+        <Ellipse Fill="Red" x:Name="connectSignal" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="28" Margin="212,0,0,0"/>
+        <Button Content="Get order" x:Name="Getorder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.027,-2" Margin="391,98,0,0" Click="Getorder_Click"/>
+        <TextBox HorizontalAlignment="Left" Name="ClientName" Height="22" Margin="96,114,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Name="JoBType" Height="23" Margin="96,149,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Name="vanType" Height="23" Margin="96,185,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Name="Quantity" Height="23" Margin="96,224,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
+        <DataGrid HorizontalAlignment="Left" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="True" Height="161" Margin="391,118,0,0" VerticalAlignment="Top" Width="326" SelectionChanged="contractData_SelectionChanged"/>
+        <Label Content="Client Name :" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Height="23"/>
+        <Label Content="Job Type  :" HorizontalAlignment="Left" Margin="25,145,0,0" VerticalAlignment="Top" Height="27"/>
+        <Label Content="Van Type  :" HorizontalAlignment="Left" Margin="24,181,0,0" VerticalAlignment="Top" Height="27"/>
+        <Label Content="Quantity  :" HorizontalAlignment="Left" Margin="26,218,0,0" VerticalAlignment="Top" Height="27"/>
+        <Button Content="Create order" x:Name="Getorder_Copy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.027,-2" Margin="96,275,0,0"/>
+
     </Grid>
 </Page>
