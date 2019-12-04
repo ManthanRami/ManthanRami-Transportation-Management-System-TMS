@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using TMS.Data;
 namespace TMS.Pages_UI.Pages_Buyer
 {
     /// <summary>
@@ -20,9 +20,19 @@ namespace TMS.Pages_UI.Pages_Buyer
     /// </summary>
     public partial class CustomerManagement : Page
     {
+
+        List<Customer> cl = new List<Customer>();
+        TmsDal td = new TmsDal();
         public CustomerManagement()
         {
             InitializeComponent();
+            LoadCustomerData();
+        }
+
+        private void LoadCustomerData()
+        {
+            cl = td.GetAllCustomer();
+            CustomerData.ItemsSource = cl;
         }
     }
 }
