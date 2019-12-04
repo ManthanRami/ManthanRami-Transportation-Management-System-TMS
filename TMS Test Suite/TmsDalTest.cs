@@ -320,6 +320,58 @@ namespace TMS_Test_Suite
         }
 
         [TestMethod]
+        public void TestDeleteCarrier()
+        {
+            Carrier carrier = new Carrier();
+            carrier.DepotCity = City.Belleville;
+            carrier.FtlAvailability = 53;
+            carrier.LtlAvailability = 28;
+
+            TmsDal dal = new TmsDal();
+
+            bool excepted = false;
+
+            try
+            {
+                carrier = dal.CreateCarrier(carrier);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            try
+            {
+                dal.SetFtlRate(carrier.CarrierID, (float) 1.28);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            try
+            {
+                dal.SetLtlRate(carrier.CarrierID, (float) 5.23);
+            }
+            catch (CouldNotInsertException)
+            {
+                excepted = true;
+            }
+
+            try
+            {
+                dal.DeleteCarrier(carrier.CarrierID);
+            }
+            catch (CouldNotDeleteException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+
+        }
+
+        [TestMethod]
         public void TestCreateCustomer()
         {
             TruncateTable("Customer");
@@ -357,6 +409,42 @@ namespace TMS_Test_Suite
                 customer = dal.GetCustomer("Test");
             }
             catch (CustomerNotExistsException)
+            {
+                excepted = true;
+            }
+
+            Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestGetCustomers()
+        {
+            Customer customer = new Customer();
+            customer.Name = "Test Customer";
+
+            TmsDal dal = new TmsDal();
+            
+            customer = dal.CreateCustomer(customer);
+
+            Assert.IsTrue(dal.GetCustomers().Count > 0);
+        }
+
+        [TestMethod]
+        public void TestDeleteCustomer()
+        {
+            Customer customer = new Customer();
+            customer.Name = "Test";
+
+            TmsDal dal = new TmsDal();
+            customer = dal.CreateCustomer(customer);
+
+            bool excepted = false;
+
+            try
+            {
+                dal.DeleteCustomer(customer.CustomerID);
+            }
+            catch (CouldNotDeleteException)
             {
                 excepted = true;
             }

@@ -207,6 +207,45 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method takes in a carrier's ID, and deletes it.
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        public void DeleteCarrier(uint carrierId)
+        {
+
+            const string deleteLtlRateQueryString = "DELETE FROM `LTLRate` WHERE `LTLRate`.`CarrierID` = @carrierId";
+            const string deleteFtlRateQueryString = "DELETE FROM `FTLRate` WHERE `FTLRate`.`CarrierID` = @carrierId";
+            const string deleteReeferChargeQueryString = "DELETE FROM `ReeferCharge` WHERE `ReeferCharge`.`CarrierID` = @carrierId";
+            const string deleteCarrierQueryString = "DELETE FROM `Carrier` WHERE `Carrier`.`CarrierID` = @carrierId";
+            
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(deleteLtlRateQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.ExecuteNonQuery();
+
+                query = new MySqlCommand(deleteFtlRateQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.ExecuteNonQuery();
+
+                query = new MySqlCommand(deleteReeferChargeQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                query.ExecuteNonQuery();
+
+                query = new MySqlCommand(deleteCarrierQueryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotDeleteException("Carrier with ID " + carrierId + " could not be deleted");
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
         /// UpdateCarrier takes a CarrierID and a carrier object with the needed changes and updates
         /// the carrier matching that ID in the database.
         /// </summary>
@@ -243,7 +282,7 @@ namespace TMS.Data
         }
 
         /// <summary>
-        /// SetReeferCharge takes a CarrierID and a ftlRate, and either creates a new row
+        /// SetFtlRate takes a CarrierID and a ftlRate, and either creates a new row
         /// in the FTLRate table or updates an existing one.
         /// </summary>
         /// <param name="carrierId">uint carrierId</param>
@@ -290,7 +329,7 @@ namespace TMS.Data
         }
 
         /// <summary>
-        /// SetReeferCharge takes a CarrierID and a ltlRate, and either creates a new row
+        /// SetLtlRate takes a CarrierID and a ltlRate, and either creates a new row
         /// in the LTLRate table or updates an existing one.
         /// </summary>
         /// <param name="carrierId">uint carrierId</param>
@@ -326,10 +365,8 @@ namespace TMS.Data
                     {
                         throw new CouldNotInsertException();
                     }
-                    else
-                    {
-                        throw new CouldNotUpdateException();
-                    }
+
+                    throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
@@ -406,6 +443,62 @@ namespace TMS.Data
             }
 
             return customer;
+        }
+
+        public void DeleteCustomer(uint customerId)
+        {
+            const string queryString = "DELETE FROM `TMS`.`Customer` WHERE `Customer`.`CustomerID` = @customerId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerId", customerId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotDeleteException("No user exists with that ID");
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// This method returns a List of all Customers in the database
+        /// </summary>
+        /// <returns>List<Customer></returns>
+        public List<Customer> GetCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+
+            const string queryString = "SELECT * FROM `Customer`;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Customer customer = new Customer();
+
+                    customer.CustomerID = (uint) (int) row["CustomerID"];
+                    customer.Name = (string) row["CustomerName"];
+
+                    customers.Add(customer);
+                }
+
+                conn.Close();
+            }
+
+            return customers;
         }
 
         public Customer GetCustomer(string customerName)
