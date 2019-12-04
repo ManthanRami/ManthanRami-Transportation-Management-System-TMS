@@ -23,9 +23,12 @@
         <TextBox    x:Name="txtPort_Number"     Margin="317,199,158,126"    Background="GhostWhite"    Height="35" Width="190" 
                     IsReadOnly="False"          FontSize="25" Text=""/>
         
-        <Button     x:Name="btnSave_Edits"      Margin="260,262,359,73"     Height="25" Content="Save" Click="btnSave_Edits_Click" />
+        <Button     x:Name="btnSave_Edits"      Margin="280,262,339,73"     Height="25" Content="Save" Click="btnSave_Edits_Click" />
         
-        <Button     x:Name="btnEdit_Options"    Margin="317,262,300,73"     Height="25" Content="Edit" Click="btnEdit_Options_Click" />
+        <Button     x:Name="btnEdit_Options"    Margin="336,262,281,73"     Height="25" Content="Edit" Click="btnEdit_Options_Click" />
+        
+        <Button     x:Name="btnCurrent_Settings" Margin="280,292,281,43"    Height="25" Content="Current Settings" FontSize="12" 
+                    ToolTip="Gets the current connection settings of the DBMS" Click="btnEdit_Options_Click" />
         
     </Grid>
 </Page>
