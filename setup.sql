@@ -80,7 +80,3 @@ INSERT INTO `FTLRate` VALUES (1, 1.89);
 
 SELECT * FROM `Carrier`;
 UPDATE `Carrier` SET `Carrier`.`FtlAvailability` = 50 WHERE `Carrier`.`CarrierID` = LAST_INSERT_ID();
-
-SELECT LAST_INSERT_ID() as CarrierID;
-
-SELECT * FROM `Customer`;
