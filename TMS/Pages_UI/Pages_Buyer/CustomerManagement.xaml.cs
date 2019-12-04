@@ -31,6 +31,7 @@ namespace TMS.Pages_UI.Pages_Buyer
 
         private void LoadCustomerData()
         {
+            
             cl = td.GetAllCustomer();
             CustomerData.ItemsSource = cl;
         }
