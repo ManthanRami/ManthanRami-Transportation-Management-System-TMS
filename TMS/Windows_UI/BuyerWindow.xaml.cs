@@ -19,7 +19,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TMS.Data;
 using TMS.Pages_UI.Pages_Buyer;
 
 namespace TMS
@@ -43,7 +42,7 @@ namespace TMS
         public BuyerWindow()
         {
             InitializeComponent();
-            BuyerMain.Content = new BuyerStartup();
+            BuyerMain.Content = new BuyerStartup();         
         }
 
         //=======================================================================================================================
@@ -85,6 +84,7 @@ namespace TMS
         //=======================================================================================================================
         private void btnCust_Management_Click(object sender, RoutedEventArgs e)
         {
+            
             BuyerMain.Content = new CustomerManagement();
         }
 
