@@ -9,15 +9,15 @@
       Title="ModifyCarrierData">
 
     <Grid Background="LightGray">
-        <TextBlock  Text="Carrier ID :"         Margin="62,146,516,191"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtCarrier_ID"      Margin="162,150,395,190"     Background="GhostWhite" Height="20" IsReadOnly="False" FontSize="16"/>
-        <TextBlock  Text="Depot City :"         Margin="54,182,508,153" Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtDepot_City"      Margin="162,182,395,158"     Background="GhostWhite" Height="20" IsReadOnly="False" FontSize="16"/>
-        <TextBlock  Text="FTL Availability :"   Margin="26,219,508,116" Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtFTL_Avail"       Margin="162,219,395,121"     Background="GhostWhite" Height="20" IsReadOnly="False" 
+        <TextBlock  Text="Carrier ID :"         Margin="216,147,362,188"     Height="25" IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtCarrier_ID"      Margin="316,147,241,188"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBlock  Text="Depot City :"         Margin="208,183,354,152"     Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtDepot_City"      Margin="316,183,241,152"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBlock  Text="FTL Availability :"   Margin="180,220,354,115"     Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtFTL_Avail"       Margin="316,220,241,115"    Height="25" Background="GhostWhite" IsReadOnly="False" 
                     ToolTip="FTL - Full Truck Load"     FontSize="16"/>
-        <TextBlock  Text="LTL Availability :"   Margin="26,256,508,79"      Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtLTL_Avail"       Margin="162,256,395,84"     Background="GhostWhite" Height="20" IsReadOnly="False" 
+        <TextBlock  Text="LTL Availability :"   Margin="180,257,354,78"      Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtLTL_Avail"       Margin="316,257,241,78"     Height="25" Background="GhostWhite" IsReadOnly="False" 
                     ToolTip="LTL - Less Than Load" FontSize="16"/>
         <TextBlock  Text="Modify Carrier Data"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
                     IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
