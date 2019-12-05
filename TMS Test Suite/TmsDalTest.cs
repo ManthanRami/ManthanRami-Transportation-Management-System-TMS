@@ -83,6 +83,7 @@ namespace TMS_Test_Suite
             TruncateTable("User");
 
             Carrier carrier = new Carrier();
+            carrier.Name = "WindsorCarrier1";
             carrier.DepotCity = City.Windsor;
             carrier.FtlAvailability = 100;
             carrier.LtlAvailability = 50;
@@ -108,6 +109,7 @@ namespace TMS_Test_Suite
         public void TestGetCarrier()
         {
             Carrier carrier = new Carrier();
+            carrier.Name = "HamiltonCarrier1";
             carrier.DepotCity = City.Hamilton;
             carrier.FtlAvailability = 20;
             carrier.LtlAvailability = 13;
@@ -151,6 +153,7 @@ namespace TMS_Test_Suite
         public void TestUpdateCarrier()
         {
             Carrier carrier = new Carrier();
+            carrier.Name = "WindsorCarrier2";
             carrier.DepotCity = City.Windsor;
             carrier.LtlAvailability = 10;
             carrier.FtlAvailability = 22;
@@ -188,6 +191,7 @@ namespace TMS_Test_Suite
         public void TestSetFtlRate()
         {
             Carrier carrier = new Carrier();
+            carrier.Name = "OshawaCarrier1";
             carrier.DepotCity = City.Oshawa;
             carrier.LtlAvailability = 8;
             carrier.FtlAvailability = 18;
@@ -233,6 +237,7 @@ namespace TMS_Test_Suite
         public void TestSetLtlRate()
         {
             Carrier carrier = new Carrier();
+            carrier.Name = "OshawaCarrier2";
             carrier.DepotCity = City.Ottawa;
             carrier.LtlAvailability = 9;
             carrier.FtlAvailability = 19;
@@ -278,6 +283,7 @@ namespace TMS_Test_Suite
         public void TestSetReeferCharge()
         {
             Carrier carrier = new Carrier();
+            carrier.Name = "OshawaCarrier3";
             carrier.DepotCity = City.Ottawa;
             carrier.LtlAvailability = 9;
             carrier.FtlAvailability = 19;
@@ -323,6 +329,7 @@ namespace TMS_Test_Suite
         public void TestDeleteCarrier()
         {
             Carrier carrier = new Carrier();
+            carrier.Name = "BellevilleCarrier1";
             carrier.DepotCity = City.Belleville;
             carrier.FtlAvailability = 53;
             carrier.LtlAvailability = 28;

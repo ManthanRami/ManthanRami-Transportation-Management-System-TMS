@@ -109,13 +109,14 @@ namespace TMS.Data
         public Carrier CreateCarrier(Carrier carrier)
         {
             const string queryString =
-                "INSERT INTO `Carrier` VALUES (NULL, @depotCity, @ftlAvailability, @ltlAvailability);";
+                "INSERT INTO `Carrier` VALUES (NULL, @name, @depotCity, @ftlAvailability, @ltlAvailability);";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", carrier.Name);
                 query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
                 query.Parameters.AddWithValue("@ftlAvailability", carrier.FtlAvailability);
                 query.Parameters.AddWithValue("@ltlAvailability", carrier.LtlAvailability);
@@ -255,6 +256,7 @@ namespace TMS.Data
         public Carrier UpdateCarrier(uint carrierId, Carrier carrier)
         {
             const string queryString = @"UPDATE `Carrier` SET 
+                                        `Carrier`.`Name` = @name,
                                         `Carrier`.`DepotCity` = @depotCity,
                                         `Carrier`.`FtlAvailability` = @ftlAvailability,
                                         `Carrier`.`LtlAvailability` = @ltlAvailability
@@ -265,6 +267,7 @@ namespace TMS.Data
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", carrier.Name);
                 query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
                 query.Parameters.AddWithValue("@ftlAvailability", carrier.FtlAvailability);
                 query.Parameters.AddWithValue("@ltlAvailability", carrier.LtlAvailability);
@@ -279,6 +282,47 @@ namespace TMS.Data
             }
 
             return carrier;
+        }
+
+        /// <summary>
+        /// This method takes 2 queries and returns any carrier that is like them
+        /// </summary>
+        /// <param name="name">string</param>
+        /// <param name="depotCity">string</param>
+        /// <returns>List<Carrier></returns>
+        public List<Carrier> SearchCarriers(string name, string depotCity)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = @"SELECT * FROM `Carrier` c WHERE
+                (c.Name LIKE CONCAT(@name, '%') OR @name = '') AND
+                (c.DepotCity LIKE CONCAT(@depotCity, '%') OR @deoitCity = '');";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", name);
+                query.Parameters.AddWithValue("@depotCity", depotCity);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    PopulateCarrier(ref carrier, row);
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            return carriers;
         }
 
         /// <summary>
@@ -420,6 +464,11 @@ namespace TMS.Data
             }
         }
 
+        /// <summary>
+        /// This method takes a customer object with the wanted attributes already set and creates it in the database
+        /// </summary>
+        /// <param name="customer">Customer</param>
+        /// <returns>Customer</returns>
         public Customer CreateCustomer(Customer customer)
         {
             const string queryString = "INSERT INTO `Customer` VALUES (NULL, @customerName);";
@@ -445,6 +494,10 @@ namespace TMS.Data
             return customer;
         }
 
+        /// <summary>
+        /// This method takes a customerId and deletes the matching customer from the database
+        /// </summary>
+        /// <param name="customerId">uint</param>
         public void DeleteCustomer(uint customerId)
         {
             const string queryString = "DELETE FROM `TMS`.`Customer` WHERE `Customer`.`CustomerID` = @customerId;";
@@ -501,6 +554,11 @@ namespace TMS.Data
             return customers;
         }
 
+        /// <summary>
+        /// This method finds and returns a customer by name
+        /// </summary>
+        /// <param name="customerName">string</param>
+        /// <returns>Customer</returns>
         public Customer GetCustomer(string customerName)
         {
             Customer customer = new Customer();
@@ -533,27 +591,44 @@ namespace TMS.Data
             return customer;
         }
 
-
-        public List<Customer> GetAllCustomer()
+        /// <summary>
+        /// This method searches through customers in the database and returns a list matching
+        /// the query provided
+        /// </summary>
+        /// <param name="name">string</param>
+        /// <returns>List<Customer></returns>
+        public List<Customer> SearchCustomers(string name)
         {
-            List<Customer> custList = new List<Customer>();
-            const string queryString = "SELECT * FROM `Customer`;";
+            List<Customer> customers = new List<Customer>();
+
+            const string queryString = @"SELECT * FROM `Customer` c WHERE
+                (c.FirstName LIKE CONCAT(@name, '%') OR @name = '');";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
-                MySqlCommand query = new MySqlCommand(queryString, conn);             
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", name);
                 MySqlDataReader reader = query.ExecuteReader();
-                while (reader.Read())
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
                 {
-                    custList.Add(new Customer() { CustomerID = Convert.ToUInt32(reader["CustomerID"].ToString()), Name = reader["CustomerName"].ToString() });
+                    Customer customer = new Customer();
+
+                    customer.CustomerID = (uint) (int) row["CustomerID"];
+                    customer.Name = (string) row["CustomerName"];
+
+                    customers.Add(customer);
                 }
-                reader.Close();
+
                 conn.Close();
             }
 
-            return custList;
+            return customers;
         }
 
         /// <summary>
@@ -565,6 +640,7 @@ namespace TMS.Data
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
             carrier.CarrierID = (uint) (int) row["CarrierID"];
+            carrier.Name = (string) row["Name"];
             carrier.FtlAvailability = (int) row["FtlAvailability"];
             carrier.LtlAvailability = (int) row["LtlAvailability"];
 
