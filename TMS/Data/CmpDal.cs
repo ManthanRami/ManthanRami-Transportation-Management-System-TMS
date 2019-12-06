@@ -31,7 +31,8 @@ namespace TMS.Data
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
-                MySqlDataReader reader = query.ExecuteReader();
+                query.ExecuteNonQuery();
+
                 conn.Close();
             }
             
@@ -74,10 +75,12 @@ namespace TMS.Data
                         try
                         {
                             customer = dal.CreateCustomer(customer);
+
+                            Logger.Info(LogOrigin.Database, "(CmpDal.GetContracts) Created new customer '" + customer.Name + "'");
                         }
                         catch (CouldNotInsertException)
                         {
-                            Logger.Error(LogOrigin.DATABASE, "Could not create customer");
+                            Logger.Error(LogOrigin.Database, "(CmpDal.GetContracts) Could not create customer");
                         }
                     }
                     // TODO: Customer needs to be created here from the client_name field.
@@ -100,7 +103,10 @@ namespace TMS.Data
 
                     contracts.Add(contract);
                 }
+
                 conn.Close();
+
+                Logger.Info(LogOrigin.Database, "(CmpDal.GetContracts) Fetched " + contracts.Count + " contracts");
             }
             return contracts;
         }

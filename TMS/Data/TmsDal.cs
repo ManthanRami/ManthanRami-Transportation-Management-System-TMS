@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using TMS.Exceptions;
+using TMS.Utils;
 
 namespace TMS.Data
 {
@@ -33,7 +34,7 @@ namespace TMS.Data
         public User CreateUser(User user)
         {
             const string queryString =
-                "INSERT INTO `User` VALUES (NULL, @username, @password, @email, @firstname, @lastname, @usertype);";
+                "INSERT INTO `User` VALUES (NULL, @username, @password, @email, @firstname, @lastname, @userType);";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -45,10 +46,11 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@email", user.Email);
                 query.Parameters.AddWithValue("@firstname", user.FirstName);
                 query.Parameters.AddWithValue("@lastname", user.LastName);
-                query.Parameters.AddWithValue("@usertype", (int) user.Type);
+                query.Parameters.AddWithValue("@userType", (int) user.Type);
 
                 if (query.ExecuteNonQuery() != 1)
                 {
+                    Logger.Error(LogOrigin.Database, "(CreateUser) Could not insert new user into database");
                     throw new CouldNotInsertException();
                 }
 
@@ -57,6 +59,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(CreateUser) User '" + user.Username + "' has been created");
 
             return user;
         }
@@ -88,6 +92,7 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "Could not find user '" + username + "'");
                     throw new UserNotExistsException("There is no account associated with username '" + username + "'");
                 }
 
@@ -95,6 +100,8 @@ namespace TMS.Data
 
                 UserID = (uint) (int) table.Rows[0]["UserID"];
             }
+
+            Logger.Info(LogOrigin.Database, "(GetUserID) User '" + username + "' fetched from database");
 
             return UserID;
         }
@@ -123,6 +130,7 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() != 1)
                 {
+                    Logger.Error(LogOrigin.Database, "(CreateCarrier) Could not insert new carrier into database");
                     throw new CouldNotInsertException();
                 }
 
@@ -131,6 +139,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(CreateCarrier) Carrier '" + carrier.Name + "' has been created");
 
             return carrier;
         }
@@ -167,6 +177,8 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(GetCarriers) Fetched " + carriers.Count + " carriers from the database");
+
             return carriers;
         }
 
@@ -196,6 +208,7 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(GetCarrier) Could not find a carrier with an ID of " + carrierId);
                     throw new CarrierNotExistsException("No carrier by that ID could be found");
                 }
 
@@ -203,6 +216,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(GetCarrier) Fetched carrier '" + carrier.Name + "' from the database");
 
             return carrier;
         }
@@ -239,11 +254,14 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@carrierId", carrierId);
                 if (query.ExecuteNonQuery() == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(DeleteCarrier) Could not delete carrier with an ID of " + carrierId);
                     throw new CouldNotDeleteException("Carrier with ID " + carrierId + " could not be deleted");
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(DeleteCarrier) Deleted carrier with ID " + carrierId + " from the database");
         }
 
         /// <summary>
@@ -275,11 +293,14 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(UpdateCarrier) Could not update carrier ID " + carrierId);
                     throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(UpdateCarrier) Updated carrier ID " + carrierId);
 
             return carrier;
         }
@@ -322,6 +343,8 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(SearchCarriers) Fetched " + carriers.Count + " carriers");
+
             return carriers;
         }
 
@@ -360,16 +383,18 @@ namespace TMS.Data
                 {
                     if (settingQuery == insertQueryString)
                     {
+                        Logger.Error(LogOrigin.Database, "(SetFtlRate) Could not insert FTL rate for carrier " + carrierId);
                         throw new CouldNotInsertException();
                     }
-                    else
-                    {
-                        throw new CouldNotUpdateException();
-                    }
+
+                    Logger.Error(LogOrigin.Database, "(SetFtlRate) Could not update FTL rate for carrier " + carrierId);
+                    throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(SetFtlRate) FTLRate of carrier " + carrierId + " has been set to " + ftlRate);
         }
 
         /// <summary>
@@ -407,14 +432,18 @@ namespace TMS.Data
                 {
                     if (settingQuery == insertQueryString)
                     {
+                        Logger.Error(LogOrigin.Database, "(SetLtlRate) Could not insert LTL rate for carrier " + carrierId);
                         throw new CouldNotInsertException();
                     }
 
+                    Logger.Error(LogOrigin.Database, "(SetLtlRate) Could not update LTL rate for carrier " + carrierId);
                     throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(SetLtlRate) LTLRate of carrier " + carrierId + " has been set to " + ltlRate);
         }
 
         /// <summary>
@@ -452,16 +481,18 @@ namespace TMS.Data
                 {
                     if (settingQuery == insertQueryString)
                     {
+                        Logger.Error(LogOrigin.Database, "(SetReeferCharge) Could not insert reefer charge for carrier " + carrierId);
                         throw new CouldNotInsertException();
                     }
-                    else
-                    {
-                        throw new CouldNotUpdateException();
-                    }
+
+                    Logger.Error(LogOrigin.Database, "(SetReeferCharge) Could not update reefer charge for carrier " + carrierId);
+                    throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(SetReeferCharge) ReeferCharge of carrier " + carrierId + " has been set to " + reeferCharge);
         }
 
         /// <summary>
@@ -482,6 +513,7 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() == 0)
                 {
+                    Logger.Error(LogOrigin.Database, "(CreateCustomer) Could not create new customer");
                     throw new CouldNotInsertException();
                 }
 
@@ -490,6 +522,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(CreateCustomer) Created customer '" + customer.Name + "'");
 
             return customer;
         }
@@ -511,11 +545,14 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() == 0)
                 {
-                    throw new CouldNotDeleteException("No user exists with that ID");
+                    Logger.Warn(LogOrigin.Database, "(DeleteCustomer) Could not delete customer with ID " + customerId);
+                    throw new CouldNotDeleteException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(DeleteCustomer) Deleted customer with ID " + customerId);
         }
 
         /// <summary>
@@ -551,6 +588,8 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(GetCustomers) Fetched " + customers.Count + " customers");
+
             return customers;
         }
 
@@ -579,6 +618,7 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(GetCustomer) A customer with the name " + customerName + " does not exist");
                     throw new CustomerNotExistsException();
                 }
 
@@ -587,6 +627,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(GetCustomer) Fetched customer '" + customer.Name + "'");
 
             return customer;
         }
@@ -627,6 +669,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(SearchCustomers) Fetched " + customers.Count + " customers");
 
             return customers;
         }
