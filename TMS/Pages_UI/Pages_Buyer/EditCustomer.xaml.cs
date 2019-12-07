@@ -12,19 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMS.Data;
+using TMS.Utils;
 
-namespace TMS.Pages_UI.Pages_Planner
+namespace TMS.Pages_UI.Pages_Buyer
 {
-    //=======================================================================================================================
     /// <summary>
-    /// Standing in as a temp page for the planner, will be replaced in next merge / update.
+    /// Interaction logic for EditCustomer.xaml
     /// </summary>
-    //=======================================================================================================================
-    public partial class InitiateNewOrder : Page
+    public partial class EditCustomer : Page
     {
-        public InitiateNewOrder()
+        public EditCustomer()
         {
             InitializeComponent();
         }
+
+
+
     }
 }

@@ -60,7 +60,7 @@ namespace TMS
             login.Show();
             this.Close();
             // Add to log file that a buyer logged off
-            Logger.Info(LogOrigin.UI, "Buyer logged off of system.");
+            // Logger.Info(LogOrigin.UI, "Buyer logged off of system.");
         }
 
 

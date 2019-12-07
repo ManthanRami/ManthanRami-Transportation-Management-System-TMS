@@ -31,6 +31,7 @@ namespace TMS.Pages_UI.Pages_Buyer
         public CustomerManagement()
         {
             InitializeComponent();
+            btnEdit_Customer.IsEnabled = false;
         }
 
         private void LoadCurrentCustomerData()
@@ -39,20 +40,14 @@ namespace TMS.Pages_UI.Pages_Buyer
             CustomerData.ItemsSource = ccl;
         }
 
-
-        private void GetNewCustomers()
-        {
-            // ncl = 
-        }
-
-        private void btnNew_Customers_Click(object sender, RoutedEventArgs e)
-        {
-            GetNewCustomers();
-        }
-
         private void btnCurrent_Customers_Click(object sender, RoutedEventArgs e)
         {
             LoadCurrentCustomerData();
+        }
+
+        private void CurrentCustomerData_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnEdit_Customer.IsEnabled = true;
         }
     }
 }

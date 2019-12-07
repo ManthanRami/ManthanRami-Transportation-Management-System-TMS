@@ -60,7 +60,7 @@ namespace TMS
             login.Show();
             this.Close();
             // Add to log file that an admin logged off
-            Logger.Info(LogOrigin.UI, "Admin logged off of system.");
+            // Logger.Info(LogOrigin.UI, "Admin logged off of system.");
         }
 
         //=======================================================================================================================

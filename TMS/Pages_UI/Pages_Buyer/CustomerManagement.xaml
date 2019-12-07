@@ -13,9 +13,10 @@
     <Grid Background="LightGray">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="115,0,0,0">
             <DataGrid AutoGenerateColumns="true" CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="CustomerData"
-                      FontSize="16" Width="541" />
+                      FontSize="16" Width="541" Visibility="Visible" SelectionChanged="CurrentCustomerData_SelectionChanged"/>
         </ScrollViewer>
-        <Button x:Name="btnNew_Customers" Content="New Customers" Margin="5,115,556,208" Click="btnNew_Customers_Click"/>
-        <Button x:Name="btnCurrent_Customers" Content="Current Customers" Margin="5,182,556,141" Click="btnCurrent_Customers_Click" />
+
+        <Button x:Name="btnCurrent_Customers" Content="Current Customers" Margin="5,76,556,247" Click="btnCurrent_Customers_Click" />
+        <Button x:Name="btnEdit_Customer" Content="Edit Customer" Margin="5,140,556,183" Click="btnCurrent_Customers_Click" />
     </Grid>
 </Page>

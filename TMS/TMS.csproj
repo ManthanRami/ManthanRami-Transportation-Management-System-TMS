@@ -75,11 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages_UI\Pages_Planner\TEMP.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml">
+    <Page Include="Pages_UI\Pages_Buyer\EditCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,11 +100,8 @@
     <Compile Include="Data\DataMap.cs" />
     <Compile Include="Exceptions\CouldNotDeleteException.cs" />
     <Compile Include="Exceptions\CustomerNotExistsException.cs" />
-    <Compile Include="Pages_UI\Pages_Planner\TEMP.xaml.cs">
-      <DependentUpon>TEMP.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml.cs">
-      <DependentUpon>InitiateNewOrder.xaml</DependentUpon>
+    <Compile Include="Pages_UI\Pages_Buyer\EditCustomer.xaml.cs">
+      <DependentUpon>EditCustomer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>

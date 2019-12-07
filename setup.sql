@@ -1,4 +1,4 @@
-DROP DATABASE TMS;
+DROP DATABASE IF EXISTS TMS;
 CREATE DATABASE IF NOT EXISTS TMS;
 USE TMS;
 
@@ -80,5 +80,3 @@ INSERT INTO `FTLRate` VALUES (1, 1.89);
 
 SELECT * FROM `Carrier`;
 UPDATE `Carrier` SET `Carrier`.`FtlAvailability` = 50 WHERE `Carrier`.`CarrierID` = LAST_INSERT_ID();
-
-SELECT * FROM Customer;

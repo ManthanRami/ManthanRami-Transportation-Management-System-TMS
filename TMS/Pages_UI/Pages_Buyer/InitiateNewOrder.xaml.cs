@@ -29,7 +29,7 @@ namespace TMS.Pages_UI.Pages_Buyer
             InitializeComponent();
         }
 
-        private void Getorder_Click(object sender, RoutedEventArgs e)
+        private void GetOrder_Click(object sender, RoutedEventArgs e)
         {
             cmp = new CmpDal();
             crt = new List<Contract>();
@@ -43,10 +43,14 @@ namespace TMS.Pages_UI.Pages_Buyer
             dynamic rowView = gd.SelectedItem;           
             if (rowView!=null)
             {
+                
                 ClientName.Text = rowView.Client;
-                JoBType.Text = rowView.JobType.ToString();
+                JobType.Text = rowView.JobType.ToString();
                 vanType.Text = rowView.VanType.ToString();
                 Quantity.Text = rowView.Quantity.ToString();
+                txtOriginCity.Text = rowView.Origin.ToString();
+                txtDestinationCity.Text = rowView.Destination.ToString();
+
             }
         }
     }
