@@ -8,11 +8,16 @@ namespace TMS.Data
 {
     public static class DataMap
     {
-        private static List<Customer> customers = new List<Customer>();
+        private static List<Contract> contracts = new List<Contract>();
 
-        public static void RegisterCustomer(Customer customer)
+        public static void AddContract(Contract contract)
         {
-            customers.Add(customer);
+            contracts.Add(contract);
+        }
+
+        public static void RemoveContract(Contract contract)
+        {
+            contracts.Remove(contract);
         }
     }
 }
