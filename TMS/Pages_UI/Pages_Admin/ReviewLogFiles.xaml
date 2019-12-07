@@ -9,8 +9,7 @@
       Title="ReviewLogFiles">
 
     <Grid Background="Gray">
-        <TextBlock  Text="Review Log Files"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
-                    IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
+        <RichTextBox x:Name="LogData" HorizontalAlignment="Left" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="285" Margin="48,42,0,0" VerticalAlignment="Top" Width="577" RenderTransformOrigin="0.546,0.491"/>
     </Grid>
-          
+
 </Page>
