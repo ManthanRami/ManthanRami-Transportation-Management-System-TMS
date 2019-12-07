@@ -9,43 +9,47 @@ namespace TMS.Utils
 {
     public enum LogLevel
     {
-        INFO,
-        WARN,
-        ERROR
+        Info,
+        Warn,
+        Error
     }
 
     public enum LogOrigin
     {
-        UI,
-        DATABASE,
-        AUTH
+        Ui,
+        Database,
+        Auth
     }
 
     public class Logger
     {
+        private const int InfoLength = 25;
+
         public static void Info(LogOrigin origin, string message)
         {
-            throw new NotImplementedException();
+            WriteLog(LogLevel.Info, origin, DateTime.Now.ToLongTimeString(), message);
         }
 
         public static void Warn(LogOrigin origin, string message)
         {
-            throw new NotImplementedException();
+            WriteLog(LogLevel.Warn, origin, DateTime.Now.ToLongTimeString(), message);
         }
 
         public static void Error(LogOrigin origin, string message)
         {
-            throw new NotImplementedException();
+            WriteLog(LogLevel.Error, origin, DateTime.Now.ToLongTimeString(), message);
         }
 
-        private static void WriteLog(LogLevel level, string line)
+        private static void WriteLog(LogLevel level, LogOrigin origin, string timestamp, string message)
         {
-            using (StreamWriter logFile =
-                new StreamWriter(Path.Combine("./logs", DateTime.Now.ToShortDateString() + ".log")))
+            if (!Directory.Exists("logs"))
             {
-                logFile.WriteAsync(line);
+                Directory.CreateDirectory("logs");
             }
-            
+
+            string path = Path.Combine("logs/", DateTime.Now.ToShortDateString() + ".log");
+
+            File.AppendAllText(path, (timestamp + " [" + level.ToString().ToUpper() + "] " + origin.ToString() + ": ").PadRight(InfoLength) + message + "\n");
         }
     }
 }

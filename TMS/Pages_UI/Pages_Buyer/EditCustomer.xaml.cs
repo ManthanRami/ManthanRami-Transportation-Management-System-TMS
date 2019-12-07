@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMS.Data;
+using TMS.Utils;
 
 namespace TMS.Pages_UI.Pages_Buyer
 {
     /// <summary>
-    /// Interaction logic for ContractMarketplace.xaml
+    /// Interaction logic for EditCustomer.xaml
     /// </summary>
-    public partial class ContractMarketplace : Page
+    public partial class EditCustomer : Page
     {
-        public ContractMarketplace()
+        public EditCustomer()
         {
             InitializeComponent();
         }
+
+
+
     }
 }

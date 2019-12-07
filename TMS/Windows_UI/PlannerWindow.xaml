@@ -13,9 +13,7 @@
             <Border Background="Gray" Margin="0,-42,0,335" Height="45" MinWidth="798" MaxWidth="798">
                 <TextBlock   x:Name="PlannerTitle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35"  TextWrapping="Wrap" Text="OHST PLANNER" Height="Auto" Width="auto" IsEnabled="False"/>
             </Border>
-            <Button Content="View Active Orders" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,7,0,0" Click="btnActive_Orders_Click"/>
-            <Button Content="Customer Management" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,59,0,0" FontSize="11" />
-            <Button Content="Initiate New Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,112,0,0" />
+            <Button Content="Incomplete Orders" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,7,0,0" Click="btnActive_Orders_Click"/>
             <Button Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="677,-43,0,0" Click="btnPlanner_Logout_Click"/>
             <Frame  x:Name="PlannerMain"   Content="" Margin="126, 7, 5, -38" NavigationUIVisibility="Hidden" Background="Gainsboro"/>
         </Grid>

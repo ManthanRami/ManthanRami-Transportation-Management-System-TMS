@@ -5,10 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Planner"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="360" d:DesignWidth="665"
       Title="ViewActiveOrders">
 
-    <Grid Background="Tomato">
-        
+    <Grid Background="LightGray">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="112,0,0,0">
+            <DataGrid AutoGenerateColumns="true" CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="ActiveOrderData"
+                      FontSize="16" />
+            </ScrollViewer>
     </Grid>
 </Page>

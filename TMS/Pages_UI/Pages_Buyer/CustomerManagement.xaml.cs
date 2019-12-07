@@ -21,19 +21,33 @@ namespace TMS.Pages_UI.Pages_Buyer
     public partial class CustomerManagement : Page
     {
 
-        List<Customer> cl = new List<Customer>();
+        // Get a list of current customers
+        List<Customer> ccl = new List<Customer>();
+
+        // List for temporary storage of newly fetched customers
+        List<Customer> ncl = new List<Customer>();
+
         TmsDal td = new TmsDal();
         public CustomerManagement()
         {
             InitializeComponent();
-            LoadCustomerData();
+            btnEdit_Customer.IsEnabled = false;
         }
 
-        private void LoadCustomerData()
+        private void LoadCurrentCustomerData()
         {
-            
-            cl = td.GetAllCustomer();
-            CustomerData.ItemsSource = cl;
+            ccl = td.GetCustomers();
+            CustomerData.ItemsSource = ccl;
+        }
+
+        private void btnCurrent_Customers_Click(object sender, RoutedEventArgs e)
+        {
+            LoadCurrentCustomerData();
+        }
+
+        private void CurrentCustomerData_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnEdit_Customer.IsEnabled = true;
         }
     }
 }

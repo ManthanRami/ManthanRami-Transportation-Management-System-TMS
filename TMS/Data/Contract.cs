@@ -40,12 +40,21 @@ namespace TMS.Data
         Reefer = 1
     }
 
+    public enum Status
+    {
+        PENDING = 0,
+        STARTED = 1,
+        FINISHED = 2
+    }
+
     /// <summary>
     /// The Contract class models the contract table from the contract marketplace database.
     /// </summary>
     public class Contract
     {
-        public String Client { get; set; }
+        public uint ContractID { get; set; }
+        public Status Status { get; set; }
+        public Customer Customer { get; set; }
 
         public JobType JobType { get; set; }
         public VanType VanType { get; set; }
@@ -53,6 +62,12 @@ namespace TMS.Data
         public int Quantity { get; set; }
 
         public City Origin;
+
         public City Destination;
+
+        /// <summary>
+        /// carrier should be set as a contract is being accepted
+        /// </summary>
+        public Carrier Carrier { get; set; }
     }
 }

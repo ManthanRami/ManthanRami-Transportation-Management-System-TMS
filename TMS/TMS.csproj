@@ -75,11 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages_UI\Pages_Planner\CustomerManagement.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml">
+    <Page Include="Pages_UI\Pages_Buyer\EditCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,13 +98,11 @@
     <Compile Include="Admin.cs" />
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\DataMap.cs" />
+    <Compile Include="Exceptions\CouldNotFindRateException.cs" />
     <Compile Include="Exceptions\CouldNotDeleteException.cs" />
     <Compile Include="Exceptions\CustomerNotExistsException.cs" />
-    <Compile Include="Pages_UI\Pages_Planner\CustomerManagement.xaml.cs">
-      <DependentUpon>CustomerManagement.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages_UI\Pages_Planner\InitiateNewOrder.xaml.cs">
-      <DependentUpon>InitiateNewOrder.xaml</DependentUpon>
+    <Compile Include="Pages_UI\Pages_Buyer\EditCustomer.xaml.cs">
+      <DependentUpon>EditCustomer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
@@ -184,10 +178,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages_UI\Pages_Buyer\ContractMarketplace.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages_UI\Pages_Buyer\CustomerManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -238,9 +228,6 @@
     </Compile>
     <Compile Include="Pages_UI\Pages_Buyer\CompletedOrders.xaml.cs">
       <DependentUpon>CompletedOrders.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages_UI\Pages_Buyer\ContractMarketplace.xaml.cs">
-      <DependentUpon>ContractMarketplace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages_UI\Pages_Buyer\CustomerManagement.xaml.cs">
       <DependentUpon>CustomerManagement.xaml</DependentUpon>
