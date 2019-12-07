@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,26 @@ namespace TMS.Pages_UI.Pages_Admin
         public ReviewLogFiles()
         {
             InitializeComponent();
+            LogReviewFile();
+
+        }
+
+        private void LogReviewFile()
+        {
+            string location = "LogFolder/logfile.log";
+            string data = null;
+            try
+            {
+                using (StreamReader text = new StreamReader(location))
+                {
+                    data = text.ReadToEnd();
+                    LogData.AppendText(data);                    
+                }
+            }
+            catch(Exception e)
+            {
+                //do something
+            }
         }
     }
 }
