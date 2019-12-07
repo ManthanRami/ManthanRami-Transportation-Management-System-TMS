@@ -840,6 +840,33 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method takes a contract ID and a status enum and updates the status
+        /// </summary>
+        /// <param name="contractId">uint</param>
+        /// <param name="status">status</param>
+        public void SetContractStatus(uint contractId, Status status)
+        {
+            const string queryString =
+                "UPDATE Contract SET `Contract`.`Status` = @status WHERE `Contract`.`ContractID` = @contractId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@status", (int) status);
+                query.Parameters.AddWithValue("@contractId", contractId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
         /// This method fetches a list of all contracts
         /// </summary>
         /// <returns>List<Contract></returns>
