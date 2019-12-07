@@ -9,7 +9,10 @@
       Title="LogDirectoryOptions">
 
     <Grid Background="LightGray">
-        <TextBlock  Text="Log Directory Settings"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
-                    IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
+        <Button Content="Select Location" Name="ChangeLocation" HorizontalAlignment="Left" Margin="24,51,0,0" VerticalAlignment="Top" Width="129" Click="ChangeLocation_Click"/>
+        <RichTextBox x:Name="CurrentLocation" HorizontalAlignment="Left" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="47" Margin="173,47,0,0" VerticalAlignment="Top" Width="377"/>
+        <Label Content="Current Log File Details" HorizontalAlignment="Left" Margin="281,134,0,0" VerticalAlignment="Top"/>
+        <RichTextBox x:Name="logfileDetails" HorizontalAlignment="Left" IsReadOnly="False" IsReadOnlyCaretVisible="True" Height="173" Margin="173,165,0,0" VerticalAlignment="Top" Width="377"/>
+        <Button Content="Confirm" Name="Confirm" HorizontalAlignment="Left" Margin="173,99,0,0" VerticalAlignment="Top" Width="129" Click="Confirm_Click" />
     </Grid>
 </Page>
