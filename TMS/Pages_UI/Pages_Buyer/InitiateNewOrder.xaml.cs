@@ -29,16 +29,7 @@ namespace TMS.Pages_UI.Pages_Buyer
             InitializeComponent();
         }
 
-        private void INI_Click(object sender, RoutedEventArgs e)
-        {
-            cmp = new CmpDal();
-            if(cmp!=null)
-            {
-                connectSignal.Fill = Brushes.LightGreen;
-            }
-        }
-
-        private void Getorder_Click(object sender, RoutedEventArgs e)
+        private void GetOrder_Click(object sender, RoutedEventArgs e)
         {
             cmp = new CmpDal();
             crt = new List<Contract>();
@@ -52,11 +43,15 @@ namespace TMS.Pages_UI.Pages_Buyer
             dynamic rowView = gd.SelectedItem;           
             if (rowView!=null)
             {
+                
                 ClientName.Text = rowView.Client;
-                JoBType.Text = rowView.JobType.ToString();
-                vanType.Text = rowView.VanType.ToString();
+                JobType.Text = rowView.JobType.ToString();
                 Quantity.Text = rowView.Quantity.ToString();
+                txtOriginCity.Text = rowView.Origin.ToString();
+                txtDestinationCity.Text = rowView.Destination.ToString();
+                vanType.Text = rowView.VanType.ToString();
             }
         }
+
     }
 }

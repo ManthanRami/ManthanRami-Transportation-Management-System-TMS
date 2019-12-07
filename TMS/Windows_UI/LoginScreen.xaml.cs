@@ -84,6 +84,7 @@ namespace TMS
                 name.Text="";
                 pass.Password = "";
                 Error.Content = "Please Enter Usename and Password !!";
+                // Logger.Error(LogOrigin.UI, "No login credentials detected on login attempt.");
             }
             else if (username == "")
             {
@@ -91,6 +92,7 @@ namespace TMS
                 name.Text = "";
                 pass.Password = "";
                 Error.Content = "Please Enter the Username !!";
+                // Logger.Warn(LogOrigin.UI, "Empty username credential detected on login attempt.");
             }
             else if (password == "")
             {
@@ -98,15 +100,17 @@ namespace TMS
                 name.Text = "";
                 pass.Password = "";
                 Error.Content = "Please Enter the Password !!";
+                // Logger.Error(LogOrigin.UI, "Empty password credential detected on login attempt.");
             }            
             else if((username!="admin") && (username!="buyer") && (username!="planner"))
             {
                 username = "";
                 name.Text = "";
                 pass.Password = "";
-                Error.Content = "Please Enter Appropriate User Name !!";              
+                Error.Content = "Please Enter Appropriate User Name !!";
+        //        Logger.Info(LogOrigin.UI, "Invalid username credentials detected on login attempt.");
             }
-            
+
             return username;
             
         }
@@ -126,6 +130,8 @@ namespace TMS
                 admin.Show();
                 newPageLoaded = true;
                 userType = 1;
+                // Add that an admin logged in to the log file
+                // Logger.Info(LogOrigin.UI, "Admin successfully logged in to the OHST System");
             }
             else if (Screen == "buyer")
             {
@@ -133,6 +139,8 @@ namespace TMS
                 buyer.Show();
                 newPageLoaded = true;
                 userType = 2;
+                // Add that a buyer logged in to the log file
+                // Logger.Info(LogOrigin.UI, "Buyer successfully logged in to the OHST System");
             }
             else if (Screen == "planner")
             {
@@ -140,6 +148,8 @@ namespace TMS
                 planner.Show();
                 newPageLoaded = true;
                 userType = 3;
+                // Add that a planner logged in to the log file
+                // Logger.Info(LogOrigin.UI, "Planner successfully logged in to the OHST System");
             }
             if (newPageLoaded == true)
             {

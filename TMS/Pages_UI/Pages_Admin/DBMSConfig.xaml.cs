@@ -21,6 +21,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data;
+using System.Configuration;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -46,6 +48,11 @@ namespace TMS.Pages_UI.Pages_Admin
         {
             txtIP_Address.IsReadOnly = false;
             txtPort_Number.IsReadOnly = false;
+        }
+
+        private void getCurrentDBMS()
+        {
+            
         }
     }
 }

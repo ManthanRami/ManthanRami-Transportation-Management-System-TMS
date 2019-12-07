@@ -22,6 +22,9 @@ namespace TMS.Data
         /// This string is our TMS DB connection string drawn from App.config
         /// </summary>
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
+        
+        
+        // private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
 
         /// <summary>
         /// CreateUser() takes in a User object with it's desired values set, and inserts it into the TMS database.
