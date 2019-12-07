@@ -11,14 +11,15 @@ namespace TMS_Test_Suite
     [TestClass]
     public class TmsDalTest
     {
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
+        private readonly string connectionString =
+            ConfigurationManager.ConnectionStrings["TMSConnectionString"].ConnectionString;
 
         public void TruncateTable(string tableName)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                
+
                 string queryString = "TRUNCATE TABLE " + tableName + ";";
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
@@ -430,7 +431,7 @@ namespace TMS_Test_Suite
             customer.Name = "Test Customer";
 
             TmsDal dal = new TmsDal();
-            
+
             customer = dal.CreateCustomer(customer);
 
             Assert.IsTrue(dal.GetCustomers().Count > 0);
@@ -457,6 +458,54 @@ namespace TMS_Test_Suite
             }
 
             Assert.IsFalse(excepted);
+        }
+
+        [TestMethod]
+        public void TestGetLtlRate()
+        {
+            TmsDal dal = new TmsDal();
+
+            Carrier carrier = new Carrier();
+            carrier.Name = "WindsorCarrier5";
+            carrier.DepotCity = City.Windsor;
+            carrier.FtlAvailability = 53;
+            carrier.LtlAvailability = 28;
+            carrier = dal.CreateCarrier(carrier);
+
+            dal.SetLtlRate(carrier.CarrierID, (float) 5.327);
+            dal.GetLtlRate(carrier.CarrierID);
+        }
+
+        [TestMethod]
+        public void TestGetFtlRate()
+        {
+            TmsDal dal = new TmsDal();
+
+            Carrier carrier = new Carrier();
+            carrier.Name = "WindsorCarrier6";
+            carrier.DepotCity = City.Windsor;
+            carrier.FtlAvailability = 53;
+            carrier.LtlAvailability = 28;
+            carrier = dal.CreateCarrier(carrier);
+
+            dal.SetFtlRate(carrier.CarrierID, (float) 7.283);
+            dal.GetFtlRate(carrier.CarrierID);
+        }
+
+        [TestMethod]
+        public void TestGetReeferCharge()
+        {
+            TmsDal dal = new TmsDal();
+
+            Carrier carrier = new Carrier();
+            carrier.Name = "WindsorCarrier7";
+            carrier.DepotCity = City.Windsor;
+            carrier.FtlAvailability = 53;
+            carrier.LtlAvailability = 28;
+            carrier = dal.CreateCarrier(carrier);
+
+            dal.SetReeferCharge(carrier.CarrierID, (float) 5.99);
+            dal.GetReeferCharge(carrier.CarrierID);
         }
     }
 }

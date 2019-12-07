@@ -349,6 +349,35 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method gets a carrier's FTL Rate
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        /// <returns>float</returns>
+        public float GetFtlRate(uint carrierId)
+        {
+            const string queryString = "SELECT Rate FROM FTLRate WHERE `FTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                object rate = query.ExecuteScalar();
+
+                if (rate == null)
+                {
+                    throw new CouldNotFindRateException();
+                }
+
+                conn.Close();
+
+                return (float)rate;
+            }
+        }
+
+        /// <summary>
         /// SetFtlRate takes a CarrierID and a ftlRate, and either creates a new row
         /// in the FTLRate table or updates an existing one.
         /// </summary>
@@ -398,6 +427,35 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method gets a carrier's LTL Rate
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        /// <returns>float</returns>
+        public float GetLtlRate(uint carrierId)
+        {
+            const string queryString = "SELECT Rate FROM LTLRate WHERE `LTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                object rate = query.ExecuteScalar();
+
+                if (rate == null)
+                {
+                    throw new CouldNotFindRateException();
+                }
+
+                conn.Close();
+
+                return (float) rate;
+            }
+        }
+
+        /// <summary>
         /// SetLtlRate takes a CarrierID and a ltlRate, and either creates a new row
         /// in the LTLRate table or updates an existing one.
         /// </summary>
@@ -444,6 +502,35 @@ namespace TMS.Data
             }
 
             Logger.Info(LogOrigin.Database, "(SetLtlRate) LTLRate of carrier " + carrierId + " has been set to " + ltlRate);
+        }
+
+        /// <summary>
+        /// This method gets a carrier's Reefer Charge
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        /// <returns>float</returns>
+        public float GetReeferCharge(uint carrierId)
+        {
+            const string queryString = "SELECT Charge FROM ReeferCharge WHERE `ReeferCharge`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                object rate = query.ExecuteScalar();
+
+                if (rate == null)
+                {
+                    throw new CouldNotFindRateException();
+                }
+
+                conn.Close();
+
+                return (float)rate;
+            }
         }
 
         /// <summary>
@@ -673,6 +760,11 @@ namespace TMS.Data
             Logger.Info(LogOrigin.Database, "(SearchCustomers) Fetched " + customers.Count + " customers");
 
             return customers;
+        }
+
+        public Contract InsertContract(Contract contract)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
