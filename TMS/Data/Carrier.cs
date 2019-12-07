@@ -15,6 +15,7 @@ namespace TMS.Data
     public class Carrier
     {
         public uint CarrierID { get; set; }
+        public string Name { get; set; }
         public City DepotCity { get; set; }
 
         public int FtlAvailability { get; set; }

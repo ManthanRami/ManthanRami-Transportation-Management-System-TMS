@@ -98,6 +98,7 @@
     <Compile Include="Admin.cs" />
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\DataMap.cs" />
+    <Compile Include="Exceptions\CouldNotFindRateException.cs" />
     <Compile Include="Exceptions\CouldNotDeleteException.cs" />
     <Compile Include="Exceptions\CustomerNotExistsException.cs" />
     <Compile Include="Pages_UI\Pages_Buyer\EditCustomer.xaml.cs">

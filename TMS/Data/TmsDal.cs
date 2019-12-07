@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using TMS.Exceptions;
+using TMS.Utils;
 
 namespace TMS.Data
 {
@@ -36,7 +37,7 @@ namespace TMS.Data
         public User CreateUser(User user)
         {
             const string queryString =
-                "INSERT INTO `User` VALUES (NULL, @username, @password, @email, @firstname, @lastname, @usertype);";
+                "INSERT INTO `User` VALUES (NULL, @username, @password, @email, @firstname, @lastname, @userType);";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -48,10 +49,11 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@email", user.Email);
                 query.Parameters.AddWithValue("@firstname", user.FirstName);
                 query.Parameters.AddWithValue("@lastname", user.LastName);
-                query.Parameters.AddWithValue("@usertype", (int) user.Type);
+                query.Parameters.AddWithValue("@userType", (int) user.Type);
 
                 if (query.ExecuteNonQuery() != 1)
                 {
+                    Logger.Error(LogOrigin.Database, "(CreateUser) Could not insert new user into database");
                     throw new CouldNotInsertException();
                 }
 
@@ -60,6 +62,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(CreateUser) User '" + user.Username + "' has been created");
 
             return user;
         }
@@ -91,6 +95,7 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "Could not find user '" + username + "'");
                     throw new UserNotExistsException("There is no account associated with username '" + username + "'");
                 }
 
@@ -98,6 +103,8 @@ namespace TMS.Data
 
                 UserID = (uint) (int) table.Rows[0]["UserID"];
             }
+
+            Logger.Info(LogOrigin.Database, "(GetUserID) User '" + username + "' fetched from database");
 
             return UserID;
         }
@@ -112,19 +119,21 @@ namespace TMS.Data
         public Carrier CreateCarrier(Carrier carrier)
         {
             const string queryString =
-                "INSERT INTO `Carrier` VALUES (NULL, @depotCity, @ftlAvailability, @ltlAvailability);";
+                "INSERT INTO `Carrier` VALUES (NULL, @name, @depotCity, @ftlAvailability, @ltlAvailability);";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", carrier.Name);
                 query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
                 query.Parameters.AddWithValue("@ftlAvailability", carrier.FtlAvailability);
                 query.Parameters.AddWithValue("@ltlAvailability", carrier.LtlAvailability);
 
                 if (query.ExecuteNonQuery() != 1)
                 {
+                    Logger.Error(LogOrigin.Database, "(CreateCarrier) Could not insert new carrier into database");
                     throw new CouldNotInsertException();
                 }
 
@@ -133,6 +142,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(CreateCarrier) Carrier '" + carrier.Name + "' has been created");
 
             return carrier;
         }
@@ -169,6 +180,8 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(GetCarriers) Fetched " + carriers.Count + " carriers from the database");
+
             return carriers;
         }
 
@@ -198,6 +211,7 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(GetCarrier) Could not find a carrier with an ID of " + carrierId);
                     throw new CarrierNotExistsException("No carrier by that ID could be found");
                 }
 
@@ -205,6 +219,8 @@ namespace TMS.Data
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(GetCarrier) Fetched carrier '" + carrier.Name + "' from the database");
 
             return carrier;
         }
@@ -241,11 +257,14 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@carrierId", carrierId);
                 if (query.ExecuteNonQuery() == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(DeleteCarrier) Could not delete carrier with an ID of " + carrierId);
                     throw new CouldNotDeleteException("Carrier with ID " + carrierId + " could not be deleted");
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(DeleteCarrier) Deleted carrier with ID " + carrierId + " from the database");
         }
 
         /// <summary>
@@ -258,6 +277,7 @@ namespace TMS.Data
         public Carrier UpdateCarrier(uint carrierId, Carrier carrier)
         {
             const string queryString = @"UPDATE `Carrier` SET 
+                                        `Carrier`.`Name` = @name,
                                         `Carrier`.`DepotCity` = @depotCity,
                                         `Carrier`.`FtlAvailability` = @ftlAvailability,
                                         `Carrier`.`LtlAvailability` = @ltlAvailability
@@ -268,6 +288,7 @@ namespace TMS.Data
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", carrier.Name);
                 query.Parameters.AddWithValue("@depotCity", carrier.DepotCity.ToString());
                 query.Parameters.AddWithValue("@ftlAvailability", carrier.FtlAvailability);
                 query.Parameters.AddWithValue("@ltlAvailability", carrier.LtlAvailability);
@@ -275,13 +296,88 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(UpdateCarrier) Could not update carrier ID " + carrierId);
                     throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(UpdateCarrier) Updated carrier ID " + carrierId);
+
             return carrier;
+        }
+
+        /// <summary>
+        /// This method takes 2 queries and returns any carrier that is like them
+        /// </summary>
+        /// <param name="name">string</param>
+        /// <param name="depotCity">string</param>
+        /// <returns>List<Carrier></returns>
+        public List<Carrier> SearchCarriers(string name, string depotCity)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = @"SELECT * FROM `Carrier` c WHERE
+                (c.Name LIKE CONCAT(@name, '%') OR @name = '') AND
+                (c.DepotCity LIKE CONCAT(@depotCity, '%') OR @deoitCity = '');";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", name);
+                query.Parameters.AddWithValue("@depotCity", depotCity);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    PopulateCarrier(ref carrier, row);
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            Logger.Info(LogOrigin.Database, "(SearchCarriers) Fetched " + carriers.Count + " carriers");
+
+            return carriers;
+        }
+
+        /// <summary>
+        /// This method gets a carrier's FTL Rate
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        /// <returns>float</returns>
+        public float GetFtlRate(uint carrierId)
+        {
+            const string queryString = "SELECT Rate FROM FTLRate WHERE `FTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                object rate = query.ExecuteScalar();
+
+                if (rate == null)
+                {
+                    throw new CouldNotFindRateException();
+                }
+
+                conn.Close();
+
+                return (float)rate;
+            }
         }
 
         /// <summary>
@@ -319,15 +415,46 @@ namespace TMS.Data
                 {
                     if (settingQuery == insertQueryString)
                     {
+                        Logger.Error(LogOrigin.Database, "(SetFtlRate) Could not insert FTL rate for carrier " + carrierId);
                         throw new CouldNotInsertException();
                     }
-                    else
-                    {
-                        throw new CouldNotUpdateException();
-                    }
+
+                    Logger.Error(LogOrigin.Database, "(SetFtlRate) Could not update FTL rate for carrier " + carrierId);
+                    throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
+            }
+
+            Logger.Info(LogOrigin.Database, "(SetFtlRate) FTLRate of carrier " + carrierId + " has been set to " + ftlRate);
+        }
+
+        /// <summary>
+        /// This method gets a carrier's LTL Rate
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        /// <returns>float</returns>
+        public float GetLtlRate(uint carrierId)
+        {
+            const string queryString = "SELECT Rate FROM LTLRate WHERE `LTLRate`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                object rate = query.ExecuteScalar();
+
+                if (rate == null)
+                {
+                    throw new CouldNotFindRateException();
+                }
+
+                conn.Close();
+
+                return (float) rate;
             }
         }
 
@@ -366,13 +493,46 @@ namespace TMS.Data
                 {
                     if (settingQuery == insertQueryString)
                     {
+                        Logger.Error(LogOrigin.Database, "(SetLtlRate) Could not insert LTL rate for carrier " + carrierId);
                         throw new CouldNotInsertException();
                     }
 
+                    Logger.Error(LogOrigin.Database, "(SetLtlRate) Could not update LTL rate for carrier " + carrierId);
                     throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
+            }
+
+            Logger.Info(LogOrigin.Database, "(SetLtlRate) LTLRate of carrier " + carrierId + " has been set to " + ltlRate);
+        }
+
+        /// <summary>
+        /// This method gets a carrier's Reefer Charge
+        /// </summary>
+        /// <param name="carrierId">uint</param>
+        /// <returns>float</returns>
+        public float GetReeferCharge(uint carrierId)
+        {
+            const string queryString = "SELECT Charge FROM ReeferCharge WHERE `ReeferCharge`.`CarrierID` = @carrierId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
+
+                object rate = query.ExecuteScalar();
+
+                if (rate == null)
+                {
+                    throw new CouldNotFindRateException();
+                }
+
+                conn.Close();
+
+                return (float)rate;
             }
         }
 
@@ -411,18 +571,25 @@ namespace TMS.Data
                 {
                     if (settingQuery == insertQueryString)
                     {
+                        Logger.Error(LogOrigin.Database, "(SetReeferCharge) Could not insert reefer charge for carrier " + carrierId);
                         throw new CouldNotInsertException();
                     }
-                    else
-                    {
-                        throw new CouldNotUpdateException();
-                    }
+
+                    Logger.Error(LogOrigin.Database, "(SetReeferCharge) Could not update reefer charge for carrier " + carrierId);
+                    throw new CouldNotUpdateException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(SetReeferCharge) ReeferCharge of carrier " + carrierId + " has been set to " + reeferCharge);
         }
 
+        /// <summary>
+        /// This method takes a customer object with the wanted attributes already set and creates it in the database
+        /// </summary>
+        /// <param name="customer">Customer</param>
+        /// <returns>Customer</returns>
         public Customer CreateCustomer(Customer customer)
         {
             const string queryString = "INSERT INTO `Customer` VALUES (NULL, @customerName);";
@@ -436,6 +603,7 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() == 0)
                 {
+                    Logger.Error(LogOrigin.Database, "(CreateCustomer) Could not create new customer");
                     throw new CouldNotInsertException();
                 }
 
@@ -445,9 +613,15 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(CreateCustomer) Created customer '" + customer.Name + "'");
+
             return customer;
         }
 
+        /// <summary>
+        /// This method takes a customerId and deletes the matching customer from the database
+        /// </summary>
+        /// <param name="customerId">uint</param>
         public void DeleteCustomer(uint customerId)
         {
             const string queryString = "DELETE FROM `TMS`.`Customer` WHERE `Customer`.`CustomerID` = @customerId;";
@@ -461,11 +635,14 @@ namespace TMS.Data
 
                 if (query.ExecuteNonQuery() == 0)
                 {
-                    throw new CouldNotDeleteException("No user exists with that ID");
+                    Logger.Warn(LogOrigin.Database, "(DeleteCustomer) Could not delete customer with ID " + customerId);
+                    throw new CouldNotDeleteException();
                 }
 
                 conn.Close();
             }
+
+            Logger.Info(LogOrigin.Database, "(DeleteCustomer) Deleted customer with ID " + customerId);
         }
 
         /// <summary>
@@ -501,9 +678,16 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(GetCustomers) Fetched " + customers.Count + " customers");
+
             return customers;
         }
 
+        /// <summary>
+        /// This method finds and returns a customer by name
+        /// </summary>
+        /// <param name="customerName">string</param>
+        /// <returns>Customer</returns>
         public Customer GetCustomer(string customerName)
         {
             Customer customer = new Customer();
@@ -524,6 +708,7 @@ namespace TMS.Data
 
                 if (table.Rows.Count == 0)
                 {
+                    Logger.Warn(LogOrigin.Database, "(GetCustomer) A customer with the name " + customerName + " does not exist");
                     throw new CustomerNotExistsException();
                 }
 
@@ -533,7 +718,204 @@ namespace TMS.Data
                 conn.Close();
             }
 
+            Logger.Info(LogOrigin.Database, "(GetCustomer) Fetched customer '" + customer.Name + "'");
+
             return customer;
+        }
+
+        /// <summary>
+        /// This method finds and returns a customer by ID
+        /// </summary>
+        /// <param name="customerId">uint</param>
+        /// <returns>Customer</returns>
+        public Customer GetCustomerById(uint customerId)
+        {
+            Customer customer = new Customer();
+
+            const string queryString = "SELECT * FROM `Customer` WHERE `Customer`.`CustomerID` = @customerID LIMIT 1;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerId", customerId);
+
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                if (table.Rows.Count == 0)
+                {
+                    Logger.Warn(LogOrigin.Database, "(GetCustomer) A customer with the ID " + customerId + " does not exist");
+                    throw new CustomerNotExistsException();
+                }
+
+                customer.CustomerID = (uint)(int)table.Rows[0]["CustomerID"];
+                customer.Name = (string)table.Rows[0]["CustomerName"];
+
+                conn.Close();
+            }
+
+            Logger.Info(LogOrigin.Database, "(GetCustomer) Fetched customer '" + customer.Name + "'");
+
+            return customer;
+        }
+
+        /// <summary>
+        /// This method searches through customers in the database and returns a list matching
+        /// the query provided
+        /// </summary>
+        /// <param name="name">string</param>
+        /// <returns>List<Customer></returns>
+        public List<Customer> SearchCustomers(string name)
+        {
+            List<Customer> customers = new List<Customer>();
+
+            const string queryString = @"SELECT * FROM `Customer` c WHERE
+                (c.FirstName LIKE CONCAT(@name, '%') OR @name = '');";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@name", name);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Customer customer = new Customer();
+
+                    customer.CustomerID = (uint) (int) row["CustomerID"];
+                    customer.Name = (string) row["CustomerName"];
+
+                    customers.Add(customer);
+                }
+
+                conn.Close();
+            }
+
+            Logger.Info(LogOrigin.Database, "(SearchCustomers) Fetched " + customers.Count + " customers");
+
+            return customers;
+        }
+
+        /// <summary>
+        /// This method registers a new contract in the database
+        /// </summary>
+        /// <param name="contract">Contract</param>
+        /// <returns>Contract</returns>
+        public Contract CreateContract(Contract contract)
+        {
+            const string queryString =
+                "INSERT INTO Contract VALUES (NULL, @carrierId, @customerId, @status, @quantity, @loadType, @vanType, @originCity, @destCity);";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", contract.Carrier.CarrierID);
+                query.Parameters.AddWithValue("@customerId", contract.Customer.CustomerID);
+                query.Parameters.AddWithValue("@status", contract.Status);
+                query.Parameters.AddWithValue("@quantity", contract.Quantity);
+                query.Parameters.AddWithValue("@loadType", contract.JobType);
+                query.Parameters.AddWithValue("@vanType", contract.VanType);
+                query.Parameters.AddWithValue("@originCity", contract.Origin.ToString());
+                query.Parameters.AddWithValue("@destCity", contract.Destination.ToString());
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotInsertException();
+                }
+
+                contract.ContractID = GetLastInsertId(conn);
+
+                conn.Close();
+            }
+
+            return contract;
+        }
+
+        /// <summary>
+        /// This method takes a contract ID and a status enum and updates the status
+        /// </summary>
+        /// <param name="contractId">uint</param>
+        /// <param name="status">status</param>
+        public void SetContractStatus(uint contractId, Status status)
+        {
+            const string queryString =
+                "UPDATE Contract SET `Contract`.`Status` = @status WHERE `Contract`.`ContractID` = @contractId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@status", (int) status);
+                query.Parameters.AddWithValue("@contractId", contractId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// This method fetches a list of all contracts
+        /// </summary>
+        /// <returns>List<Contract></returns>
+        public List<Contract> GetContracts()
+        {
+            List<Contract> contracts = new List<Contract>();
+
+            const string queryString = "SELECT * FROM Contract;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Contract contract = new Contract();
+
+                    contract.Carrier = GetCarrier((uint) row["CarrierID"]);
+                    contract.Customer = GetCustomerById((uint) row["CustomerID"]);
+
+                    contract.Status = (Status) (sbyte) row["Status"];
+                    contract.Quantity = (int) row["Quantity"];
+                    contract.JobType = (JobType) (sbyte) row["LoadType"];
+                    contract.VanType = (VanType) (sbyte) row["VanType"];
+
+                    City origin;
+                    City.TryParse((string)row["OriginCity"], out origin);
+                    contract.Origin = origin;
+
+                    City destination;
+                    City.TryParse((string)row["DestCity"], out destination);
+                    contract.Destination = destination;
+
+                    contracts.Add(contract);
+                }
+                
+                conn.Close();
+            }
+
+            return contracts;
         }
 
         /// <summary>
@@ -545,6 +927,7 @@ namespace TMS.Data
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
             carrier.CarrierID = (uint) (int) row["CarrierID"];
+            carrier.Name = (string) row["Name"];
             carrier.FtlAvailability = (int) row["FtlAvailability"];
             carrier.LtlAvailability = (int) row["LtlAvailability"];
 
