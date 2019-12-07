@@ -10,6 +10,9 @@ namespace TMS.Data
     {
         private static List<Customer> customers = new List<Customer>();
 
+        private static List<Contract> contracts = new List<Contract>();
+
+
         public static void RegisterCustomer(Customer customer)
         {
             customers.Add(customer);

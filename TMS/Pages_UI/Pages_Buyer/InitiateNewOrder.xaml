@@ -13,8 +13,8 @@
         <Rectangle Fill="Gainsboro" Stroke="LightGray" Margin="124,0,313,0"/>
         
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="346,0,0,0">
-            <DataGrid  Background="Gainsboro" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="True" Height="343" 
-                       Width="309" SelectionChanged="contractData_SelectionChanged" />
+            <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="True" Height="343" 
+                       Width="309" IsReadOnly="True" SelectionChanged="contractData_SelectionChanged" />
         </ScrollViewer>
         
         <TextBox HorizontalAlignment="Left" x:Name="ClientName" Height="20" Margin="148,39,0,0"  TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" 

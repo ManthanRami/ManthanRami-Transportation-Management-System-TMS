@@ -46,12 +46,12 @@ namespace TMS.Pages_UI.Pages_Buyer
                 
                 ClientName.Text = rowView.Client;
                 JobType.Text = rowView.JobType.ToString();
-                vanType.Text = rowView.VanType.ToString();
                 Quantity.Text = rowView.Quantity.ToString();
                 txtOriginCity.Text = rowView.Origin.ToString();
                 txtDestinationCity.Text = rowView.Destination.ToString();
-
+                vanType.Text = rowView.VanType.ToString();
             }
         }
+
     }
 }

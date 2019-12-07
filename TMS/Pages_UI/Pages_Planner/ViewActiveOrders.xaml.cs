@@ -25,11 +25,8 @@ namespace TMS.Pages_UI.Pages_Planner
     public partial class ViewActiveOrders : Page
     {
         
-        // List<Contract> lc = new List<Contract>();
+        List<Contract> lc = new List<Contract>();
         
-        // Carriers are used for testing functionality
-        // Will need to change to proper list type
-        List<Carrier> lc = new List<Carrier>();
         TmsDal td = new TmsDal();
 
         public ViewActiveOrders()
@@ -43,7 +40,7 @@ namespace TMS.Pages_UI.Pages_Planner
         {
             //lc = td.GetActiveOrders();
             // Used for testing, will need to change from carriers
-            lc = td.GetCarriers();
+            //
             ActiveOrderData.ItemsSource = lc;
         }
     }
