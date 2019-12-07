@@ -53,6 +53,7 @@ namespace TMS.Data
         public int Quantity { get; set; }
 
         public City Origin;
+
         public City Destination;
     }
 }

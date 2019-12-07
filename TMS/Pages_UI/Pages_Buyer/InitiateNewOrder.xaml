@@ -5,23 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Planner"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="360" d:DesignWidth="665"
       Title="InitiateNewOrder">
 
-    <Grid Background="White" >
-        <Button Content="Connect To database" Name="INI" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.027,-2" Click="INI_Click" Margin="26,10,0,0"/>
-        <Ellipse Fill="Red" x:Name="connectSignal" HorizontalAlignment="Left" Height="30" Stroke="Black" VerticalAlignment="Top" Width="28" Margin="212,0,0,0"/>
-        <Button Content="Get order" x:Name="Getorder" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.027,-2" Margin="391,98,0,0" Click="Getorder_Click"/>
-        <TextBox HorizontalAlignment="Left" Name="ClientName" Height="22" Margin="96,114,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Name="JoBType" Height="23" Margin="96,149,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Name="vanType" Height="23" Margin="96,185,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Name="Quantity" Height="23" Margin="96,224,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="120"/>
-        <DataGrid HorizontalAlignment="Left" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="True" Height="161" Margin="391,118,0,0" VerticalAlignment="Top" Width="326" SelectionChanged="contractData_SelectionChanged"/>
-        <Label Content="Client Name :" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Height="23"/>
-        <Label Content="Job Type  :" HorizontalAlignment="Left" Margin="25,145,0,0" VerticalAlignment="Top" Height="27"/>
-        <Label Content="Van Type  :" HorizontalAlignment="Left" Margin="24,181,0,0" VerticalAlignment="Top" Height="27"/>
-        <Label Content="Quantity  :" HorizontalAlignment="Left" Margin="26,218,0,0" VerticalAlignment="Top" Height="27"/>
-        <Button Content="Create order" x:Name="Getorder_Copy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.027,-2" Margin="96,275,0,0"/>
-
+    <Grid Background="LightGray" >
+        <!--  This grid is used to group the contained items together  -->
+        <Rectangle Fill="Gainsboro" Stroke="LightGray" Margin="124,0,313,0"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="346,0,0,0">
+            <DataGrid  Background="Gainsboro" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="True" Height="354" Width="313" SelectionChanged="contractData_SelectionChanged"/>
+        </ScrollViewer>
+        <TextBox HorizontalAlignment="Left" x:Name="ClientName" Height="22" Margin="146,46,0,0"  TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" />
+        <TextBox HorizontalAlignment="Left" x:Name="JoBType"    Height="23" Margin="146,107,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+        <TextBox HorizontalAlignment="Left" x:Name="vanType"    Height="23" Margin="146,173,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+        <TextBox HorizontalAlignment="Left" x:Name="Quantity"   Height="23" Margin="146,233,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+        <Label  Content="Client Name :"     HorizontalAlignment="Left"  VerticalAlignment="Top"  Height="31" Margin="179,10,0,0" FontSize="16" HorizontalContentAlignment="Center"/>
+        <Label  Content="Job Type  :"       HorizontalAlignment="Left"  Margin="179,73,0,0"         VerticalAlignment="Top" Height="34" FontSize="16" Width="105" HorizontalContentAlignment="Center"/>
+        <Label  Content="Van Type  :"       HorizontalAlignment="Left"  Margin="179,135,0,0"        VerticalAlignment="Top" Height="38" FontSize="16" Width="105" HorizontalContentAlignment="Center"/>
+        <Label  Content="Quantity"          HorizontalAlignment="Left"  Margin="179,201,0,0"        VerticalAlignment="Top" Height="39" FontSize="16" Width="105" HorizontalContentAlignment="Center"/>
+        <Button Content="Available Contracts"   x:Name="Getorder"       HorizontalAlignment="Left"  VerticalAlignment="Top" Width="114" Margin="5,151,0,0" Height="32" Click="Getorder_Click" />
+        <Button Content="Create order"          x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="114" Margin="5,201,0,0" Height="32" />
     </Grid>
 </Page>

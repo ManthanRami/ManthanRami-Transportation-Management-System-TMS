@@ -13,14 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TMS.Pages_UI.Pages_Buyer
+namespace TMS.Pages_UI.Pages_Planner
 {
+    //=======================================================================================================================
     /// <summary>
-    /// Interaction logic for ContractMarketplace.xaml
+    /// Standing in as a temp page for the planner, will be replaced in next merge / update.
     /// </summary>
-    public partial class ContractMarketplace : Page
+    //=======================================================================================================================
+    public partial class TEMP : Page
     {
-        public ContractMarketplace()
+        public TEMP()
         {
             InitializeComponent();
         }

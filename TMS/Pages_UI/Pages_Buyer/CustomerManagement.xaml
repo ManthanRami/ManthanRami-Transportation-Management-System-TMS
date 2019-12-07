@@ -5,10 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Planner"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="368" d:DesignWidth="666"
+      MaxHeight="369"
+      MaxWidth="667"
       Title="CustomerManagement">
 
-    <Grid Background="Cyan">
-        <DataGrid AutoGenerateColumns="true"  CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="CustomerData"></DataGrid>
+    <Grid Background="LightGray">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="115,0,0,0">
+            <DataGrid AutoGenerateColumns="true" CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="CustomerData"
+                      FontSize="16" Width="541" />
+        </ScrollViewer>
+        <Button x:Name="btnNew_Customers" Content="New Customers" Margin="5,115,556,208" Click="btnNew_Customers_Click"/>
+        <Button x:Name="btnCurrent_Customers" Content="Current Customers" Margin="5,182,556,141" Click="btnCurrent_Customers_Click" />
     </Grid>
 </Page>

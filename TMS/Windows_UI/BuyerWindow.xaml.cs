@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TMS.Pages_UI.Pages_Buyer;
+using TMS.Utils;
 
 namespace TMS
 {
@@ -58,20 +59,8 @@ namespace TMS
             LoginScreen login = new LoginScreen();
             login.Show();
             this.Close();
-        }
-
-
-        //=======================================================================================================================
-        /// <summary>
-        /// Description :   btnMarketplace_Click swaps the page content to allow the buyer to utilize the contract marketplace
-        ///                 screen
-        /// </summary>
-        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button).</param>
-        /// <param name="e">    Contains state information and event data associated with a routed event.</param>
-        //=======================================================================================================================
-        private void btnMarketplace_Click(object sender, RoutedEventArgs e)
-        {
-            BuyerMain.Content = new ContractMarketplace();
+            // Add to log file that a buyer logged off
+            Logger.Info(LogOrigin.UI, "Buyer logged off of system.");
         }
 
 

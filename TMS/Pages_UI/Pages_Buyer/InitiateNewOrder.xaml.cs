@@ -29,15 +29,6 @@ namespace TMS.Pages_UI.Pages_Buyer
             InitializeComponent();
         }
 
-        private void INI_Click(object sender, RoutedEventArgs e)
-        {
-            cmp = new CmpDal();
-            if(cmp!=null)
-            {
-                connectSignal.Fill = Brushes.LightGreen;
-            }
-        }
-
         private void Getorder_Click(object sender, RoutedEventArgs e)
         {
             cmp = new CmpDal();

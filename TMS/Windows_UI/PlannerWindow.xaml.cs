@@ -40,6 +40,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TMS.Pages_UI.Pages_Planner;
+using TMS.Utils;
 
 namespace TMS
 {
@@ -78,6 +79,8 @@ namespace TMS
             LoginScreen login = new LoginScreen();
             login.Show();
             this.Close();
+            // Add to log file that a planner logged off
+            Logger.Info(LogOrigin.UI, "Planner logged off of system.");
         }
 
         //=======================================================================================================================
@@ -92,8 +95,14 @@ namespace TMS
             PlannerMain.Content = new ViewActiveOrders();
         }
 
-  
+        private void btnInitiate_New_Order_Click(object sender, RoutedEventArgs e)
+        {
+            PlannerMain.Content = new InitiateNewOrder();
+        }
 
-
+        private void btnTEMP_TEXT_Click(object sender, RoutedEventArgs e)
+        {
+            PlannerMain.Content = new TEMP();
+        }
     }
 }

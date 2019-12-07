@@ -22,6 +22,7 @@ using System.Windows.Shapes;
 using TMS.Pages_UI.Pages_Admin;
 using TMS.Pages_UI.Pages_Buyer;
 using TMS.Pages_UI.Pages_Planner;
+using TMS.Utils;
 
 namespace TMS
 {
@@ -58,6 +59,8 @@ namespace TMS
             LoginScreen login = new LoginScreen();
             login.Show();
             this.Close();
+            // Add to log file that an admin logged off
+            Logger.Info(LogOrigin.UI, "Admin logged off of system.");
         }
 
         //=======================================================================================================================
