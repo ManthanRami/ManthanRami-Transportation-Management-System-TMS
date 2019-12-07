@@ -381,7 +381,7 @@ namespace TMS_Test_Suite
         [TestMethod]
         public void TestCreateCustomer()
         {
-            TruncateTable("Customer");
+            //TruncateTable("Customer");
 
             Customer customer = new Customer();
             customer.Name = "Test";

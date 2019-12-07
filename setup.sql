@@ -4,7 +4,6 @@ USE TMS;
 
 DROP USER IF EXISTS 'tms'@'localhost';
 CREATE USER 'tms'@'localhost' IDENTIFIED BY 'tmsPassword*2019';
-
 GRANT SELECT, INSERT, UPDATE, DELETE, DROP ON `tms`.* TO 'tms'@'localhost';
 
 CREATE TABLE IF NOT EXISTS `User` (
@@ -53,18 +52,6 @@ CREATE TABLE IF NOT EXISTS ReeferCharge (
     FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
 );
 
-CREATE TABLE IF NOT EXISTS Contract (
-	ContractID	INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    CarrierID	INT UNSIGNED NOT NULL,
-    `Client`	VARCHAR(64) NOT NULL,
-    Quantity	INT UNSIGNED NOT NULL,
-    LoadType	TINYINT NOT NULL,
-    VanType		TINYINT NOT NULL,
-    
-    PRIMARY KEY (ContractID),
-    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
-);
-
 CREATE TABLE IF NOT EXISTS Customer (
 	CustomerID		INT UNSIGNED NOT NULL AUTO_INCREMENT,
     CustomerName	VARCHAR(48) NOT NULL,
@@ -72,12 +59,17 @@ CREATE TABLE IF NOT EXISTS Customer (
     PRIMARY KEY (CustomerID)
 );
 
-/* TEST DATA */
-INSERT INTO `User` VALUES (NULL, 'admin', 'password', 'admin@test.com', 'testing', 'testerson', 2);
-SELECT * FROM `User`;
-
-INSERT INTO `Carrier` VALUES (NULL, "Windsor", 100, 283);
-INSERT INTO `FTLRate` VALUES (1, 1.89);
-
-SELECT * FROM `Carrier`;
-UPDATE `Carrier` SET `Carrier`.`FtlAvailability` = 50 WHERE `Carrier`.`CarrierID` = LAST_INSERT_ID();
+CREATE TABLE IF NOT EXISTS Contract (
+	ContractID	INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    CarrierID	INT UNSIGNED NOT NULL,
+    CustomerID	INT UNSIGNED NOT NULL,
+    Quantity	INT UNSIGNED NOT NULL,
+    LoadType	TINYINT NOT NULL,
+    VanType		TINYINT NOT NULL,
+    OriginCity	VARCHAR(32) NOT NULL,
+    DestCity	VARCHAR(32) NOT NULL,
+    
+    PRIMARY KEY (ContractID),
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
+);

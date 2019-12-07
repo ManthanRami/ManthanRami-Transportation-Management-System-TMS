@@ -40,12 +40,18 @@ namespace TMS.Data
         Reefer = 1
     }
 
+    public enum Status
+    {
+        PENDING, STARTED, FINISHED
+    }
+
     /// <summary>
     /// The Contract class models the contract table from the contract marketplace database.
     /// </summary>
     public class Contract
     {
-        public String Client { get; set; }
+        public Status Status { get; set; }
+        public Customer Customer { get; set; }
 
         public JobType JobType { get; set; }
         public VanType VanType { get; set; }
