@@ -721,6 +721,46 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method finds and returns a customer by ID
+        /// </summary>
+        /// <param name="customerId">uint</param>
+        /// <returns>Customer</returns>
+        public Customer GetCustomerById(uint customerId)
+        {
+            Customer customer = new Customer();
+
+            const string queryString = "SELECT * FROM `Customer` WHERE `Customer`.`CustomerID` = @customerID LIMIT 1;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@customerId", customerId);
+
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                if (table.Rows.Count == 0)
+                {
+                    Logger.Warn(LogOrigin.Database, "(GetCustomer) A customer with the ID " + customerId + " does not exist");
+                    throw new CustomerNotExistsException();
+                }
+
+                customer.CustomerID = (uint)(int)table.Rows[0]["CustomerID"];
+                customer.Name = (string)table.Rows[0]["CustomerName"];
+
+                conn.Close();
+            }
+
+            Logger.Info(LogOrigin.Database, "(GetCustomer) Fetched customer '" + customer.Name + "'");
+
+            return customer;
+        }
+
+        /// <summary>
         /// This method searches through customers in the database and returns a list matching
         /// the query provided
         /// </summary>
@@ -762,9 +802,90 @@ namespace TMS.Data
             return customers;
         }
 
-        public Contract InsertContract(Contract contract)
+        /// <summary>
+        /// This method registers a new contract in the database
+        /// </summary>
+        /// <param name="contract">Contract</param>
+        /// <returns>Contract</returns>
+        public Contract CreateContract(Contract contract)
         {
-            throw new NotImplementedException();
+            const string queryString =
+                "INSERT INTO Contract VALUES (NULL, @carrierId, @customerId, @status, @quantity, @loadType, @vanType, @originCity, @destCity);";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", contract.Carrier.CarrierID);
+                query.Parameters.AddWithValue("@customerId", contract.Customer.CustomerID);
+                query.Parameters.AddWithValue("@status", contract.Status);
+                query.Parameters.AddWithValue("@quantity", contract.Quantity);
+                query.Parameters.AddWithValue("@loadType", contract.JobType);
+                query.Parameters.AddWithValue("@vanType", contract.VanType);
+                query.Parameters.AddWithValue("@originCity", contract.Origin.ToString());
+                query.Parameters.AddWithValue("@destCity", contract.Destination.ToString());
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotInsertException();
+                }
+
+                contract.ContractID = GetLastInsertId(conn);
+
+                conn.Close();
+            }
+
+            return contract;
+        }
+
+        /// <summary>
+        /// This method fetches a list of all contracts
+        /// </summary>
+        /// <returns>List<Contract></returns>
+        public List<Contract> GetContracts()
+        {
+            List<Contract> contracts = new List<Contract>();
+
+            const string queryString = "SELECT * FROM Contract;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Contract contract = new Contract();
+
+                    contract.Carrier = GetCarrier((uint) row["CarrierID"]);
+                    contract.Customer = GetCustomerById((uint) row["CustomerID"]);
+
+                    contract.Status = (Status) (sbyte) row["Status"];
+                    contract.Quantity = (int) row["Quantity"];
+                    contract.JobType = (JobType) (sbyte) row["LoadType"];
+                    contract.VanType = (VanType) (sbyte) row["VanType"];
+
+                    City origin;
+                    City.TryParse((string)row["OriginCity"], out origin);
+                    contract.Origin = origin;
+
+                    City destination;
+                    City.TryParse((string)row["DestCity"], out destination);
+                    contract.Destination = destination;
+
+                    contracts.Add(contract);
+                }
+                
+                conn.Close();
+            }
+
+            return contracts;
         }
 
         /// <summary>

@@ -71,7 +71,8 @@ CREATE TABLE IF NOT EXISTS Contract (
     DestCity	VARCHAR(32) NOT NULL,
     
     PRIMARY KEY (ContractID),
-    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID)
+    FOREIGN KEY (CarrierID) REFERENCES Carrier(CarrierID),
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
 
 /* INSERT CARRIERS */

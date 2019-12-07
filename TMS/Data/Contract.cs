@@ -42,7 +42,9 @@ namespace TMS.Data
 
     public enum Status
     {
-        PENDING, STARTED, FINISHED
+        PENDING = 0,
+        STARTED = 1,
+        FINISHED = 2
     }
 
     /// <summary>
@@ -50,6 +52,7 @@ namespace TMS.Data
     /// </summary>
     public class Contract
     {
+        public uint ContractID { get; set; }
         public Status Status { get; set; }
         public Customer Customer { get; set; }
 
@@ -60,5 +63,10 @@ namespace TMS.Data
 
         public City Origin;
         public City Destination;
+
+        /// <summary>
+        /// carrier should be set as a contract is being accepted
+        /// </summary>
+        public Carrier Carrier { get; set; }
     }
 }

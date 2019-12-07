@@ -507,5 +507,35 @@ namespace TMS_Test_Suite
             dal.SetReeferCharge(carrier.CarrierID, (float) 5.99);
             dal.GetReeferCharge(carrier.CarrierID);
         }
+
+        [TestMethod]
+        public void TestCreateContract()
+        {
+            TmsDal dal = new TmsDal();
+
+            Customer customer = new Customer();
+            customer.Name = "TestCustomer";
+            customer = dal.CreateCustomer(customer);
+
+            Contract contract = new Contract();
+            contract.Carrier = dal.GetCarrier(1);
+            contract.Customer = customer;
+            contract.JobType = JobType.FTL;
+            contract.VanType = VanType.Dry;
+            contract.Quantity = 1;
+            contract.Status = Status.STARTED;
+            contract.Origin = City.Windsor;
+            contract.Destination = City.Toronto;
+
+            contract = dal.CreateContract(contract);
+        }
+
+        [TestMethod]
+        public void TestGetContracts()
+        {
+            TmsDal dal = new TmsDal();
+
+            dal.GetContracts();
+        }
     }
 }
