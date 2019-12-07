@@ -6,6 +6,7 @@
 * DESCRIPTION   : 	Description of what this file does
 */
 
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -34,6 +36,33 @@ namespace TMS.Pages_UI.Pages_Admin
         public LogDirectoryOptions()
         {
             InitializeComponent();
+            ///here we will load current log file details on rich text box
+        }
+
+        private void ChangeLocation_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new CommonOpenFileDialog();
+            dlg.Title = "Select Location";
+            dlg.IsFolderPicker = true;
+            dlg.InitialDirectory = "./log";
+            dlg.AddToMostRecentlyUsedList = false;
+            dlg.AllowNonFileSystemItems = false;
+            dlg.EnsurePathExists = true;
+            dlg.EnsureReadOnly = false;
+            dlg.EnsureValidNames = true;
+            dlg.Multiselect = false;
+            dlg.ShowPlacesList = true;
+            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                var folder = dlg.FileName;
+                CurrentLocation.AppendText(folder);
+                // Do something with selected folder string
+            }
+        }
+
+        private void Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Log Directory has been Changed Successfully !!", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
