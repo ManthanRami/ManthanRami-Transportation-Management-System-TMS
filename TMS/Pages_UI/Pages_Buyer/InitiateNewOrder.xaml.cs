@@ -43,8 +43,7 @@ namespace TMS.Pages_UI.Pages_Buyer
             dynamic rowView = gd.SelectedItem;           
             if (rowView!=null)
             {
-                
-                ClientName.Text = rowView.Client;
+                ClientName.Text = rowView.Customer.Name;
                 JobType.Text = rowView.JobType.ToString();
                 Quantity.Text = rowView.Quantity.ToString();
                 txtOriginCity.Text = rowView.Origin.ToString();
