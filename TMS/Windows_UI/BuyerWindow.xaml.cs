@@ -43,7 +43,10 @@ namespace TMS
         public BuyerWindow()
         {
             InitializeComponent();
-            BuyerMain.Content = new BuyerStartup();         
+            BuyerMain.Content = new BuyerStartup();
+            UnselectButtons();
+
+
         }
 
         //=======================================================================================================================
@@ -72,7 +75,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnCust_Management_Click(object sender, RoutedEventArgs e)
         {
-            
+            UnselectButtons();
+            btnCustManage.Background = Brushes.LightBlue;
             BuyerMain.Content = new CustomerManagement();
         }
 
@@ -85,6 +89,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnNew_Order_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnNewOrders.Background = Brushes.LightBlue;
             BuyerMain.Content = new InitiateNewOrder();
         }
 
@@ -98,7 +104,16 @@ namespace TMS
         //=======================================================================================================================
         private void btnCompleted_Orders_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnCompleteOrders.Background = Brushes.LightBlue;
             BuyerMain.Content = new CompletedOrders();
+        }
+
+        private void UnselectButtons()
+        {
+            btnCustManage.Background = Brushes.LightGray;
+            btnCompleteOrders.Background = Brushes.LightGray;
+            btnNewOrders.Background = Brushes.LightGray;
         }
     }
 }

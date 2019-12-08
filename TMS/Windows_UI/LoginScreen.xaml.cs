@@ -44,6 +44,7 @@ namespace TMS
         public LoginScreen()
         {
             InitializeComponent();
+            Logger.Info(LogOrigin.Ui, "OSHT Application started successfully.");
         }
         //=======================================================================================================================
         /// <summary>
@@ -90,14 +91,14 @@ namespace TMS
             {
                 username = "";
                 name.Text = "";
-                pass.Password = "";
+              //  pass.Password = "";
                 Error.Content = "Please Enter the Username !!";
                 Logger.Warn(LogOrigin.Ui, "Empty username credential detected on login attempt.");
             }
             else if (password == "")
             {
                 username = "";
-                name.Text = "";
+              //  name.Text = "";
                 pass.Password = "";
                 Error.Content = "Please Enter the Password !!";
                 Logger.Error(LogOrigin.Ui, "Empty password credential detected on login attempt.");

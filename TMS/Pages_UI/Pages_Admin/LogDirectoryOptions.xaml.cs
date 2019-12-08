@@ -31,7 +31,7 @@ namespace TMS.Pages_UI.Pages_Admin
             CurrentLocation.AppendText(location);
             LoadLogFileDetails();
         }
-
+        
         private void LoadLogFileDetails()
         {
             logfileDetails.Document.Blocks.Clear();

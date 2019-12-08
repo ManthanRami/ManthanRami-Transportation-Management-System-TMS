@@ -12,16 +12,16 @@
             <Border Background="Gray" Margin="0,-42,0,335" Height="45" MinWidth="798" MaxWidth="798">
                 <TextBlock   x:Name="AdminTitle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35"  TextWrapping="Wrap" Text="OHST ADMINISTATOR" Height="Auto" Width="auto" IsEnabled="False"/>
             </Border>
-            <Button Content="Review Log Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"       Margin="2,7,0,0"        Click="btnReview_Click"/>
-            <Button Content="Log Directory Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"  Margin="2,52,0,0"       Click="btnLogDirectory_Click"/>
-            <Button Content="DBMS Config" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"            Margin="2,98,0,0"       Click="btnDBMS_Config_Click"/>
-            <Button Content="Initiate Backup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47"        Margin="2,144,0,0"      Click="Backup_Click"/>
-            <Button Content="Modify Carrier Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"    Margin="2,191,0,0"      Click="btnCarrierData_Click"/>
-            <Button Content="Modify Rate Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"       Margin="2,237,0,0"      Click="btnRateData_Click"/>
-            <Button Content="Modify Fee Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47"        Margin="2,283,0,0"      Click="btnFeeData_Click"/>
-            <Button Content="Modify Route Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"      Margin="2,330,0,-38"    Click="btnRouteData_Click"/>
+            <Button x:Name="btnReview" Content="Review Log Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"       Margin="2,7,0,0"        Click="btnReview_Click"/>
+            <Button x:Name="btnLogDirect" Content="Log Directory Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"  Margin="2,52,0,0"       Click="btnLogDirectory_Click"/>
+            <Button x:Name="btnDBMS" Content="DBMS Config" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"            Margin="2,98,0,0"       Click="btnDBMS_Config_Click"/>
+            <Button x:Name="btnBackup" Content="Initiate Backup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47"        Margin="2,144,0,0"      Click="Backup_Click"/>
+            <Button x:Name="btnCarrier" Content="Modify Carrier Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"    Margin="2,191,0,0"      Click="btnCarrierData_Click"/>
+            <Button x:Name="btnRate" Content="Modify Rate Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"       Margin="2,237,0,0"      Click="btnRateData_Click"/>
+            <Button x:Name="btnFee" Content="Modify Fee Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47"        Margin="2,283,0,0"      Click="btnFeeData_Click"/>
+            <Button x:Name="btnRoute" Content="Modify Route Data" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"      Margin="2,330,0,-38"    Click="btnRouteData_Click"/>
             <Frame  x:Name="AdminMain"   Margin="126, 7, 5, -38" NavigationUIVisibility="Hidden" MaxWidth="667" MaxHeight="369" Background="Gainsboro"/>
-            <Button Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"                 Margin="677,-43,0,0"    Click="btnAdminLogout_Click"/>
+            <Button  Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46"                 Margin="677,-43,0,0"    Click="btnAdminLogout_Click"/>
         </Grid>
     </Viewbox>
 </Window>

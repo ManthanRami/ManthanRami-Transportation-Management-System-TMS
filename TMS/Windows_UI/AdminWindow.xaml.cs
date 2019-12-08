@@ -43,6 +43,7 @@ namespace TMS
         public AdminWindow()
         {
             InitializeComponent();
+            UnselectButtons();
             AdminMain.Content = new AdminStartup();
         }
 
@@ -72,6 +73,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnReview_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnReview.Background = Brushes.LightBlue;
             AdminMain.Content = new ReviewLogFiles();
         }
 
@@ -84,6 +87,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnLogDirectory_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnLogDirect.Background = Brushes.LightBlue;
             AdminMain.Content = new LogDirectoryOptions();
         }
 
@@ -96,6 +101,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnDBMS_Config_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnDBMS.Background = Brushes.LightBlue;
             AdminMain.Content = new DBMSConfig();
         }
 
@@ -108,6 +115,8 @@ namespace TMS
         //=======================================================================================================================
         private void Backup_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnBackup.Background = Brushes.LightBlue;
             AdminMain.Content = new InitiateBackup();
         }
 
@@ -120,6 +129,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnCarrierData_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnCarrier.Background = Brushes.LightBlue;
             AdminMain.Content = new ModifyCarrierData();
         }
 
@@ -132,6 +143,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnRateData_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnRate.Background = Brushes.LightBlue;
             AdminMain.Content = new ModifyRateData();
         }
 
@@ -145,6 +158,8 @@ namespace TMS
         //=======================================================================================================================
         private void btnFeeData_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnFee.Background = Brushes.LightBlue;
             AdminMain.Content = new ModifyFeeData();
         }
 
@@ -158,7 +173,22 @@ namespace TMS
         //=======================================================================================================================
         private void btnRouteData_Click(object sender, RoutedEventArgs e)
         {
+            UnselectButtons();
+            btnRoute.Background = Brushes.LightBlue;
             AdminMain.Content = new ModifyRouteData();
+        }
+
+
+        private void UnselectButtons()
+        {
+            btnReview.Background = Brushes.LightGray;
+            btnLogDirect.Background = Brushes.LightGray;
+            btnDBMS.Background = Brushes.LightGray;
+            btnBackup.Background = Brushes.LightGray;
+            btnCarrier.Background = Brushes.LightGray;
+            btnRate.Background = Brushes.LightGray;
+            btnFee.Background = Brushes.LightGray;
+            btnRoute.Background = Brushes.LightGray;
         }
 
     }

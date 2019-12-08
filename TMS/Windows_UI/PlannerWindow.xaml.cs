@@ -62,6 +62,7 @@ namespace TMS
         public PlannerWindow()
         {
             InitializeComponent();
+            UnselectButtons();
             PlannerMain.Content = new PlannerStartup();
         }
 
@@ -91,16 +92,13 @@ namespace TMS
         //=======================================================================================================================
         private void btnActive_Orders_Click(object sender, RoutedEventArgs e)
         {
+            btnIncompleteOrders.Background = Brushes.LightBlue;
             PlannerMain.Content = new ViewActiveOrders();
         }
 
-        private void btnInitiate_New_Order_Click(object sender, RoutedEventArgs e)
+        private void UnselectButtons()
         {
-            
-        }
-
-        private void btnTEMP_TEXT_Click(object sender, RoutedEventArgs e)
-        {
+            btnIncompleteOrders.Background = Brushes.LightGray;
             
         }
     }

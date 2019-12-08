@@ -60,6 +60,7 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -78,10 +79,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages_UI\Pages_Buyer\EditCustomer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,9 +101,6 @@
     <Compile Include="Exceptions\CouldNotFindRateException.cs" />
     <Compile Include="Exceptions\CouldNotDeleteException.cs" />
     <Compile Include="Exceptions\CustomerNotExistsException.cs" />
-    <Compile Include="Pages_UI\Pages_Buyer\EditCustomer.xaml.cs">
-      <DependentUpon>EditCustomer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
     </Compile>

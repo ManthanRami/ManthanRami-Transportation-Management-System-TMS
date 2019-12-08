@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -32,6 +33,8 @@ namespace TMS.Pages_UI.Pages_Admin
     //=======================================================================================================================
     public partial class ReviewLogFiles : Page
     {
+        private string logString { get; set; }
+
         public ReviewLogFiles()
         {
             InitializeComponent();
@@ -42,13 +45,46 @@ namespace TMS.Pages_UI.Pages_Admin
         private void LoadToLogReview()
         {
             string location = Logger.GetPath() + @"\logs\TMS.log";
-            string discription = null;
+            string description = null;
             using (StreamReader text = new StreamReader(location))
             {
-                discription = text.ReadToEnd();
+                description = text.ReadToEnd();
             }
-            LogData.AppendText(discription);
+            LogData.AppendText(description);
         }
-        
+
+
+        private void btnNew_Log_Click(object sender, RoutedEventArgs e)
+        {
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                logString = dialog.FileName;
+                LogReviewFile(logString);
+            }
+        }
+
+
+        private void LogReviewFile(string logString)
+        {
+            string location = logString;
+            string data = null;
+            try
+            {
+                using (StreamReader text = new StreamReader(location))
+                {
+                    LogData.Document.Blocks.Clear();
+                    data = text.ReadToEnd();
+                    LogData.AppendText(data);
+                }
+            }
+            catch (Exception e)
+            {
+                //do something
+            }
+        }
     }
 }
