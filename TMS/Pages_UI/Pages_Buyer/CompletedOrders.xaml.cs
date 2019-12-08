@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMS.Data;
 
 namespace TMS.Pages_UI.Pages_Buyer
 {
@@ -23,6 +24,14 @@ namespace TMS.Pages_UI.Pages_Buyer
         public CompletedOrders()
         {
             InitializeComponent();
+        }
+
+
+        public List<Contract> GetContractsByStatus()
+        {
+            List<Contract> theList = new List<Contract>();
+
+            return theList;
         }
     }
 }
