@@ -13,6 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMS.Data;
+
+
+
+
+
 namespace TMS.Pages_UI.Pages_Buyer
 {
     /// <summary>
@@ -31,7 +36,6 @@ namespace TMS.Pages_UI.Pages_Buyer
         public CustomerManagement()
         {
             InitializeComponent();
-            btnEdit_Customer.IsEnabled = false;
         }
 
         private void LoadCurrentCustomerData()
@@ -47,7 +51,13 @@ namespace TMS.Pages_UI.Pages_Buyer
 
         private void CurrentCustomerData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnEdit_Customer.IsEnabled = true;
+            DataGrid gd = (DataGrid)sender;
+            dynamic rowView = gd.SelectedItem;
+            if (rowView != null)
+            {
+                    CustomerID.Text = rowView.CustomerID.ToString();
+                    CustomerName.Text = rowView.Name.ToString();
+            }
         }
     }
 }

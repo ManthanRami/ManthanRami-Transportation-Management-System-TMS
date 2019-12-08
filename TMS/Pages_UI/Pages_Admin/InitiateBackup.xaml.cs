@@ -35,5 +35,25 @@ namespace TMS.Pages_UI.Pages_Admin
         {
             InitializeComponent();
         }
+
+        private void btnRun_Backup_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCurrent_Settings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ChangeLocation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
