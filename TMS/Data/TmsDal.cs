@@ -870,6 +870,43 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method returns contracts based on their status property
+        /// </summary>
+        /// <param name="status">Status</param>
+        /// <returns>List<Contract></returns>
+        public List<Contract> GetContractsByStatus(Status status)
+        {
+            List<Contract> contracts = new List<Contract>();
+
+            const string queryString = "SELECT * FROM `Contract` WHERE `Contract`.`Status` = @status;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@status", (int) status);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Contract contract = new Contract();
+
+                    PopulateContract(ref contract, row);
+
+                    contracts.Add(contract);
+                }
+
+                conn.Close();
+            }
+
+            return contracts;
+        }
+
+        /// <summary>
         /// This method fetches a list of all contracts
         /// </summary>
         /// <returns>List<Contract></returns>
@@ -893,21 +930,7 @@ namespace TMS.Data
                 {
                     Contract contract = new Contract();
 
-                    contract.Carrier = GetCarrier((uint) row["CarrierID"]);
-                    contract.Customer = GetCustomerById((uint) row["CustomerID"]);
-
-                    contract.Status = (Status) (sbyte) row["Status"];
-                    contract.Quantity = (int) row["Quantity"];
-                    contract.JobType = (JobType) (sbyte) row["LoadType"];
-                    contract.VanType = (VanType) (sbyte) row["VanType"];
-
-                    City origin;
-                    City.TryParse((string)row["OriginCity"], out origin);
-                    contract.Origin = origin;
-
-                    City destination;
-                    City.TryParse((string)row["DestCity"], out destination);
-                    contract.Destination = destination;
+                    PopulateContract(ref contract, row);
 
                     contracts.Add(contract);
                 }
@@ -934,6 +957,31 @@ namespace TMS.Data
             City depot;
             Enum.TryParse((string) row["DepotCity"], out depot);
             carrier.DepotCity = depot;
+        }
+
+        /// <summary>
+        /// PopulateContract() takes a reference to a contract object and a data row and parses
+        /// the data row into the contract object.
+        /// </summary>
+        /// <param name="carrier">ref Contract</param>
+        /// <param name="row">DataRow</param>
+        private void PopulateContract(ref Contract contract, DataRow row)
+        {
+            contract.Carrier = GetCarrier((uint)row["CarrierID"]);
+            contract.Customer = GetCustomerById((uint)row["CustomerID"]);
+
+            contract.Status = (Status)(sbyte)row["Status"];
+            contract.Quantity = (int)row["Quantity"];
+            contract.JobType = (JobType)(sbyte)row["LoadType"];
+            contract.VanType = (VanType)(sbyte)row["VanType"];
+
+            City origin;
+            City.TryParse((string)row["OriginCity"], out origin);
+            contract.Origin = origin;
+
+            City destination;
+            City.TryParse((string)row["DestCity"], out destination);
+            contract.Destination = destination;
         }
 
         /// <summary>
