@@ -1,0 +1,16 @@
+﻿<Page x:Class="TMS.Pages_UI.Pages_Admin.ReviewLogFiles"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="665"
+      Title="ReviewLogFiles">
+
+    <Grid Background="Gray">
+        <RichTextBox x:Name="LogData" HorizontalAlignment="Left" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="220" Margin="48,42,0,0" VerticalAlignment="Top" Width="577" RenderTransformOrigin="0.546,0.491"/>
+        <Button x:Name="btnNew_Log" Content="Load New Log" Height="50" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="282,0,283,8"/>
+        <!--="btnNew_Log_Click" -->
+    </Grid>
+</Page>

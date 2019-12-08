@@ -35,8 +35,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.18\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,20 +78,172 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Pages_UI\Pages_Buyer\EditCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\BuyerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\LoginScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Admin.cs" />
+    <Compile Include="Data\Customer.cs" />
+    <Compile Include="Data\DataMap.cs" />
+    <Compile Include="Exceptions\CouldNotFindRateException.cs" />
+    <Compile Include="Exceptions\CouldNotDeleteException.cs" />
+    <Compile Include="Exceptions\CustomerNotExistsException.cs" />
+    <Compile Include="Pages_UI\Pages_Buyer\EditCustomer.xaml.cs">
+      <DependentUpon>EditCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
+      <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Windows_UI\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Buyer.cs" />
+    <Compile Include="Windows_UI\BuyerWindow.xaml.cs">
+      <DependentUpon>BuyerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Carrier.cs" />
+    <Compile Include="Exceptions\CarrierNotExistsException.cs" />
+    <Compile Include="Exceptions\CouldNotGetIdException.cs" />
+    <Compile Include="Exceptions\CouldNotInsertException.cs" />
+    <Compile Include="Exceptions\CouldNotUpdateException.cs" />
+    <Compile Include="Exceptions\UserExistsException.cs" />
+    <Compile Include="Exceptions\UserNotExistsException.cs" />
+    <Compile Include="Data\CmpDal.cs" />
+    <Compile Include="Data\Contract.cs" />
+    <Compile Include="Data\TmsDal.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Windows_UI\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages_UI\Pages_Admin\AdminStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\DBMSConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\InitiateBackup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\LogDirectoryOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyCarrierData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyFeeData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyRateData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ModifyRouteData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Admin\ReviewLogFiles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\BuyerStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\CompletedOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\CustomerManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Buyer\InitiateNewOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Planner\PlannerStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows_UI\PlannerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages_UI\Pages_Admin\AdminStartup.xaml.cs">
+      <DependentUpon>AdminStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\DBMSConfig.xaml.cs">
+      <DependentUpon>DBMSConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\InitiateBackup.xaml.cs">
+      <DependentUpon>InitiateBackup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\LogDirectoryOptions.xaml.cs">
+      <DependentUpon>LogDirectoryOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyCarrierData.xaml.cs">
+      <DependentUpon>ModifyCarrierData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyFeeData.xaml.cs">
+      <DependentUpon>ModifyFeeData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyRateData.xaml.cs">
+      <DependentUpon>ModifyRateData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ModifyRouteData.xaml.cs">
+      <DependentUpon>ModifyRouteData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Admin\ReviewLogFiles.xaml.cs">
+      <DependentUpon>ReviewLogFiles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\BuyerStartup.xaml.cs">
+      <DependentUpon>BuyerStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\CompletedOrders.xaml.cs">
+      <DependentUpon>CompletedOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\CustomerManagement.xaml.cs">
+      <DependentUpon>CustomerManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Buyer\InitiateNewOrder.xaml.cs">
+      <DependentUpon>InitiateNewOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\PlannerStartup.xaml.cs">
+      <DependentUpon>PlannerStartup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows_UI\PlannerWindow.xaml.cs">
+      <DependentUpon>PlannerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +261,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,5 +270,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

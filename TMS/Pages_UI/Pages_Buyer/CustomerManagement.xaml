@@ -1,0 +1,22 @@
+﻿<Page x:Class="TMS.Pages_UI.Pages_Buyer.CustomerManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Planner"
+      mc:Ignorable="d" 
+      d:DesignHeight="368" d:DesignWidth="666"
+      MaxHeight="369"
+      MaxWidth="667"
+      Title="CustomerManagement">
+
+    <Grid Background="LightGray">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="115,0,0,0">
+            <DataGrid AutoGenerateColumns="true" CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="CustomerData"
+                      FontSize="16" Width="541" Visibility="Visible" SelectionChanged="CurrentCustomerData_SelectionChanged"/>
+        </ScrollViewer>
+
+        <Button x:Name="btnCurrent_Customers" Content="Current Customers" Margin="5,76,556,247" Click="btnCurrent_Customers_Click" />
+        <Button x:Name="btnEdit_Customer" Content="Edit Customer" Margin="5,140,556,183" Click="btnCurrent_Customers_Click" />
+    </Grid>
+</Page>

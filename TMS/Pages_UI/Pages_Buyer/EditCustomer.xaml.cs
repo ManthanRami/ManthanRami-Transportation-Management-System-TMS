@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMS.Data;
+using TMS.Utils;
 
-namespace TMS
+namespace TMS.Pages_UI.Pages_Buyer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EditCustomer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EditCustomer : Page
     {
-        public MainWindow()
+        public EditCustomer()
         {
             InitializeComponent();
         }
+
+
+
     }
 }
