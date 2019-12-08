@@ -6,22 +6,11 @@
 * DESCRIPTION   : 	Description of what this file does
 */
 
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-//using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Windows.Forms;
+using TMS.Utils;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -33,36 +22,43 @@ namespace TMS.Pages_UI.Pages_Admin
     //=======================================================================================================================
     public partial class LogDirectoryOptions : Page
     {
+
+        private string location = Logger.GetPath() + @"\logs\TMS.log";
         public LogDirectoryOptions()
         {
             InitializeComponent();
             ///here we will load current log file details on rich text box
+            CurrentLocation.AppendText(location);
+            LoadLogFileDetails();
         }
 
+        private void LoadLogFileDetails()
+        {
+            logfileDetails.Document.Blocks.Clear();
+            string location = Logger.GetPath()+@"\logs\TMS.log";
+            string details = "File Name: TMS.log\nFile Location :"+location+"\nDate : "+ DateTime.Now.ToShortDateString();
+            logfileDetails.AppendText(details);
+        }
         private void ChangeLocation_Click(object sender, RoutedEventArgs e)
         {
-            ////var dlg = new CommonOpenFileDialog();
-            //dlg.Title = "Select Location";
-            //dlg.IsFolderPicker = true;
-            //dlg.InitialDirectory = "./log";
-            //dlg.AddToMostRecentlyUsedList = false;
-            //dlg.AllowNonFileSystemItems = false;
-            //dlg.EnsurePathExists = true;
-            //dlg.EnsureReadOnly = false;
-            //dlg.EnsureValidNames = true;
-            //dlg.Multiselect = false;
-            //dlg.ShowPlacesList = true;
-            //if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
-            //{
-            //    var folder = dlg.FileName;
-            //    CurrentLocation.AppendText(folder);
-            //    // Do something with selected folder string
-            //}
+            var dlg = new FolderBrowserDialog();
+            dlg.Description = "Select Location";
+            dlg.ShowNewFolderButton = true;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                location = dlg.SelectedPath;
+                CurrentLocation.Document.Blocks.Clear();
+                CurrentLocation.AppendText(location);
+            }
         }
+
+
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Log Directory has been Changed Successfully !!", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+            Logger.ChangeLogPath(location);
+            System.Windows.MessageBox.Show("Log Directory has been Changed Successfully !!", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadLogFileDetails();
         }
     }
 }

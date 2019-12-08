@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMS.Utils;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -34,26 +35,20 @@ namespace TMS.Pages_UI.Pages_Admin
         public ReviewLogFiles()
         {
             InitializeComponent();
-            LogReviewFile();
+            LoadToLogReview();
 
         }
 
-        private void LogReviewFile()
+        private void LoadToLogReview()
         {
-            string location = "LogFolder/logfile.log";
-            string data = null;
-            try
+            string location = Logger.GetPath() + @"\logs\TMS.log";
+            string discription = null;
+            using (StreamReader text = new StreamReader(location))
             {
-                using (StreamReader text = new StreamReader(location))
-                {
-                    data = text.ReadToEnd();
-                    LogData.AppendText(data);                    
-                }
+                discription = text.ReadToEnd();
             }
-            catch(Exception e)
-            {
-                //do something
-            }
+            LogData.AppendText(discription);
         }
+        
     }
 }
