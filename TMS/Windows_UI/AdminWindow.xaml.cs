@@ -59,8 +59,7 @@ namespace TMS
             LoginScreen login = new LoginScreen();
             login.Show();
             this.Close();
-            // Add to log file that an admin logged off
-            // Logger.Info(LogOrigin.UI, "Admin logged off of system.");
+            Logger.Info(LogOrigin.Ui, "Admin logged off of system.");
         }
 
         //=======================================================================================================================

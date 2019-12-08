@@ -79,8 +79,7 @@ namespace TMS
             LoginScreen login = new LoginScreen();
             login.Show();
             this.Close();
-            // Add to log file that a planner logged off
-            // Logger.Info(LogOrigin.UI, "Planner logged off of system.");
+            Logger.Info(LogOrigin.Ui, "Planner logged off of system.");
         }
 
         //=======================================================================================================================

@@ -10,56 +10,74 @@
 
     <Grid Background="LightGray" >
 
-        <Rectangle Fill="Gainsboro" Stroke="LightGray" Margin="124,0,313,0"/>
-        
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="346,0,0,0">
-            <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="True" Height="343" 
-                       Width="309" IsReadOnly="True" SelectionChanged="contractData_SelectionChanged" />
+        <Rectangle Fill="Gainsboro" Stroke="LightGray" Margin="91,0,313,0"/>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="211,0,0,0">
+            <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="false" Height="344" 
+                       Width="444" IsReadOnly="false" SelectionChanged="contractData_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Client Name"        Binding="{Binding Path=Customer.Name}"/>
+                    <DataGridTextColumn Header="Job Type"           Binding="{Binding Path=JobType}"/>
+                    <DataGridTextColumn Header="Van Type"           Binding="{Binding Path=VanType}"/>
+                    <DataGridTextColumn Header="Quantity"           Binding="{Binding Path=Quantity}"/>
+                    <DataGridTextColumn Header="Origin City"        Binding="{Binding Path=Origin}"/>
+                    <DataGridTextColumn Header="Destination City"   Binding="{Binding Path=Destination}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </ScrollViewer>
-        
-        <TextBox HorizontalAlignment="Left" x:Name="ClientName" Height="20" Margin="148,39,0,0"  TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" 
+
+        <TextBox HorizontalAlignment="Left" x:Name="ClientName" Height="20" Margin="96,39,0,0"  TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" />
-        
-        <TextBox HorizontalAlignment="Left" x:Name="JobType"    Height="21" Margin="148,97,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" 
+
+        <TextBox HorizontalAlignment="Left" x:Name="JobType"    Height="21" Margin="96,97,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
-        
-        <TextBox HorizontalAlignment="Left" x:Name="vanType"    Height="21" Margin="148,159,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" 
+
+        <TextBox HorizontalAlignment="Left" x:Name="vanType"    Height="21" Margin="96,159,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
-        
-        <TextBox HorizontalAlignment="Left" x:Name="Quantity"   Height="22" Margin="148,215,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="175" 
+
+        <TextBox HorizontalAlignment="Left" x:Name="Quantity"   Height="22" Margin="96,215,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
-        
-        <TextBox HorizontalAlignment="Left" x:Name="txtOriginCity"    Height="22" Margin="148,272,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" 
-                 Width="175" HorizontalContentAlignment="Center" 
+
+        <TextBox HorizontalAlignment="Left" x:Name="txtOriginCity"    Height="22" Margin="96,272,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" 
+                 Width="105" HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
-        
-        <TextBox HorizontalAlignment="Left" x:Name="txtDestinationCity"   Height="22" Margin="148,328,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" 
-                 Width="175" HorizontalContentAlignment="Center" 
+
+        <TextBox HorizontalAlignment="Left" x:Name="txtDestinationCity"   Height="22" Margin="96,328,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" 
+                 Width="105" HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
-        
-        
-        <Label  Content="Client Name :"     HorizontalAlignment="Left"  VerticalAlignment="Top"  Height="29" Margin="181,5,0,0" FontSize="16" 
+
+
+        <Label  Content="Client Name :"     HorizontalAlignment="Left"  VerticalAlignment="Top"  Height="29" Margin="96,5,0,0" FontSize="16" 
                 HorizontalContentAlignment="Center"/>
-        
-        <Label  Content="Job Type  :"       HorizontalAlignment="Left"  Margin="181,64,0,0"         VerticalAlignment="Top" Height="33" FontSize="16" 
+
+        <Label  Content="Job Type  :"       HorizontalAlignment="Left"  Margin="96,64,0,0"         VerticalAlignment="Top" Height="33" FontSize="16" 
                 Width="105" HorizontalContentAlignment="Center"/>
-        
-        <Label  Content="Van Type  :"       HorizontalAlignment="Left"  Margin="181,123,0,0"        VerticalAlignment="Top" Height="36" FontSize="16" 
+
+        <Label  Content="Van Type  :"       HorizontalAlignment="Left"  Margin="96,123,0,0"        VerticalAlignment="Top" Height="36" FontSize="16" 
                 Width="105" HorizontalContentAlignment="Center"/>
-        
-        <Label  Content="Quantity"          HorizontalAlignment="Left"  Margin="181,185,0,0"        VerticalAlignment="Top" Height="37" FontSize="16" 
+
+        <Label  Content="Quantity"          HorizontalAlignment="Left"  Margin="96,185,0,0"        VerticalAlignment="Top" Height="37" FontSize="16" 
                 Width="105" HorizontalContentAlignment="Center"/>
-        
-        <Label  Content="Origin City  :"       HorizontalAlignment="Left"  Margin="181,236,0,0"        VerticalAlignment="Top" Height="36" FontSize="16" 
+
+        <Label  Content="Origin City  :"       HorizontalAlignment="Left"  Margin="96,236,0,0"        VerticalAlignment="Top" Height="36" FontSize="16" 
                 Width="105" HorizontalContentAlignment="Center"/>
-        
-        <Label  Content="Destination City :"          HorizontalAlignment="Left"  Margin="148,294,0,0"        VerticalAlignment="Top" Height="29" 
+
+        <Label  Content="Destination City :"          HorizontalAlignment="Left"  Margin="63,294,0,0"        VerticalAlignment="Top" Height="29" 
                 FontSize="16" Width="175" HorizontalContentAlignment="Center"/>
-        
-        <Button Content="Available Contracts"   x:Name="Getorder"       HorizontalAlignment="Left"  VerticalAlignment="Top" Width="114" Margin="5,151,0,0" 
-                Height="32" Click="GetOrder_Click" />
-        
-        <Button Content="Create order" x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="114" Margin="5,201,0,0" 
-                Height="32" />
+
+        <Button x:Name="Getorder"       HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,97,0,0" 
+                Height="49" Click="GetOrder_Click">
+            <TextBlock TextAlignment="Center">
+                Available<LineBreak/> Contracts
+            </TextBlock>
+        </Button>
+
+
+        <Button x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,164,0,0" 
+                Height="41">
+            <TextBlock TextAlignment="Center">
+                Create<LineBreak/> Order
+            </TextBlock>
+        </Button>
     </Grid>
 </Page>
