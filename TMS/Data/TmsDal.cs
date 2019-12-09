@@ -820,7 +820,6 @@ namespace TMS.Data
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
-                query.Parameters.AddWithValue("@carrierId", contract.Carrier.CarrierID);
                 query.Parameters.AddWithValue("@customerId", contract.Customer.CustomerID);
                 query.Parameters.AddWithValue("@status", contract.Status);
                 query.Parameters.AddWithValue("@quantity", contract.Quantity);
@@ -828,6 +827,14 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@vanType", contract.VanType);
                 query.Parameters.AddWithValue("@originCity", contract.Origin.ToString());
                 query.Parameters.AddWithValue("@destCity", contract.Destination.ToString());
+                if (contract.Carrier == null)
+                {
+                    query.Parameters.AddWithValue("@carrierId", null);
+                }
+                else
+                {
+                    query.Parameters.AddWithValue("@carrierId", contract.Carrier.CarrierID);
+                }
 
                 if (query.ExecuteNonQuery() == 0)
                 {
@@ -858,6 +865,33 @@ namespace TMS.Data
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
                 query.Parameters.AddWithValue("@status", (int) status);
+                query.Parameters.AddWithValue("@contractId", contractId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// This method takes a contract ID and a carier ID and updates the carrier ID
+        /// </summary>
+        /// <param name="contractId">uint</param>
+        /// <param name="carrierId">uint</param>
+        public void SetContractCarrier(uint contractId, uint carrierId)
+        {
+            const string queryString =
+                "UPDATE Contract SET `Contract`.`CarrierID` = @carrierId WHERE `Contract`.`ContractID` = @contractId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
                 query.Parameters.AddWithValue("@contractId", contractId);
 
                 if (query.ExecuteNonQuery() == 0)
@@ -1054,9 +1088,12 @@ namespace TMS.Data
         /// <param name="row">DataRow</param>
         private void PopulateContract(ref Contract contract, DataRow row)
         {
-            contract.Carrier = GetCarrier((uint)row["CarrierID"]);
-            contract.Customer = GetCustomerById((uint)row["CustomerID"]);
+            if (row["CarrierID"] != null)
+            {
+                contract.Carrier = GetCarrier((uint)row["CarrierID"]);
+            }
 
+            contract.Customer = GetCustomerById((uint)row["CustomerID"]);
             contract.Status = (Status)(sbyte)row["Status"];
             contract.Quantity = (int)row["Quantity"];
             contract.JobType = (JobType)(sbyte)row["LoadType"];
