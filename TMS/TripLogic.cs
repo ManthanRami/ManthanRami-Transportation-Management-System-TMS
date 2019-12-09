@@ -9,30 +9,34 @@ namespace TMS
     /// <summary>
     /// Maintains information relevant to the orders in order to properly calculate the bill for the customers
     /// </summary>
-    public class Trip
+    public class TripLogic
     {
-        static int MaxHours = 720;  //12 hours in minutes
-        static int DrivingMax = 480;//8 hours in minutes
-        static int LoadTime = 120;  //two hours to load/unload
-        int destination;         //final city
-        public int currentCity;         //enroute to next city
-        int workTime;               //minutes working today
-        int driveToday;             //minutes driving today
-        int CurrentDrive;           //minute to next city
-        public int direction;              //0 = last stop. 1 = east -1 = west
-        public int quantity;               //0 = FTL >0 = # of pallets
-        int daytotal;              //days for the trip
-        int unloading;              //track unloading time left
-        //bool reefer;               //(false)0 for dry, (true)1 for refreigerated
-        public int BillDays;
-        public int distance;
 
-        
+        static int MaxHours = 720;      //12 hours in minutes
+        static int DrivingMax = 480;    //8 hours in minutes
+        static int LoadTime = 120;      //two hours to load/unload
+        int destination;                //final city
+        public int currentCity;         //!< enroute to this city
+        int workTime;                   //minutes working today
+        int driveToday;                 //minutes driving today
+        int CurrentDrive;               //minute to next city
+        public int direction;           //!< 0 = Trip Complete. 1 = east -1 = west
+        public int quantity;            //!< 0 = FTL , otherwise # of LTL pallets
+        int daytotal;                   //days for the trip
+        int unloading;                  //track unloading time left
+        //bool reefer;                  //(false)0 for dry, (true)1 for refreigerated
+        public int BillDays;            //!< days for the trip
+        public int distance;            //!< Distance of trip
+
+
         /// <summary>
         /// The trip class maintains the calculations for figuring out how long and far a delivery will take
         /// </summary>
-        /// <param name="heading"></param>
-        public Trip(int Quantity, int dest, int originCity, City[] CityList)
+        /// <param name="Quantity">int, quantity of pallets on truck for LTL, 0 for FTL</param>
+        /// <param name="dest">int, index of destination city in CityList</param>
+        /// <param name="originCity">int, index of origin city in CityList</param>
+        /// <param name="CityList">Ordered Array of CitiesData classes, west[0] to east[length]</param>
+        public TripLogic(int Quantity, int dest, int originCity, CitiesData[] CityList)
         {
             workTime = 0;
             driveToday = 0;
@@ -96,10 +100,10 @@ namespace TMS
         /// <summary>
         /// Allows the planner role to simulate the passage of time
         /// </summary>
-        /// <param name="AddHours">Number of hours as a float, to add to the current trip</param>
+        /// <param name="CityList">Ordered Array of cities, west[0] to east[length]</param>
         /// <returns>0 for normal running. 1 is complete</returns>
         //public int AddTime(float AddHours = 24)
-        public int AddTime(City[] CityList)
+        public int AddTime(CitiesData[] CityList)
         {
             int addMinutes = 1440; //minutes in 1 day, the planner time advancement interval
             //Time left in day, time left in driving limit, time left in working limit

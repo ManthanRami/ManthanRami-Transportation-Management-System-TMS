@@ -1169,8 +1169,8 @@ namespace TMS.Data
         {
             trip.TripID = (uint)(int)row["TripID"];
             City.TryParse((string)row["Destination"], out City destination);
-            City.TryParse((string)row["West"], out City west);
-            City.TryParse((string)row["East"], out City east);
+            City.TryParse((string)row["CityWest"], out City west);
+            City.TryParse((string)row["CityEast"], out City east);
             trip.TravelTime = (int)row["Time"];
             trip.Distance = (int)row["Distance"];
         }

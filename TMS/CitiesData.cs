@@ -10,9 +10,9 @@ namespace TMS
     /// The City class is used to store the information for the city network.
     /// This will allow for the TMS system to determine both time and cost of carriers
     /// </summary>
-    public class City
+    public class CitiesData
     {
-        public readonly string CityName;
+        public readonly int CityName;
         //readonly string WestCity;
         //readonly string EastCity;
         //readonly int WestKM;
@@ -24,14 +24,14 @@ namespace TMS
         /// The City class is used to store the information for the city network.
         /// This will allow for the TMS system to determine both time and cost of carriers
         /// </summary>
-        /// <param name="CityN">Name of the current city</param>
+        /// <param name="CityN">Int index of the current city</param>
         // <param name="WestName">Name of city to the west</param>
         // <param name="EastName">Name of city to the east</param>
         // <param name="WestDis">Distance in kilometers to the western city</param>
         /// <param name="EastDis">Distance in kilometers to the eastern city</param>
         // <param name="WestTime">Time in hours travel to the western city</param>
         /// <param name="EastTime">Time in hours to travel to the eatern city</param>
-        public City(string CityN, int EastDis, int EastTime)
+        public CitiesData(int CityN, int EastDis, int EastTime)
         {
             CityName = CityN;
             //WestCity = WestName;
