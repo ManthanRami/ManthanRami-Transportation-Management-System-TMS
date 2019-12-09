@@ -388,6 +388,8 @@ namespace TMS.Data
             return carriers;
         }
 
+        //public List<Carrier> GetCarriers
+
         /// <summary>
         /// This method gets a carrier's FTL Rate
         /// </summary>
