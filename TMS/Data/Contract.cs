@@ -42,10 +42,11 @@ namespace TMS.Data
 
     public enum Status
     {
-        PENDING = 0,    
-        STARTED = 1,    
-        FINISHED = 2,
-        INVOICED = 3
+        PENDING   = 0,      // Order has been accepted, but no carriers or trips have been assigned
+        STARTED   = 1,      // Order has trips and carriers assigned, would be "on the road"
+        DELIVERED = 2,      // Order has reached destination, and has been delivered
+        FINISHED  = 3,      // Planner has marked order as complete
+        INVOICED  = 4       // Buyer has generated an invoice for the order
     }
 
     /// <summary>

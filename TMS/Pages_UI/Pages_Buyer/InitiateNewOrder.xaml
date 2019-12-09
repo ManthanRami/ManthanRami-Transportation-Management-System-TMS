@@ -16,12 +16,12 @@
             <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="false" Height="344" 
                        Width="444" IsReadOnly="true" SelectionChanged="contractData_SelectionChanged" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Client Name"        Binding="{Binding Path=Customer.Name}"/>
-                    <DataGridTextColumn Header="Job Type"           Binding="{Binding Path=JobType}" />
-                    <DataGridTextColumn Header="Van Type"           Binding="{Binding Path=VanType}" />
-                    <DataGridTextColumn Header="Quantity"           Binding="{Binding Path=Quantity}" />
-                    <DataGridTextColumn Header="Origin City"        Binding="{Binding Path=Origin}" />
-                    <DataGridTextColumn Header="Destination City"   Binding="{Binding Path=Destination}" />
+                    <DataGridTextColumn Header="Client Name"      Width="*"   Binding="{Binding Path=Customer.Name}"/>
+                    <DataGridTextColumn Header="Job Type"         Width="*"   Binding="{Binding Path=JobType}" />
+                    <DataGridTextColumn Header="Van Type"         Width="*"   Binding="{Binding Path=VanType}" />
+                    <DataGridTextColumn Header="Quantity"         Width="*"   Binding="{Binding Path=Quantity}" />
+                    <DataGridTextColumn Header="Origin City"      Width="*"   Binding="{Binding Path=Origin}" />
+                    <DataGridTextColumn Header="Destination City" Width="*"   Binding="{Binding Path=Destination}" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -71,7 +71,7 @@
 
         <Button x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,164,0,0" 
                 Height="41" Click="CreateOrder_Click">
-            <TextBlock TextAlignment="Center">
+            <TextBlock TextAlignment="Center" IsEnabled="False">
                 Create<LineBreak/> Order
             </TextBlock>
         </Button>

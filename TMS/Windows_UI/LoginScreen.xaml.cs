@@ -155,5 +155,10 @@ namespace TMS
             }
             return userType;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Logger.Info(LogOrigin.Ui, "OHST application closed from the login screen");
+        }
     }
 }

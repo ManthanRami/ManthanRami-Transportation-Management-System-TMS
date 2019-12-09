@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TMS"
         mc:Ignorable="d"
-        Title="TMS LOGIN" MinHeight="600" MinWidth="600" MaxHeight="600" MaxWidth="600" Background="Gray">
+        Title="TMS LOGIN" MinHeight="600" MinWidth="600" MaxHeight="600" MaxWidth="600" Background="Gray"
+        Closed="Window_Closed">
     <Border Background="DarkGray"  CornerRadius="20" Margin="25,25,25,25">
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,25,0,0">
             <Border Background="Gray"  CornerRadius="20" Margin="0,25,0,0" Height="45" MinWidth="250" MaxWidth="400">

@@ -49,7 +49,7 @@ namespace TMS.Utils
                 Directory.CreateDirectory(logPath + @"\logs");
             }
 
-            string fileName = DateTime.Now.ToString("MM/dd/yyyy") + ".log";
+            string fileName = DateTime.Now.ToString("MM-dd-yyyy") + ".log";
 
             string path = logPath + @"\logs\" + fileName;
             File.AppendAllText(path, (timestamp + " [" + level.ToString().ToUpper() + "] " + origin.ToString() + ": ").PadRight(InfoLength) + message + "\n");
@@ -66,7 +66,7 @@ namespace TMS.Utils
 
         public static string GetCurrentLogPath()
         {
-            return logPath + "\\logs\\" + DateTime.Now.ToString("MM/dd/yyyy") + ".log";
+            return logPath + "\\logs\\" + DateTime.Now.ToString("MM-dd-yyyy") + ".log";
         }
     }
 }
