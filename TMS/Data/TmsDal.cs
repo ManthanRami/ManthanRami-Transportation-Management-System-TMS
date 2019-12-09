@@ -942,11 +942,98 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method retrieves the list of trips from the database
+        /// </summary>
+        /// <returns>List<Trip></returns>
+        public List<Trip> GetTrips()
+        {
+            List<Trip> trips = new List<Trip>();
+
+            const string queryString = "SELECT * FROM Trip;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Trip trip = new Trip();
+
+                    PopulateTrip(ref trip, row);
+
+                    trips.Add(trip);
+                }
+
+                conn.Close();
+            }
+
+            return trips;
+        }
+
+        /// <summary>
+        /// This method retrieves all trips with a certain destination set
+        /// </summary>
+        /// <param name="destination">City</param>
+        /// <returns>List<Trip></returns>
+        public List<Trip> GetTripByDestination(City destination)
+        {
+            List<Trip> trips = new List<Trip>();
+
+            const string queryString = "SELECT * FROM Trip WHERE `Trip`.`Destination` = @destination;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Trip trip = new Trip();
+
+                    PopulateTrip(ref trip, row);
+
+                    trips.Add(trip);
+                }
+
+                conn.Close();
+            }
+
+            return trips;
+        }
+
+        /// <summary>
+        /// PopulateTrip() takes a reference to a trip object and a data row and parses
+        /// the data row into the trip object.
+        /// </summary>
+        /// <param name="trip">ref Trip</param>
+        /// <param name="row">DataRow</param>
+        private void PopulateTrip(ref Trip trip, DataRow row)
+        {
+            trip.TripID = (uint)(int)row["TripID"];
+            City.TryParse((string)row["Destination"], out City destination);
+            City.TryParse((string)row["West"], out City west);
+            City.TryParse((string)row["East"], out City east);
+            trip.TravelTime = (int)row["Time"];
+            trip.Distance = (int)row["Distance"];
+        }
+
+        /// <summary>
         /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
         /// the data row into the carrier object.
         /// </summary>
-        /// <param name="carrier">ref Carrier carrier</param>
-        /// <param name="row">DataRow row</param>
+        /// <param name="carrier">ref Carrier</param>
+        /// <param name="row">DataRow</param>
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
             carrier.CarrierID = (uint) (int) row["CarrierID"];

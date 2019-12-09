@@ -75,6 +75,27 @@ CREATE TABLE IF NOT EXISTS Contract (
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
 
+CREATE TABLE IF NOT EXISTS Trip (
+	TripID		INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Destination VARCHAR(32) NOT NULL,
+    CityWest	VARCHAR(32) NOT NULL,
+    CityEast	VARCHAR(32) NOT NULL,
+    Distance	INT UNSIGNED NOT NULL,
+    `Time`		INT UNSIGNED NOT NULL,
+    
+    PRIMARY KEY (TripID)
+);
+
+/* INSERT TRIPS */
+INSERT INTO Trip VALUES (NULL, "Windsor", "END", "London", 191, 150);
+INSERT INTO Trip VALUES (NULL, "London", "Windsor", "Hamilton", 128, 105);
+INSERT INTO Trip VALUES (NULL, "Hamilton", "London", "Toronto", 68, 75);
+INSERT INTO Trip VALUES (NULL, "Toronto", "Hamilton", "Oshawa", 60, 78);
+INSERT INTO Trip VALUES (NULL, "Oshawa", "Toronto", "Belleville", 134, 99);
+INSERT INTO Trip VALUES (NULL, "Belleville", "Oshawa", "Kingston", 82, 72);
+INSERT INTO Trip VALUES (NULL, "Kingston", "Belleville", "Ottawa", 196, 150);
+INSERT INTO Trip VALUES (NULL, "Ottawa", "Kingston", "END", 0, 0);
+
 /* INSERT CARRIERS */
 INSERT INTO Carrier VALUES (NULL, "Planet Express", "Windsor", 50, 640); -- 1
 INSERT INTO FTLRate VALUE (1, 5.21);

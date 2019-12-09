@@ -10,7 +10,6 @@ namespace TMS.Data
     public class Trip
     {
         public uint TripID { get; set; }
-
         public City Destination { get; set; }
         public City West { get; set; }
         public City East { get; set; }
