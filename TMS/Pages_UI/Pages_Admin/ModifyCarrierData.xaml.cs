@@ -50,7 +50,7 @@ namespace TMS.Pages_UI.Pages_Admin
                 GetCarrierList();
                 MakeFieldEmpty();
             }
-            else if (MessageBox.Show("Carrier is Not Exist !!\n Do you want to add ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+            else if (MessageBox.Show("Carrier does not exist !\n Do you want to add ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
             {
                 tms.CreateCarrier(carrier);
                 MessageBox.Show("Carrier Added Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -96,7 +96,7 @@ namespace TMS.Pages_UI.Pages_Admin
             }
             else
             {
-                MessageBox.Show("Please Select City !!", "EMpty Selction", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please Select City !!", "Empty Selction", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

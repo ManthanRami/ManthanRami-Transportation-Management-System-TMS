@@ -92,14 +92,30 @@ namespace TMS
         //=======================================================================================================================
         private void btnActive_Orders_Click(object sender, RoutedEventArgs e)
         {
-            btnIncompleteOrders.Background = Brushes.LightBlue;
+            UnselectButtons();
+            btnActive_Orders.Background = Brushes.LightBlue;
             PlannerMain.Content = new ViewActiveOrders();
         }
 
+        private void btnTrips_To_Orders_Click(object sender, RoutedEventArgs e)
+        {
+            UnselectButtons();
+            btnTrips_To_Orders.Background = Brushes.LightBlue;
+            PlannerMain.Content = new AddTripsToOrder();
+        }
+
+        private void btnAggregate_Activity_Click(object sender, RoutedEventArgs e)
+        {
+            UnselectButtons();
+            btnAggregate_Activity.Background = Brushes.LightBlue;
+            PlannerMain.Content = new AggregateActivity();
+        }
+       
         private void UnselectButtons()
         {
-            btnIncompleteOrders.Background = Brushes.LightGray;
-            
+            btnActive_Orders.Background = Brushes.LightGray;
+            btnTrips_To_Orders.Background = Brushes.LightGray;
+            btnAggregate_Activity.Background = Brushes.LightGray;
         }
     }
 }

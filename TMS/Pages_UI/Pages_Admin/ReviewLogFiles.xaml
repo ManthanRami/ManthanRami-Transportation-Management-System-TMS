@@ -9,7 +9,7 @@
       Title="ReviewLogFiles">
 
     <Grid Background="Gray">
-        <RichTextBox x:Name="LogData" HorizontalAlignment="Left" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="220" Margin="48,42,0,0" VerticalAlignment="Top" Width="577" RenderTransformOrigin="0.546,0.491" VerticalScrollBarVisibility="Auto"/>
-        <Button x:Name="btnNew_Log" Content="Load New Log" Height="50" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="282,0,283,22" Click="btnNew_Log_Click"/>
+        <RichTextBox x:Name="LogData" HorizontalAlignment="Left" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="250" Margin="48,20,0,0" VerticalAlignment="Top" Width="577" RenderTransformOrigin="0.546,0.491" VerticalScrollBarVisibility="Auto"/>
+        <Button x:Name="btnNew_Log" Content="Load New Log" Height="50" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="282,0,282,22" Click="btnNew_Log_Click"/>
     </Grid>
 </Page>

@@ -33,5 +33,20 @@ namespace TMS.Pages_UI.Pages_Buyer
 
             return theList;
         }
+
+        private void completeOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnGenerateInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCompleteOrders_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
