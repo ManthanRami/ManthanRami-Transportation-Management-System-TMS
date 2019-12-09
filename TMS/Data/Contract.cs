@@ -44,7 +44,8 @@ namespace TMS.Data
     {
         PENDING = 0,    
         STARTED = 1,    
-        FINISHED = 2
+        FINISHED = 2,
+        INVOICED = 3
     }
 
     /// <summary>

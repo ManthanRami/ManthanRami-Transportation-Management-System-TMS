@@ -39,14 +39,12 @@ namespace TMS.Pages_UI.Pages_Admin
         {
             InitializeComponent();
             LoadToLogReview();
-
         }
 
         private void LoadToLogReview()
         {
-            string location = Logger.GetPath() + @"\logs\TMS.log";
             string description = null;
-            using (StreamReader text = new StreamReader(location))
+            using (StreamReader text = new StreamReader(Logger.GetCurrentLogPath()))
             {
                 description = text.ReadToEnd();
             }

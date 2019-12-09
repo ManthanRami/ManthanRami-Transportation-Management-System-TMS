@@ -79,6 +79,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages_UI\Pages_Planner\AddTripsToOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages_UI\Pages_Planner\AggregateActivity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,15 +103,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Admin.cs" />
+    <Compile Include="Data\Admin.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\DataMap.cs" />
+    <Compile Include="Data\Trip.cs" />
     <Compile Include="Exceptions\CouldNotFindRateException.cs" />
     <Compile Include="Exceptions\CouldNotDeleteException.cs" />
     <Compile Include="Exceptions\CustomerNotExistsException.cs" />
+    <Compile Include="Pages_UI\Pages_Planner\AddTripsToOrder.xaml.cs">
+      <DependentUpon>AddTripsToOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages_UI\Pages_Planner\AggregateActivity.xaml.cs">
+      <DependentUpon>AggregateActivity.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Trip.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Windows_UI\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
@@ -112,7 +129,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Buyer.cs" />
+    <Compile Include="Data\Buyer.cs" />
     <Compile Include="Windows_UI\BuyerWindow.xaml.cs">
       <DependentUpon>BuyerWindow.xaml</DependentUpon>
     </Compile>

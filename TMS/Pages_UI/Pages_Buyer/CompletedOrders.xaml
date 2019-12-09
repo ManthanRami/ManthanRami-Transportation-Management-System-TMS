@@ -5,10 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TMS.Pages_UI.Pages_Planner"
       mc:Ignorable="d" 
-      d:DesignHeight="360" d:DesignWidth="665"
+      d:DesignHeight="340" d:DesignWidth="650"
       Title="CompletedOrders">
 
     <Grid Background="LightGray">
-        
+        <ScrollViewer Margin="174,0,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="orderData" CanUserAddRows="False" AutoGenerateColumns="false" Height="330" 
+                       Width="459" IsReadOnly="true" SelectionChanged="completeOrders_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header=" Client Name"     Width="auto"     Binding="{Binding Path=Customer.Name}"/>
+                    <DataGridTextColumn Header=" Contract ID"     Width="*"     Binding="{Binding Path=Contract.ContractID}"/>
+                    <DataGridTextColumn Header=" Job Type"        Width="*"     Binding="{Binding Path=JobType}"/>
+                    <DataGridTextColumn Header=" Origin"          Width="*"     Binding="{Binding Path=Origin}"/>
+                    <DataGridTextColumn Header=" Destination"     Width="*"     Binding="{Binding Path=Destination}"/>
+                    <DataGridTextColumn Header=" Status"          Width="*"     Binding="{Binding Path=Status}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+        <Button x:Name="btnCompleteOrders" Margin="10,262,575,19" Click="btnCompleteOrders_Click">
+            <TextBlock TextAlignment="Center" Width="61">
+                Fetch<LineBreak/> Complete <LineBreak/> Orders
+            </TextBlock>
+        </Button>
+
+        <Button x:Name="btnGenerateInvoice" Margin="104,262,481,19" Click="btnGenerateInvoice_Click">
+            <TextBlock TextAlignment="Center" Width="61">
+                Generate <LineBreak/> Client <LineBreak/> Invoice
+            </TextBlock>
+        </Button>
     </Grid>
 </Page>
