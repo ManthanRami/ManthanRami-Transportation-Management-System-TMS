@@ -26,6 +26,7 @@ namespace TMS.Pages_UI.Pages_Admin
         Carrier checkCarrier = new Carrier();
         TmsDal tms = new TmsDal();
         DataSet ds = new DataSet();
+        public uint cID = 0;
         List<Carrier> list = new List<Carrier>();
         public ModifyCarrierData()
         {
@@ -45,7 +46,7 @@ namespace TMS.Pages_UI.Pages_Admin
             list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
             if (list.Count != 0)
             {
-                tms.UpdateCarrier(Convert.ToUInt32(CarrierList.SelectedIndex+1), carrier);
+                tms.UpdateCarrier(Convert.ToUInt32(cID), carrier);
                 MessageBox.Show("Carrier Updated Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
                 GetCarrierList();
                 MakeFieldEmpty();
@@ -67,14 +68,19 @@ namespace TMS.Pages_UI.Pages_Admin
 
         private void SelectCustomer(object sender, SelectionChangedEventArgs e)
         {
-            uint id = (uint)CarrierList.SelectedIndex;
-            if (id != 4294967295)
+            DataGrid gd = (DataGrid)sender;
+            dynamic rowView = gd.SelectedItem;
+            if (rowView != null)
             {
-                carrier = tms.GetCarrier(id + 1);
-                txtCarrier_ID.Text = carrier.Name;
-                txtDepot_City.Text = carrier.DepotCity.ToString();
-                txtFTL_Avail.Text = carrier.FtlAvailability.ToString();
-                txtLTL_Avail.Text = carrier.LtlAvailability.ToString();
+                cID = (uint)rowView.CarrierID;
+                if (cID != 4294967295)
+                {
+                    carrier = tms.GetCarrier(cID);
+                    txtCarrier_ID.Text = carrier.Name;
+                    txtDepot_City.Text = carrier.DepotCity.ToString();
+                    txtFTL_Avail.Text = carrier.FtlAvailability.ToString();
+                    txtLTL_Avail.Text = carrier.LtlAvailability.ToString();
+                }
             }
 
         }
