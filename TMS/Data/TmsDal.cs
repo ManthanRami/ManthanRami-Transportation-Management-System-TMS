@@ -320,7 +320,7 @@ namespace TMS.Data
 
             const string queryString = @"SELECT * FROM `Carrier` c WHERE
                 (c.Name LIKE CONCAT(@name, '%') OR @name = '') AND
-                (c.DepotCity LIKE CONCAT(@depotCity, '%') OR @deoitCity = '');";
+                (c.DepotCity LIKE CONCAT(@depotCity, '%') OR @depotCity = '');";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
