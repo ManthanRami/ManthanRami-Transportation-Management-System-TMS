@@ -64,6 +64,9 @@ namespace TMS.Utils
             return logPath;
         }
 
- 
+        public static string GetCurrentLogPath()
+        {
+            return logPath + "\\logs\\" + DateTime.Now.ToString("MM/dd/yyyy") + ".log";
+        }
     }
 }
