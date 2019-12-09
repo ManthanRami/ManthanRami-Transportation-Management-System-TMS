@@ -23,7 +23,10 @@ namespace TMS
         int quantity;               //0 = FTL >0 = # of pallets
         int daytotal;              //days for the trip
         int unloading;              //track unloading time left
-        bool reefer;               //(false)0 for dry, (true)1 for refreigerated
+        //bool reefer;               //(false)0 for dry, (true)1 for refreigerated
+        int BillDays;
+        int distance;
+
         
         /// <summary>
         /// The trip class maintains the calculations for figuring out how long and far a delivery will take
@@ -33,18 +36,59 @@ namespace TMS
         {
             workTime = 0;
             driveToday = 0;
-            destination = dest;         //destination city
-            currentCity = originCity;   //change to next city
+            destination = dest;                  //destination city
+            currentCity = originCity;           //change to next city
             if (destination > currentCity)      //Headed east
             {
+                CurrentDrive = CityList[currentCity].EastMinutes;
                 direction = 1;
             }
             else
             {
                 direction = -1;
+                CurrentDrive = CityList[currentCity - 1].EastMinutes;
             }
+            currentCity += direction;
             daytotal = -1;
-            CurrentDrive = 0;           //get time to next city
+            quantity = Quantity;        //0 = FTL >0 = # of pallets
+            unloading = LoadTime;       //truck has to be loaded before it can leave
+
+            distance = CurrentDrive;
+            while (currentCity != destination)
+            {
+                if (direction > 0)      //Headed east
+                {
+                    distance += CityList[currentCity].EastMinutes;
+                }
+                else
+                {
+                    distance += CityList[currentCity - 1].EastMinutes;
+                }
+                currentCity += direction;
+            }
+            currentCity = originCity + direction;
+            while (direction != 0)      //Get bill data on creation for estimates
+            {
+                this.AddTime(CityList);
+            }
+            BillDays = daytotal;
+
+            workTime = 0;
+            driveToday = 0;
+            destination = dest;                  //destination city
+            currentCity = originCity;           //change to next city
+            if (destination > currentCity)      //Headed east
+            {
+                CurrentDrive = CityList[currentCity].EastMinutes;
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+                CurrentDrive = CityList[currentCity - 1].EastMinutes;
+            }
+            currentCity += direction;
+            daytotal = -1;
             quantity = Quantity;        //0 = FTL >0 = # of pallets
             unloading = LoadTime;       //truck has to be loaded before it can leave
         }
@@ -112,11 +156,13 @@ namespace TMS
                             //Get next city
                         }
                         CurrentDrive -= addMinutes;
+                        workTime += addMinutes;
                         addMinutes = 0;
                     }
                     else if (((CurrentDrive + driveToday) <= DrivingMax) && ((CurrentDrive + workTime) <= MaxHours))// this is what is expected to run
                     {
                         driveToday += CurrentDrive; //update drive time for day
+                        workTime += CurrentDrive;
                         addMinutes -= CurrentDrive;
                         CurrentDrive = 0;
                         if (quantity == 0)//FTL
@@ -131,9 +177,16 @@ namespace TMS
                             unloading = LoadTime;
                         }
                     }
-                    else if() //cannot finish the drive
+                    else if ((CurrentDrive + driveToday - DrivingMax) <= (CurrentDrive + workTime - MaxHours))//figure out the limiter, DrivingMax or Max Hours
                     {
-                        CurrentDrive = CurrentDrive + driveToday - DrivingMax;
+                        //driving time is the limiting factor, or at least equal with workTime
+                        CurrentDrive = CurrentDrive - (DrivingMax - driveToday);
+                        addMinutes = 0;
+                        driveToday = DrivingMax;
+                    }
+                    else //cannot finish the drive, not enough worktime/Maxhours
+                    {
+                        CurrentDrive = CurrentDrive - (MaxHours - workTime);
                         addMinutes = 0;
                     }
                 }
