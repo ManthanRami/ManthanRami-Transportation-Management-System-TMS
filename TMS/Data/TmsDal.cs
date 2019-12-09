@@ -820,7 +820,6 @@ namespace TMS.Data
                 conn.Open();
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
-                query.Parameters.AddWithValue("@carrierId", contract.Carrier.CarrierID);
                 query.Parameters.AddWithValue("@customerId", contract.Customer.CustomerID);
                 query.Parameters.AddWithValue("@status", contract.Status);
                 query.Parameters.AddWithValue("@quantity", contract.Quantity);
@@ -828,6 +827,14 @@ namespace TMS.Data
                 query.Parameters.AddWithValue("@vanType", contract.VanType);
                 query.Parameters.AddWithValue("@originCity", contract.Origin.ToString());
                 query.Parameters.AddWithValue("@destCity", contract.Destination.ToString());
+                if (contract.Carrier == null)
+                {
+                    query.Parameters.AddWithValue("@carrierId", null);
+                }
+                else
+                {
+                    query.Parameters.AddWithValue("@carrierId", contract.Carrier.CarrierID);
+                }
 
                 if (query.ExecuteNonQuery() == 0)
                 {
@@ -858,6 +865,33 @@ namespace TMS.Data
 
                 MySqlCommand query = new MySqlCommand(queryString, conn);
                 query.Parameters.AddWithValue("@status", (int) status);
+                query.Parameters.AddWithValue("@contractId", contractId);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
+
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// This method takes a contract ID and a carier ID and updates the carrier ID
+        /// </summary>
+        /// <param name="contractId">uint</param>
+        /// <param name="carrierId">uint</param>
+        public void SetContractCarrier(uint contractId, uint carrierId)
+        {
+            const string queryString =
+                "UPDATE Contract SET `Contract`.`CarrierID` = @carrierId WHERE `Contract`.`ContractID` = @contractId;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@carrierId", carrierId);
                 query.Parameters.AddWithValue("@contractId", contractId);
 
                 if (query.ExecuteNonQuery() == 0)
@@ -942,11 +976,98 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method retrieves the list of trips from the database
+        /// </summary>
+        /// <returns>List<Trip></returns>
+        public List<Trip> GetTrips()
+        {
+            List<Trip> trips = new List<Trip>();
+
+            const string queryString = "SELECT * FROM Trip;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Trip trip = new Trip();
+
+                    PopulateTrip(ref trip, row);
+
+                    trips.Add(trip);
+                }
+
+                conn.Close();
+            }
+
+            return trips;
+        }
+
+        /// <summary>
+        /// This method retrieves all trips with a certain destination set
+        /// </summary>
+        /// <param name="destination">City</param>
+        /// <returns>List<Trip></returns>
+        public List<Trip> GetTripByDestination(City destination)
+        {
+            List<Trip> trips = new List<Trip>();
+
+            const string queryString = "SELECT * FROM Trip WHERE `Trip`.`Destination` = @destination;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Trip trip = new Trip();
+
+                    PopulateTrip(ref trip, row);
+
+                    trips.Add(trip);
+                }
+
+                conn.Close();
+            }
+
+            return trips;
+        }
+
+        /// <summary>
+        /// PopulateTrip() takes a reference to a trip object and a data row and parses
+        /// the data row into the trip object.
+        /// </summary>
+        /// <param name="trip">ref Trip</param>
+        /// <param name="row">DataRow</param>
+        private void PopulateTrip(ref Trip trip, DataRow row)
+        {
+            trip.TripID = (uint)(int)row["TripID"];
+            City.TryParse((string)row["Destination"], out City destination);
+            City.TryParse((string)row["West"], out City west);
+            City.TryParse((string)row["East"], out City east);
+            trip.TravelTime = (int)row["Time"];
+            trip.Distance = (int)row["Distance"];
+        }
+
+        /// <summary>
         /// PopulateCarrier() takes a reference to a carrier object and a data row and parses
         /// the data row into the carrier object.
         /// </summary>
-        /// <param name="carrier">ref Carrier carrier</param>
-        /// <param name="row">DataRow row</param>
+        /// <param name="carrier">ref Carrier</param>
+        /// <param name="row">DataRow</param>
         private void PopulateCarrier(ref Carrier carrier, DataRow row)
         {
             carrier.CarrierID = (uint) (int) row["CarrierID"];
@@ -967,9 +1088,12 @@ namespace TMS.Data
         /// <param name="row">DataRow</param>
         private void PopulateContract(ref Contract contract, DataRow row)
         {
-            contract.Carrier = GetCarrier((uint)row["CarrierID"]);
-            contract.Customer = GetCustomerById((uint)row["CustomerID"]);
+            if (row["CarrierID"] != null)
+            {
+                contract.Carrier = GetCarrier((uint)row["CarrierID"]);
+            }
 
+            contract.Customer = GetCustomerById((uint)row["CustomerID"]);
             contract.Status = (Status)(sbyte)row["Status"];
             contract.Quantity = (int)row["Quantity"];
             contract.JobType = (JobType)(sbyte)row["LoadType"];

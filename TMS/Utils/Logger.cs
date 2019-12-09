@@ -44,13 +44,14 @@ namespace TMS.Utils
 
         private static void WriteLog(LogLevel level, LogOrigin origin, string timestamp, string message)
         {
-         
-
-            if (!Directory.Exists(logPath+@"\logs"))
+            if (!Directory.Exists(logPath + @"\logs"))
             {
                 Directory.CreateDirectory(logPath + @"\logs");
             }
-            string path = logPath+ @"\logs\TMS.log";
+
+            string fileName = DateTime.Now.ToString("MM/dd/yyyy") + ".log";
+
+            string path = logPath + @"\logs\" + fileName;
             File.AppendAllText(path, (timestamp + " [" + level.ToString().ToUpper() + "] " + origin.ToString() + ": ").PadRight(InfoLength) + message + "\n");
         }
 
@@ -63,6 +64,9 @@ namespace TMS.Utils
             return logPath;
         }
 
- 
+        public static string GetCurrentLogPath()
+        {
+            return logPath + "\\logs\\" + DateTime.Now.ToString("MM/dd/yyyy") + ".log";
+        }
     }
 }
