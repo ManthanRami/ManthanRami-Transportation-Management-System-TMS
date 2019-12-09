@@ -14,14 +14,14 @@
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="211,0,0,0">
             <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="contractData" CanUserAddRows="False" AutoGenerateColumns="false" Height="344" 
-                       Width="444" IsReadOnly="false" SelectionChanged="contractData_SelectionChanged">
+                       Width="444" IsReadOnly="true" SelectionChanged="contractData_SelectionChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Client Name"        Binding="{Binding Path=Customer.Name}"/>
-                    <DataGridTextColumn Header="Job Type"           Binding="{Binding Path=JobType}"/>
-                    <DataGridTextColumn Header="Van Type"           Binding="{Binding Path=VanType}"/>
-                    <DataGridTextColumn Header="Quantity"           Binding="{Binding Path=Quantity}"/>
-                    <DataGridTextColumn Header="Origin City"        Binding="{Binding Path=Origin}"/>
-                    <DataGridTextColumn Header="Destination City"   Binding="{Binding Path=Destination}"/>
+                    <DataGridTextColumn Header="Job Type"           Binding="{Binding Path=JobType}" />
+                    <DataGridTextColumn Header="Van Type"           Binding="{Binding Path=VanType}" />
+                    <DataGridTextColumn Header="Quantity"           Binding="{Binding Path=Quantity}" />
+                    <DataGridTextColumn Header="Origin City"        Binding="{Binding Path=Origin}" />
+                    <DataGridTextColumn Header="Destination City"   Binding="{Binding Path=Destination}" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -30,21 +30,19 @@
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" />
 
         <TextBox HorizontalAlignment="Left" x:Name="JobType"    Height="21" Margin="96,97,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>
 
         <TextBox HorizontalAlignment="Left" x:Name="vanType"    Height="21" Margin="96,159,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>
 
         <TextBox HorizontalAlignment="Left" x:Name="Quantity"   Height="22" Margin="96,215,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>
 
         <TextBox HorizontalAlignment="Left" x:Name="txtOriginCity"    Height="22" Margin="96,272,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" 
-                 Width="105" HorizontalContentAlignment="Center" 
-            VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+                 Width="105" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>
 
         <TextBox HorizontalAlignment="Left" x:Name="txtDestinationCity"   Height="22" Margin="96,328,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" 
-                 Width="105" HorizontalContentAlignment="Center" 
-            VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" />
+                 Width="105" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>
 
 
         <Label  Content="Client Name :"     HorizontalAlignment="Left"  VerticalAlignment="Top"  Height="29" Margin="96,5,0,0" FontSize="16" 
@@ -65,17 +63,15 @@
         <Label  Content="Destination City :"          HorizontalAlignment="Left"  Margin="63,294,0,0"        VerticalAlignment="Top" Height="29" 
                 FontSize="16" Width="175" HorizontalContentAlignment="Center"/>
 
-        <Button x:Name="Getorder"       HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,97,0,0" 
-                Height="49" Click="GetOrder_Click">
-            <TextBlock TextAlignment="Center">
+        <Button x:Name="Getorder"       HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,97,0,0" Height="49" Click="GetOrder_Click">
+            <TextBlock TextAlignment="Center" IsEnabled="False">
                 Available<LineBreak/> Contracts
             </TextBlock>
         </Button>
 
 
-        <Button x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,164,0,0" 
-                Height="41">
-            <TextBlock TextAlignment="Center">
+        <Button x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,164,0,0" Height="41">
+            <TextBlock TextAlignment="Center" IsEnabled="False">
                 Create<LineBreak/> Order
             </TextBlock>
         </Button>
