@@ -45,7 +45,7 @@ namespace TMS.Pages_UI.Pages_Admin
             list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
             if (list.Count != 0)
             {
-                tms.UpdateCarrier(Convert.ToUInt32(CarrierList.SelectedIndex), carrier);
+                tms.UpdateCarrier(Convert.ToUInt32(CarrierList.SelectedIndex+1), carrier);
                 MessageBox.Show("Carrier Updated Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
                 GetCarrierList();
                 MakeFieldEmpty();
