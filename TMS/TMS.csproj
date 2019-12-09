@@ -96,6 +96,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Admin.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\DataMap.cs" />
     <Compile Include="Data\Trip.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Trip.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Windows_UI\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
