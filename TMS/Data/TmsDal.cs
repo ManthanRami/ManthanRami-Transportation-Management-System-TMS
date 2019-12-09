@@ -226,6 +226,51 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This very hard to name method retrieves carriers for an order.
+        /// It takes in the origin city, the destination city and the name of the carrier to be
+        /// used and checks if that carrier has a depot in both of those cities.
+        /// </summary>
+        /// <param name="origin">City origin</param>
+        /// <param name="destination">City destination</param>
+        /// <param name="carrierName">string carrierName</param>
+        /// <returns></returns>
+        public List<Carrier> GetCarrierCitiesNameMatch(City origin, City destination, string carrierName)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = @"SELECT * FROM `Carrier` WHERE
+                                        (`Carrier`.`DepotCity` = @origin OR `Carrier`.`DepotCity` = @destination)
+                                        AND `Carrier`.`Name` = @carrierName;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@origin", origin.ToString());
+                query.Parameters.AddWithValue("@destination", destination.ToString());
+                query.Parameters.AddWithValue("@carrierName", carrierName);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    PopulateCarrier(ref carrier, row);
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            return carriers;
+        }
+
+        /// <summary>
         /// This method finds a list of carriers based on their depot city
         /// </summary>
         /// <param name="city">City</param>
