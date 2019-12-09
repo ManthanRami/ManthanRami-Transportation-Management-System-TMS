@@ -226,6 +226,43 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method finds a list of carriers based on their depot city
+        /// </summary>
+        /// <param name="city">City</param>
+        /// <returns>List<Carrier></returns>
+        public List<Carrier> GetCarriersByCity(City city)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = "SELECT * FROM `Carrier` WHERE `Carrier`.`DepotCity` = @city;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@city", city.ToString());
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    PopulateCarrier(ref carrier, row);
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            return carriers;
+        }
+
+        /// <summary>
         /// This method takes in a carrier's ID, and deletes it.
         /// </summary>
         /// <param name="carrierId">uint</param>
