@@ -58,7 +58,9 @@
     <Compile Include="CmpDalTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TmsDalTest.cs" />
+    <Compile Include="TripTest.cs" />
     <Compile Include="UI Test.cs" />
+    <Compile Include="TripsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
