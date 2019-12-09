@@ -41,7 +41,8 @@ namespace TMS.Pages_UI.Pages_Admin
 
         private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
         {
-
+            //var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //config.ConnectionStrings.ConnectionStrings["TMSConnectionString"].ConnectionString = "server=127.0.0.1;user id=tms;password=tmsPassword*2019;database=tms";
         }
 
         private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
