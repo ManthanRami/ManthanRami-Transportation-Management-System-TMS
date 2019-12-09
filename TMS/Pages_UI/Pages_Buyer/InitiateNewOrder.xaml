@@ -69,9 +69,9 @@
             </TextBlock>
         </Button>
 
-
-        <Button x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,164,0,0" Height="41">
-            <TextBlock TextAlignment="Center" IsEnabled="False">
+        <Button x:Name="CreateOrder"    HorizontalAlignment="Left"  VerticalAlignment="Top" Width="81" Margin="5,164,0,0" 
+                Height="41" Click="CreateOrder_Click">
+            <TextBlock TextAlignment="Center">
                 Create<LineBreak/> Order
             </TextBlock>
         </Button>

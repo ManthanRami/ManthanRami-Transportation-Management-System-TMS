@@ -23,6 +23,8 @@ namespace TMS.Pages_UI.Pages_Buyer
     public partial class InitiateNewOrder : Page
     {
         CmpDal cmp;
+        TmsDal tms = new TmsDal();
+        Contract contract = new Contract();
         List<Contract> crt;
         public InitiateNewOrder()
         {
@@ -52,5 +54,20 @@ namespace TMS.Pages_UI.Pages_Buyer
             }
         }
 
+        private void CreateOrder_Click(object sender, RoutedEventArgs e)
+        {
+            City city = (City)Enum.Parse(typeof(City), txtDestinationCity.Text);
+            contract.Destination = city;
+            contract.Customer=new Customer();
+            contract.Customer.Name = ClientName.Text;
+            city = (City)Enum.Parse(typeof(City), txtOriginCity.Text);
+            contract.Origin = city;
+            JobType job = (JobType)Enum.Parse(typeof(JobType), JobType.Text);
+            contract.JobType = job;
+            VanType van = (VanType)Enum.Parse(typeof(VanType), vanType.Text);
+            contract.VanType = van;
+            contract.Quantity = Convert.ToInt32(Quantity.Text);
+           // tms.CreateContract(contract);
+        }
     }
 }
