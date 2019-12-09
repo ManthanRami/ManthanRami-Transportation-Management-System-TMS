@@ -23,6 +23,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data;
 using System.Configuration;
+using TMS.Data;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -34,6 +35,8 @@ namespace TMS.Pages_UI.Pages_Admin
     //=======================================================================================================================
     public partial class DBMSConfig : Page
     {
+        public string currentSetting = null;
+
         public DBMSConfig()
         {
             InitializeComponent();
@@ -43,8 +46,23 @@ namespace TMS.Pages_UI.Pages_Admin
         private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
         {
             string newsettings = "server" + txtIP_Address.Text + ";user id=" + txtID.Text + ";port=" + txtPort_Number.Text + ";password=" + txtPassword.Text + "!;database=" + txtDatabase.Text + "";
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.ConnectionStrings.ConnectionStrings["CMPConnectionString"].ConnectionString = newsettings;
+            CmpDal.connectionString= newsettings;
+            try
+            {
+                CmpDal cmp = new CmpDal();
+            }
+            catch(Exception ex)
+            {
+              if(MessageBox.Show("Connection data Incorrect !!\nDo you want to go with previous setting ?", "Invaild Data", MessageBoxButton.YesNo, MessageBoxImage.Error)==MessageBoxResult.No)
+              {
+                    CmpDal.connectionString = currentSetting;
+              }
+              else
+              {
+                    CmpDal.connectionString = currentSetting;
+                    getCurrentDBMS();
+              }
+            }
         }
 
         private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
@@ -54,8 +72,8 @@ namespace TMS.Pages_UI.Pages_Admin
         }
 
         private void getCurrentDBMS()
-        {
-            string currentSetting = ConfigurationManager.ConnectionStrings["CMPConnectionString"].ConnectionString;
+        {           
+            currentSetting = CmpDal.connectionString;
             string[] cs = currentSetting.Split(';');
             string[] server = cs[0].Split('=');
             string[] id = cs[1].Split('=');
