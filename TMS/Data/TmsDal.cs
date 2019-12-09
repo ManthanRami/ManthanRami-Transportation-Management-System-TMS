@@ -226,6 +226,88 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This very hard to name method retrieves carriers for an order.
+        /// It takes in the origin city, the destination city and the name of the carrier to be
+        /// used and checks if that carrier has a depot in both of those cities.
+        /// </summary>
+        /// <param name="origin">City origin</param>
+        /// <param name="destination">City destination</param>
+        /// <param name="carrierName">string carrierName</param>
+        /// <returns></returns>
+        public List<Carrier> GetCarrierCitiesNameMatch(City origin, City destination, string carrierName)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = @"SELECT * FROM `Carrier` WHERE
+                                        (`Carrier`.`DepotCity` = @origin OR `Carrier`.`DepotCity` = @destination)
+                                        AND `Carrier`.`Name` = @carrierName;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@origin", origin.ToString());
+                query.Parameters.AddWithValue("@destination", destination.ToString());
+                query.Parameters.AddWithValue("@carrierName", carrierName);
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    PopulateCarrier(ref carrier, row);
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            return carriers;
+        }
+
+        /// <summary>
+        /// This method finds a list of carriers based on their depot city
+        /// </summary>
+        /// <param name="city">City</param>
+        /// <returns>List<Carrier></returns>
+        public List<Carrier> GetCarriersByCity(City city)
+        {
+            List<Carrier> carriers = new List<Carrier>();
+
+            const string queryString = "SELECT * FROM `Carrier` WHERE `Carrier`.`DepotCity` = @city;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@city", city.ToString());
+                MySqlDataReader reader = query.ExecuteReader();
+
+                DataTable table = new DataTable();
+                table.Load(reader);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    Carrier carrier = new Carrier();
+
+                    PopulateCarrier(ref carrier, row);
+
+                    carriers.Add(carrier);
+                }
+
+                conn.Close();
+            }
+
+            return carriers;
+        }
+
+        /// <summary>
         /// This method takes in a carrier's ID, and deletes it.
         /// </summary>
         /// <param name="carrierId">uint</param>
@@ -350,6 +432,8 @@ namespace TMS.Data
 
             return carriers;
         }
+
+        //public List<Carrier> GetCarriers
 
         /// <summary>
         /// This method gets a carrier's FTL Rate
@@ -1044,6 +1128,35 @@ namespace TMS.Data
             }
 
             return trips;
+        }
+
+        /// <summary>
+        /// This method updates a trip row in the database with new values. It takes a Trip as a parameter
+        /// and updates the travel time and distance.
+        /// </summary>
+        /// <param name="trip"></param>
+        /// <returns></returns>
+        public Trip UpdateTrip(Trip trip)
+        {
+            const string queryString = "UPDATE `Trip` SET `Trip`.`Time` = @time, `Trip`.`Distance` = @distance;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@time", trip.TravelTime);
+                query.Parameters.AddWithValue("@distance", trip.Distance);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
+
+                conn.Close();
+            }
+
+            return trip;
         }
 
         /// <summary>
