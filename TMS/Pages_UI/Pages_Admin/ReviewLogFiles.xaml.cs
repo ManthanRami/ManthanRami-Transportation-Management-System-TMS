@@ -39,7 +39,6 @@ namespace TMS.Pages_UI.Pages_Admin
         {
             InitializeComponent();
             LoadToLogReview();
-
         }
 
         private void LoadToLogReview()
