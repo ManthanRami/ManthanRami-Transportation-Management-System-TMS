@@ -56,11 +56,11 @@ namespace TMS.Pages_UI.Pages_Buyer
 
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
-            City city = (City)Enum.Parse(typeof(City), txtDestinationCity.Text);
+            TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDestinationCity.Text);
             contract.Destination = city;
             contract.Customer=new Customer();
             contract.Customer.Name = ClientName.Text;
-            city = (City)Enum.Parse(typeof(City), txtOriginCity.Text);
+            city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtOriginCity.Text);
             contract.Origin = city;
             JobType job = (JobType)Enum.Parse(typeof(JobType), JobType.Text);
             contract.JobType = job;

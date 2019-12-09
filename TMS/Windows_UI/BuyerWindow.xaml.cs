@@ -115,5 +115,10 @@ namespace TMS
             btnCompleteOrders.Background = Brushes.LightGray;
             btnNewOrders.Background = Brushes.LightGray;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+        }
     }
 }
