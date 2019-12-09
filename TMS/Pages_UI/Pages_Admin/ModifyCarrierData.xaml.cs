@@ -39,6 +39,7 @@ namespace TMS.Pages_UI.Pages_Admin
         private void UpdateCarrier(object sender, RoutedEventArgs e)
         {
             carrier.Name = txtCarrier_Name.Text;
+            
             TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDepot_City.Text);
             carrier.DepotCity = city;
             carrier.FtlAvailability = Convert.ToInt32(txtFTL_Avail.Text);

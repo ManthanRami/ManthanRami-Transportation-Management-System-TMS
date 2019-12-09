@@ -20,7 +20,7 @@ namespace TMS.Data
         /// <summary>
         /// This string is our CMP DB connection string drawn from App.config
         /// </summary>
-        private readonly string connectionString =
+        public static string connectionString =
             ConfigurationManager.ConnectionStrings["CMPConnectionString"].ConnectionString;
         public CmpDal()
         {
