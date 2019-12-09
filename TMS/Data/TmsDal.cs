@@ -1134,8 +1134,8 @@ namespace TMS.Data
         /// This method updates a trip row in the database with new values. It takes a Trip as a parameter
         /// and updates the travel time and distance.
         /// </summary>
-        /// <param name="trip"></param>
-        /// <returns></returns>
+        /// <param name="trip">Trip</param>
+        /// <returns>Trip</returns>
         public Trip UpdateTrip(Trip trip)
         {
             const string queryString = "UPDATE `Trip` SET `Trip`.`Time` = @time, `Trip`.`Distance` = @distance;";
@@ -1171,8 +1171,8 @@ namespace TMS.Data
             City.TryParse((string)row["Destination"], out City destination);
             City.TryParse((string)row["CityWest"], out City west);
             City.TryParse((string)row["CityEast"], out City east);
-            trip.TravelTime = (int)row["Time"];
-            trip.Distance = (int)row["Distance"];
+            trip.TravelTime = (int)(uint)row["Time"];
+            trip.Distance = (int)(uint)row["Distance"];
         }
 
         /// <summary>

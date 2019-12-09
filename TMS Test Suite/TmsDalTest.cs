@@ -537,5 +537,15 @@ namespace TMS_Test_Suite
 
             dal.GetContracts();
         }
+
+        [TestMethod]
+        public void TestGetTrips()
+        {
+            TmsDal dal = new TmsDal();
+
+            List<Trip> trips = dal.GetTrips();
+
+            Assert.IsTrue(trips.Count > 0);
+        }
     }
 }
