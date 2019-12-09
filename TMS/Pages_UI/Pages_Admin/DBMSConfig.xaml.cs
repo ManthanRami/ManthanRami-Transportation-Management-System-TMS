@@ -37,12 +37,14 @@ namespace TMS.Pages_UI.Pages_Admin
         public DBMSConfig()
         {
             InitializeComponent();
+            getCurrentDBMS();
         }
 
         private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
         {
-            //var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //config.ConnectionStrings.ConnectionStrings["TMSConnectionString"].ConnectionString = "server=127.0.0.1;user id=tms;password=tmsPassword*2019;database=tms";
+            string newsettings = "server" + txtIP_Address.Text + ";user id=" + txtID.Text + ";port=" + txtPort_Number.Text + ";password=" + txtPassword.Text + "!;database=" + txtDatabase.Text + "";
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.ConnectionStrings.ConnectionStrings["CMPConnectionString"].ConnectionString = newsettings;
         }
 
         private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
@@ -53,7 +55,19 @@ namespace TMS.Pages_UI.Pages_Admin
 
         private void getCurrentDBMS()
         {
-            
+            string currentSetting = ConfigurationManager.ConnectionStrings["CMPConnectionString"].ConnectionString;
+            string[] cs = currentSetting.Split(';');
+            string[] server = cs[0].Split('=');
+            string[] id = cs[1].Split('=');
+            string[] port = cs[2].Split('=');
+            string[] pwd = cs[3].Split('=');
+            string[] dbName = cs[4].Split('=');
+            txtDatabase.Text = dbName[1];
+            txtID.Text = id[1];
+            txtIP_Address.Text = server[1];
+            txtPassword.Text = pwd[1];
+            txtPort_Number.Text = port[1];
+
         }
     }
 }
