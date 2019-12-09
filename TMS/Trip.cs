@@ -15,17 +15,17 @@ namespace TMS
         static int DrivingMax = 480;//8 hours in minutes
         static int LoadTime = 120;  //two hours to load/unload
         int destination;         //final city
-        int currentCity;         //enroute to next city
+        public int currentCity;         //enroute to next city
         int workTime;               //minutes working today
         int driveToday;             //minutes driving today
         int CurrentDrive;           //minute to next city
-        int direction;              //0 = last stop. 1 = east -1 = west
-        int quantity;               //0 = FTL >0 = # of pallets
+        public int direction;              //0 = last stop. 1 = east -1 = west
+        public int quantity;               //0 = FTL >0 = # of pallets
         int daytotal;              //days for the trip
         int unloading;              //track unloading time left
         //bool reefer;               //(false)0 for dry, (true)1 for refreigerated
-        int BillDays;
-        int distance;
+        public int BillDays;
+        public int distance;
 
         
         /// <summary>
