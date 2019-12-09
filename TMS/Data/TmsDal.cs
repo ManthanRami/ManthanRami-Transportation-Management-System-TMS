@@ -1084,6 +1084,35 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method updates a trip row in the database with new values. It takes a Trip as a parameter
+        /// and updates the travel time and distance.
+        /// </summary>
+        /// <param name="trip"></param>
+        /// <returns></returns>
+        public Trip UpdateTrip(Trip trip)
+        {
+            const string queryString = "UPDATE `Trip` SET `Trip`.`Time` = @time, `Trip`.`Distance` = @distance;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                MySqlCommand query = new MySqlCommand(queryString, conn);
+                query.Parameters.AddWithValue("@time", trip.TravelTime);
+                query.Parameters.AddWithValue("@distance", trip.Distance);
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    throw new CouldNotUpdateException();
+                }
+
+                conn.Close();
+            }
+
+            return trip;
+        }
+
+        /// <summary>
         /// PopulateTrip() takes a reference to a trip object and a data row and parses
         /// the data row into the trip object.
         /// </summary>
