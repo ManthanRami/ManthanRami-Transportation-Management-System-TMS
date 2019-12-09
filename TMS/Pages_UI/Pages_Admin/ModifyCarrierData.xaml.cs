@@ -38,7 +38,8 @@ namespace TMS.Pages_UI.Pages_Admin
 
         private void UpdateCarrier(object sender, RoutedEventArgs e)
         {
-            carrier.Name = txtCarrier_ID.Text;
+            carrier.Name = txtCarrier_Name.Text;
+            
             TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDepot_City.Text);
             carrier.DepotCity = city;
             carrier.FtlAvailability = Convert.ToInt32(txtFTL_Avail.Text);
@@ -76,7 +77,7 @@ namespace TMS.Pages_UI.Pages_Admin
                 if (cID != 4294967295)
                 {
                     carrier = tms.GetCarrier(cID);
-                    txtCarrier_ID.Text = carrier.Name;
+                    txtCarrier_Name.Text = carrier.Name;
                     txtDepot_City.Text = carrier.DepotCity.ToString();
                     txtFTL_Avail.Text = carrier.FtlAvailability.ToString();
                     txtLTL_Avail.Text = carrier.LtlAvailability.ToString();
@@ -86,7 +87,7 @@ namespace TMS.Pages_UI.Pages_Admin
         }
         private void MakeFieldEmpty()
         {
-            txtCarrier_ID.Text = "";
+            txtCarrier_Name.Text = "";
             txtDepot_City.Text = "";
             txtFTL_Avail.Text = "";
             txtLTL_Avail.Text = "";

@@ -104,7 +104,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Data\Admin.cs" />
-    <Compile Include="City.cs" />
+    <Compile Include="CitiesData.cs" />
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\DataMap.cs" />
     <Compile Include="Data\Trip.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Trip.cs" />
+    <Compile Include="TripLogic.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Windows_UI\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
@@ -168,18 +168,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages_UI\Pages_Admin\ModifyFeeData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages_UI\Pages_Admin\ModifyRateData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages_UI\Pages_Admin\ModifyRouteData.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages_UI\Pages_Admin\ReviewLogFiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,15 +212,6 @@
     </Compile>
     <Compile Include="Pages_UI\Pages_Admin\ModifyCarrierData.xaml.cs">
       <DependentUpon>ModifyCarrierData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages_UI\Pages_Admin\ModifyFeeData.xaml.cs">
-      <DependentUpon>ModifyFeeData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages_UI\Pages_Admin\ModifyRateData.xaml.cs">
-      <DependentUpon>ModifyRateData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages_UI\Pages_Admin\ModifyRouteData.xaml.cs">
-      <DependentUpon>ModifyRouteData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages_UI\Pages_Admin\ReviewLogFiles.xaml.cs">
       <DependentUpon>ReviewLogFiles.xaml</DependentUpon>

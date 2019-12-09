@@ -14,14 +14,78 @@ namespace TMS.Data
     /// </summary>
     public class Carrier
     {
+        private TmsDal dal;
+        public Carrier()
+        {
+            dal = new TmsDal();
+        }
+
         public uint CarrierID { get; set; }
         public string Name { get; set; }
         public City DepotCity { get; set; }
 
         public int FtlAvailability { get; set; }
         public int LtlAvailability { get; set; }
-        public float FTLRate { get; set; }
-        public float LTLRate { get; set; }
-        public float ReeferCharge { get; set; }
+
+        private float _ftlRate = float.MinValue;
+        public float FTLRate
+        {
+            get
+            {
+                if (_ftlRate == float.MinValue)
+                {
+                    _ftlRate = dal.GetFtlRate(CarrierID);
+                }
+
+                return _ftlRate;
+            }
+            set
+            {
+                _ftlRate = value;
+
+                dal.SetFtlRate(CarrierID, _ftlRate);
+            }
+        }
+
+        private float _ltlRate = float.MinValue;
+        public float LTLRate
+        {
+            get
+            {
+                if (_ltlRate == float.MinValue)
+                {
+                    _ltlRate = dal.GetLtlRate(CarrierID);
+                }
+
+                return _ltlRate;
+            }
+            set
+            {
+                _ltlRate = value;
+
+                dal.SetLtlRate(CarrierID, _ltlRate);
+            }
+        }
+
+        private float _reeferCharge = float.MinValue;
+
+        public float ReeferCharge
+        {
+            get
+            {
+                if (_reeferCharge == float.MinValue)
+                {
+                    _reeferCharge = dal.GetReeferCharge(CarrierID);
+                }
+
+                return _reeferCharge;
+            }
+            set
+            {
+                _reeferCharge = value;
+
+                dal.SetReeferCharge(CarrierID, _reeferCharge);
+            }
+        }
     }
 }

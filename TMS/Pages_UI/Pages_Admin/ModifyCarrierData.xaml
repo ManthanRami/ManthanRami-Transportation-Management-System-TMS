@@ -10,7 +10,7 @@
 
     <Grid Background="LightGray">
         <TextBlock  Text="Carrier Name :"         Margin="10,115,550,220"     Height="25" IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtCarrier_ID"      Margin="138,115,407,220"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBox    x:Name="txtCarrier_Name"      Margin="138,115,407,220"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
         <TextBlock  Text="Depot City :"         Margin="30,151,533,184"     Height="25"  IsEnabled="False" FontSize="16"/>
         <TextBox    x:Name="txtDepot_City"      Margin="138,151,407,184"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
         <TextBlock  Text="FTL Availability :"   Margin="2,189,533,146"     Height="25"  IsEnabled="False" FontSize="16"/>

@@ -13,9 +13,10 @@
             <Border Background="Gray" Margin="0,-42,0,335" Height="45" MinWidth="798" MaxWidth="798">
                 <TextBlock   x:Name="BuyerTitle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35"  TextWrapping="Wrap" Text="OHST BUYER" Height="Auto" Width="auto" IsEnabled="False"/>
             </Border>
-            <Button x:Name="btnCustManage" Content="Customer Management" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,59,0,0"  FontSize="11" Click="btnCust_Management_Click"/>
-            <Button x:Name="btnNewOrders" Content="Initiate New Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,112,0,0"  Click="btnNew_Order_Click"/>
+            <Button x:Name="btnCustManage" Content="Customer Management" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,10,0,0"  FontSize="11" Click="btnCust_Management_Click"/>
+            <Button x:Name="btnNewOrders" Content="Initiate New Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,61,0,0"  Click="btnNew_Order_Click"/>
             <Button x:Name="btnCompleteOrders" Content="Completed Orders" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47" Margin="2,165,0,0"      Click="btnCompleted_Orders_Click"/>
+            <Button x:Name="btnReview_orders" Content="Review Orders" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="47" Margin="2,113,0,0"      Click="btnCompleted_Orders_Click"/>
             <Button Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="677,-43,0,0"            Click="BuyerLogout_Click"/>
             <Frame  x:Name="BuyerMain"  Margin="126, 7, 5, -38" NavigationUIVisibility="Hidden" Background="Gainsboro"/>
         </Grid>

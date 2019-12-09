@@ -134,51 +134,6 @@ namespace TMS
             AdminMain.Content = new ModifyCarrierData();
         }
 
-        //=======================================================================================================================
-        /// <summary>
-        /// Description :   btnRateData_Click swaps the page on screen to the Rate Data editing page
-        /// </summary>
-        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button).</param>
-        /// <param name="e">    Contains state information and event data associated with a routed event.</param>
-        //=======================================================================================================================
-        private void btnRateData_Click(object sender, RoutedEventArgs e)
-        {
-            UnselectButtons();
-            btnRate.Background = Brushes.LightBlue;
-            AdminMain.Content = new ModifyRateData();
-        }
-
-        //=======================================================================================================================
-        /// <summary>
-        /// Description :   btnFeeData_Click function switches the page on screen to allow the admin to make changes to the
-        ///                fee data.
-        /// </summary>
-        /// <param name="sender">   The sender is the control that the action is for (say OnClick, it's the button)).</param>
-        /// <param name="e">    Contains state information and event data associated with a routed event.</param>
-        //=======================================================================================================================
-        private void btnFeeData_Click(object sender, RoutedEventArgs e)
-        {
-            UnselectButtons();
-            btnFee.Background = Brushes.LightBlue;
-            AdminMain.Content = new ModifyFeeData();
-        }
-
-        //=======================================================================================================================
-        /// <summary>
-        /// Description :   btnRouteData_Click function switches the page that current loaded in the main window to enable the 
-        ///                 admin to make changes / update / edit route data for the database
-        /// </summary>
-        /// <param name="sender">   The sender is the control that the action is for (Button).</param>
-        /// <param name="e">    Contains state information and event data associated with a routed event.</param>
-        //=======================================================================================================================
-        private void btnRouteData_Click(object sender, RoutedEventArgs e)
-        {
-            UnselectButtons();
-            btnRoute.Background = Brushes.LightBlue;
-            AdminMain.Content = new ModifyRouteData();
-        }
-
-
         private void UnselectButtons()
         {
             btnReview.Background = Brushes.LightGray;
@@ -186,9 +141,6 @@ namespace TMS
             btnDBMS.Background = Brushes.LightGray;
             btnBackup.Background = Brushes.LightGray;
             btnCarrier.Background = Brushes.LightGray;
-            btnRate.Background = Brushes.LightGray;
-            btnFee.Background = Brushes.LightGray;
-            btnRoute.Background = Brushes.LightGray;
         }
 
     }
