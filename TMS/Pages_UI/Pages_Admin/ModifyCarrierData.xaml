@@ -9,17 +9,22 @@
       Title="ModifyCarrierData">
 
     <Grid Background="LightGray">
-        <TextBlock  Text="Carrier ID :"         Margin="216,147,362,188"     Height="25" IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtCarrier_ID"      Margin="316,147,241,188"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
-        <TextBlock  Text="Depot City :"         Margin="208,183,354,152"     Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtDepot_City"      Margin="316,183,241,152"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
-        <TextBlock  Text="FTL Availability :"   Margin="180,220,354,115"     Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtFTL_Avail"       Margin="316,220,241,115"    Height="25" Background="GhostWhite" IsReadOnly="False" 
+        <TextBlock  Text="Carrier Name :"         Margin="10,115,550,220"     Height="25" IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtCarrier_ID"      Margin="138,115,407,220"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBlock  Text="Depot City :"         Margin="30,151,533,184"     Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtDepot_City"      Margin="138,151,407,184"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBlock  Text="FTL Availability :"   Margin="2,189,533,146"     Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtFTL_Avail"       Margin="138,189,407,146"    Height="25" Background="GhostWhite" IsReadOnly="False" 
                     ToolTip="FTL - Full Truck Load"     FontSize="16"/>
-        <TextBlock  Text="LTL Availability :"   Margin="180,257,354,78"      Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtLTL_Avail"       Margin="316,257,241,78"     Height="25" Background="GhostWhite" IsReadOnly="False" 
+        <TextBlock  Text="LTL Availability :"   Margin="2,225,533,110"      Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtLTL_Avail"       Margin="138,225,407,110"     Height="25" Background="GhostWhite" IsReadOnly="False" 
                     ToolTip="LTL - Less Than Load" FontSize="16"/>
-        <TextBlock  Text="Modify Carrier Data"        Margin="26,12,26,243"       TextAlignment="Center"     FontSize="60"    
-                    IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
+        <Button Content="Update Carrier" x:Name="AddCarrier" HorizontalAlignment="Left" Margin="138,275,0,0" VerticalAlignment="Top" Width="108" Click="UpdateCarrier"/>
+        <DataGrid x:Name="CarrierList" CanUserAddRows="False" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="333" SelectionChanged="SelectCustomer" Margin="267,0,0,0" VerticalAlignment="Top" Width="398"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="138,3,0,0" TextWrapping="Wrap" x:Name="searchbox" VerticalAlignment="Top" Width="120" />
+        <Button Content="Search" Name="Searchbtn" HorizontalAlignment="Left" Margin="138,58,0,0" VerticalAlignment="Top" Width="76" Click="Searchbtn_Click"/>
+        <ComboBox Name="cityList" HorizontalAlignment="Left" Margin="138,31,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Carrier Name :" HorizontalAlignment="Left" Margin="38,0,0,0" VerticalAlignment="Top"/>
+        <Button Content="Show Carrier" x:Name="ShowCarrier" HorizontalAlignment="Left" Margin="267,338,0,0" VerticalAlignment="Top" Width="102" Click="ShowCarrier_Click"/>
     </Grid>
 </Page>
