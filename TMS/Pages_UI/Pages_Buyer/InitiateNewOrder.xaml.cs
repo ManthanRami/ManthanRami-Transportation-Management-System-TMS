@@ -67,7 +67,7 @@ namespace TMS.Pages_UI.Pages_Buyer
             VanType van = (VanType)Enum.Parse(typeof(VanType), vanType.Text);
             contract.VanType = van;
             contract.Quantity = Convert.ToInt32(Quantity.Text);
-           // tms.CreateContract(contract);
+            tms.CreateContract(contract);
         }
     }
 }

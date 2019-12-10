@@ -9,22 +9,44 @@
       Title="ModifyCarrierData">
 
     <Grid Background="LightGray">
-        <TextBlock  Text="Carrier Name :"         Margin="10,115,550,220"     Height="25" IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtCarrier_Name"      Margin="138,115,407,220"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
-        <TextBlock  Text="Depot City :"         Margin="30,151,533,184"     Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtDepot_City"      Margin="138,151,407,184"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
-        <TextBlock  Text="FTL Availability :"   Margin="2,189,533,146"     Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtFTL_Avail"       Margin="138,189,407,146"    Height="25" Background="GhostWhite" IsReadOnly="False" 
+        <TextBlock  Text="Carrier Name :"         Margin="14,69,546,266"     Height="25" IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtCarrier_Name"      Margin="142,69,403,266"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBlock  Text="Depot City :"         Margin="34,105,529,230"     Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtDepot_City"      Margin="142,105,403,230"    Height="25" Background="GhostWhite" IsReadOnly="False" FontSize="16"/>
+        <TextBlock  Text="FTL Availability :"   Margin="6,143,529,192"     Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtFTL_Avail"       Margin="142,143,403,192"    Height="25" Background="GhostWhite" IsReadOnly="False" 
                     ToolTip="FTL - Full Truck Load"     FontSize="16"/>
-        <TextBlock  Text="LTL Availability :"   Margin="2,225,533,110"      Height="25"  IsEnabled="False" FontSize="16"/>
-        <TextBox    x:Name="txtLTL_Avail"       Margin="138,225,407,110"     Height="25" Background="GhostWhite" IsReadOnly="False" 
+        <TextBlock  Text="LTL Availability :"   Margin="6,179,529,156"      Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtLTL_Avail"       Margin="142,179,403,156"     Height="25" Background="GhostWhite" IsReadOnly="False" 
                     ToolTip="LTL - Less Than Load" FontSize="16"/>
-        <Button Content="Update Carrier" x:Name="AddCarrier" HorizontalAlignment="Left" Margin="138,275,0,0" VerticalAlignment="Top" Width="108" Click="UpdateCarrier"/>
-        <DataGrid x:Name="CarrierList" CanUserAddRows="False" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="333" SelectionChanged="SelectCustomer" Margin="267,0,0,0" VerticalAlignment="Top" Width="398"/>
+        <Button Content="Update Carrier" x:Name="AddCarrier" HorizontalAlignment="Left" Margin="16,330,0,0" VerticalAlignment="Top" Width="108" Click="UpdateCarrier"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="267,0,0,0">
+            <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="CarrierList" CanUserAddRows="False" AutoGenerateColumns="false" Height="344" 
+                       Width="376" IsReadOnly="true" SelectionChanged="SelectCarrier" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Client Name"        Width="auto"   Binding="{Binding Path=Name}"/>
+                    <DataGridTextColumn Header="Depot City"         Width="auto"   Binding="{Binding Path=DepotCity}" />
+                    <DataGridTextColumn Header="FTL Availability"   Width="auto"   Binding="{Binding Path=FtlAvailability}" />
+                    <DataGridTextColumn Header="LTL  Availability"  Width="auto"   Binding="{Binding Path=LtlAvailability}" />
+                    <DataGridTextColumn Header="FTL Rate"           Width="auto"   Binding="{Binding Path=FTLRate}" />
+                    <DataGridTextColumn Header="LTL Rate"           Width="auto"   Binding="{Binding Path=LTLRate}" />
+                    <DataGridTextColumn Header="Reefer Rate"        Width="auto"   Binding="{Binding Path=ReeferCharge}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="138,3,0,0" TextWrapping="Wrap" x:Name="searchbox" VerticalAlignment="Top" Width="120" />
-        <Button Content="Search" Name="Searchbtn" HorizontalAlignment="Left" Margin="138,58,0,0" VerticalAlignment="Top" Width="76" Click="Searchbtn_Click"/>
+        <Button Content="Search" Name="Searchbtn" HorizontalAlignment="Left" Margin="38,31,0,0" VerticalAlignment="Top" Width="76" Click="Searchbtn_Click"/>
         <ComboBox Name="cityList" HorizontalAlignment="Left" Margin="138,31,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Carrier Name :" HorizontalAlignment="Left" Margin="38,0,0,0" VerticalAlignment="Top"/>
-        <Button Content="Show Carrier" x:Name="ShowCarrier" HorizontalAlignment="Left" Margin="267,338,0,0" VerticalAlignment="Top" Width="102" Click="ShowCarrier_Click"/>
+        <Button Content="Show Carrier" x:Name="ShowCarrier" HorizontalAlignment="Left" Margin="138,330,0,0" VerticalAlignment="Top" Width="102" Click="ShowCarrier_Click"/>
+        <TextBlock   Margin="50,218,541,117"     Height="25"  IsEnabled="False" FontSize="16"><Run Text="FTL Rate"/><Run Text=" "/><Run Text=":"/></TextBlock>
+        <TextBox    x:Name="txtFTL_Rate"       Margin="142,218,403,117"    Height="25" Background="GhostWhite" IsReadOnly="False" 
+            ToolTip="FTL Charge per truck load per kilometer"     FontSize="16"/>
+        <TextBlock   Margin="52,254,544,81"      Height="25"  IsEnabled="False" FontSize="16" RenderTransformOrigin="0.42,0.56"><Run Text="LTL Rate"/><Run Text=" "/><Run Text=":"/></TextBlock>
+        <TextBox    x:Name="txtLTL_Rate"       Margin="142,254,403,81"     Height="25" Background="GhostWhite" IsReadOnly="False" 
+            ToolTip="LTL Charge charge per pallet per kilometer" FontSize="16"/>
+        <TextBlock  Text="Reefer Rate :"   Margin="30,289,537,46"      Height="25"  IsEnabled="False" FontSize="16"/>
+        <TextBox    x:Name="txtReefer_Rate"    Margin="142,289,403,46"     Height="25" Background="GhostWhite" IsReadOnly="False" 
+            ToolTip="Reefer Charge for refrigerated trailer per kilometer" FontSize="16"/>
     </Grid>
 </Page>

@@ -15,17 +15,17 @@
             <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="orderData" CanUserAddRows="False" AutoGenerateColumns="false" Height="340" 
                        Width="364" IsReadOnly="true" SelectionChanged="SelectContract">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header=" Contract ID"     Width="*"     Binding="{Binding Path=Contract.ContractID}"/>
-                    <DataGridTextColumn Header=" Client Name"     Width="auto"  Binding="{Binding Path=Customer.Name}"/>
-                    <DataGridTextColumn Header=" Job Type"        Width="*"     Binding="{Binding Path=JobType}"/>
-                    <DataGridTextColumn Header=" Quantity"        Width="*"     Binding="{Binding Path=Quantity}"/>
-                    <DataGridTextColumn Header=" Origin"          Width="*"     Binding="{Binding Path=Origin}"/>
-                    <DataGridTextColumn Header=" Destination"     Width="*"     Binding="{Binding Path=Destination}"/>
+                    <DataGridTextColumn Header=" Contract ID"     Width="auto"      Binding="{Binding Path=Contract.ContractID}"/>
+                    <DataGridTextColumn Header=" Client Name"     Width="auto"      Binding="{Binding Path=Customer.Name}"/>
+                    <DataGridTextColumn Header=" Job Type"        Width="auto"      Binding="{Binding Path=JobType}"/>
+                    <DataGridTextColumn Header=" Quantity"        Width="auto"      Binding="{Binding Path=Quantity}"/>
+                    <DataGridTextColumn Header=" Origin"          Width="auto"      Binding="{Binding Path=Origin}"/>
+                    <DataGridTextColumn Header=" Destination"     Width="auto"      Binding="{Binding Path=Destination}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
         <Label Content="Contract ID :"            Height="25"  Margin="30,10,550,325" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-        <TextBox x:Name="txtOrderID"              Height="25" Width="150" Margin="120,10,395,325" BorderBrush="Black"/>
+        <TextBox x:Name="txtContractID"              Height="25" Width="150" Margin="120,10,395,325" BorderBrush="Black"/>
         <Label Content="Client Name :"            Height="25" Width="75"  Margin="40,55,550,280" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="txtClientName"           Height="25" Width="150" Margin="120,55,395,280" BorderBrush="Black"/>
         <Label Content="Job Type :"               Height="25" Width="75"  Margin="40,104,550,231" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -37,7 +37,7 @@
         <Label Content="Destination :"            Height="25" Width="75"  Margin="40,244,550,91" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="txtDestination"          Height="25" Width="150" Margin="120,244,395,91" BorderBrush="Black"/>
         <Label Content="Select Carrier :"         HorizontalAlignment="Left" Margin="25,284,0,0" VerticalAlignment="Top" Width="90" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <ComboBox x:Name="cityList"               HorizontalAlignment="Left" Margin="120,284,0,0" VerticalAlignment="Top" Width="150" BorderBrush="Black" BorderThickness="1" Height="25" />
-        <Button x:Name="btnLoadOrders"            Content="Load Orders" Height="30" Width="106" Margin="30,320,529,10" Click="btnLoadOrders_Click"/>
+        <ComboBox x:Name="listOfCarriers"         HorizontalAlignment="Left" Margin="120,284,0,0" VerticalAlignment="Top" Width="150" IsEditable="False" BorderBrush="Black" BorderThickness="1" Height="25"/>
+        <Button x:Name="btnLoadOrders"            Content="Pending Orders" Height="30" Width="106" Margin="30,320,529,10" Click="btnLoadOrders_Click"/>
     </Grid>
 </Page>
