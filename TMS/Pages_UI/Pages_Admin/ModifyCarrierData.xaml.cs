@@ -47,6 +47,7 @@ namespace TMS.Pages_UI.Pages_Admin
             carrier.FTLRate         = Convert.ToInt32(txtLTL_Avail.Text);
             carrier.LTLRate         = Convert.ToInt32(txtLTL_Avail.Text);
             carrier.ReeferCharge    = Convert.ToInt32(txtLTL_Avail.Text);
+            
             list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
             if (list.Count != 0)
             {

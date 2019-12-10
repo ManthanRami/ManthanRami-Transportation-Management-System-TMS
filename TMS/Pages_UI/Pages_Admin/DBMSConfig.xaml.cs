@@ -24,6 +24,7 @@ using System.Windows.Shapes;
 using MySql.Data;
 using System.Configuration;
 using TMS.Data;
+using System.Text.RegularExpressions;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -36,7 +37,8 @@ namespace TMS.Pages_UI.Pages_Admin
     public partial class DBMSConfig : Page
     {
         public string currentSetting = null;
-
+        Regex dbName = new Regex(@"^[a-zA-Z]+$");
+        Regex portNum = new Regex(@"^[a-zA-Z]+$");
         public DBMSConfig()
         {
             InitializeComponent();
@@ -65,6 +67,10 @@ namespace TMS.Pages_UI.Pages_Admin
             }
         }
 
+        private void CheckAllFields()
+        {
+
+        }
         private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
         {
             txtIP_Address.IsReadOnly = false;

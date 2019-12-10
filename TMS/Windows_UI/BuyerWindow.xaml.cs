@@ -45,8 +45,6 @@ namespace TMS
             InitializeComponent();
             BuyerMain.Content = new BuyerStartup();
             UnselectButtons();
-
-
         }
 
         //=======================================================================================================================

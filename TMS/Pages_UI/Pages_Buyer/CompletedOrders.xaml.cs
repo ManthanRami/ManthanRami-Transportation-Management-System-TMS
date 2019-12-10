@@ -21,17 +21,12 @@ namespace TMS.Pages_UI.Pages_Buyer
     /// </summary>
     public partial class CompletedOrders : Page
     {
+
+        TmsDal tms = new TmsDal();
+        List<Contract> contracts;
         public CompletedOrders()
         {
             InitializeComponent();
-        }
-
-
-        public List<Contract> GetContractsByStatus()
-        {
-            List<Contract> theList = new List<Contract>();
-
-            return theList;
         }
 
         private void completeOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,7 +41,10 @@ namespace TMS.Pages_UI.Pages_Buyer
 
         private void btnCompleteOrders_Click(object sender, RoutedEventArgs e)
         {
-
+            contracts = new List<Contract>();
+            TMS.Data.Status status = (TMS.Data.Status)Enum.Parse(typeof(TMS.Data.Status),"3");
+            contracts = tms.GetContractsByStatus(status);
+            orderData.ItemsSource = contracts;
         }
     }
 }
