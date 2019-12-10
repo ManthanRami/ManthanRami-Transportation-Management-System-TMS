@@ -68,5 +68,16 @@ namespace TMS_Test_Suite
             Assert.AreEqual(TripTest.BillDays, 1);
             Assert.AreEqual(TripTest.distance, 390);
         }
+        [TestMethod]
+        public void PlannerComboTest()
+        {
+            PlannerCombine ComboTest = new PlannerCombine(5.21, 0.3621, 60);
+            Assert.AreEqual(ComboTest.ftlTrucks, 2);
+            Assert.AreEqual(ComboTest.ltlPallets, 8);
+
+            ComboTest = new PlannerCombine(5.21, 0.3621, 40);
+            Assert.AreEqual(ComboTest.ftlTrucks, 2);
+            Assert.AreEqual(ComboTest.ltlPallets, 0);
+        }
     }
 }

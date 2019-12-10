@@ -13,7 +13,7 @@ namespace TMS
         public int ftlTrucks;
         public int ltlPallets;
 
-        public PlannerCombine(float ftlRate, float ltlRate, int distance,int pallets)
+        public PlannerCombine(double ftlRate, double ltlRate, int pallets)
         {
             ftlTrucks = 0;
             ltlPallets = 0;
@@ -24,7 +24,32 @@ namespace TMS
             }
             ftlMin--;
 
-
+            while (pallets > 0)
+            {
+                if (pallets >= ftlMin)
+                {
+                    if (pallets <= ftlMax)
+                    {
+                        ftlTrucks++;
+                        pallets = 0;
+                    }
+                    else
+                    {
+                        ftlTrucks++;
+                        pallets -= ftlMax;
+                    }
+                }
+                else if (pallets <= ftlMax)
+                {
+                    ltlPallets += pallets;
+                    pallets = 0;
+                }
+                else
+                {
+                    ltlPallets += ftlMax;
+                    pallets -= ftlMax;
+                }
+            }
         }
     }
 
