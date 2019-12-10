@@ -39,14 +39,13 @@ namespace TMS.Pages_UI.Pages_Planner
         private void SelectContract(object sender, SelectionChangedEventArgs e)
         {
             // Populates text boxes with current information except for the Carrier, which will be selected from a dropdown list of valid carriers
-            TMS.Data.City originCity = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtOrigin.Text);
-            TMS.Data.City destinationCity = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDestination.Text);
+            List<Carrier> validCarriers = new List<Carrier>();
 
             DataGrid gd = (DataGrid)sender;
             dynamic rowView = gd.SelectedItem;
             if (rowView != null)
             {
-                txtContractID.Text = rowView.ContractID.ToSting();
+                txtContractID.Text = rowView.ContractID.ToString();
                 txtClientName.Text = rowView.Customer.Name;
                 txtJobType.Text = rowView.JobType.ToString();
                 txtQuantity.Text = rowView.Quantity.ToString();
@@ -54,16 +53,27 @@ namespace TMS.Pages_UI.Pages_Planner
                 txtDestination.Text = rowView.Destination.ToString();
             }
 
-            listOfCarriers.ItemsSource = tms.GetCarrierCitiesNameMatch(originCity, destinationCity, listOfCarriers.SelectedIndex.ToString());
+            TMS.Data.City originCity = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtOrigin.Text.ToString());
+
+            validCarriers = tms.GetCarriersByCity(originCity);
+
+            listOfCarriers.ItemsSource = validCarriers;
+                
+            listOfCarriers.IsEnabled = true;
         }
 
         private void btnLoadOrders_Click(object sender, RoutedEventArgs e)
         {
             List<Contract> contracts = new List<Contract>();
-            Status status = 0;
+            Status status = Status.PENDING;
 
             contracts = tms.GetContractsByStatus(status);
             orderData.ItemsSource = contracts;
+        }
+
+        private void btnAdd_Trip_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

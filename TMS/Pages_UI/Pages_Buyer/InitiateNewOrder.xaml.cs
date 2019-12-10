@@ -70,7 +70,7 @@ namespace TMS.Pages_UI.Pages_Buyer
                 VanType van = (VanType)Enum.Parse(typeof(VanType), vanType.Text);
                 contract.VanType = van;
                 contract.Quantity = Convert.ToInt32(Quantity.Text);
-                TMS.Data.Status status = (TMS.Data.Status)Enum.Parse(typeof(TMS.Data.Status), "1");
+                TMS.Data.Status status = (TMS.Data.Status)Enum.Parse(typeof(TMS.Data.Status), Status.PENDING.ToString());
                 contract.Status = status;
                 tms.CreateContract(contract);
                 MessageBox.Show("Order Started", "Done", MessageBoxButton.OK, MessageBoxImage.Information);

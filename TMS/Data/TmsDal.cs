@@ -233,7 +233,7 @@ namespace TMS.Data
         /// <param name="origin">City origin</param>
         /// <param name="destination">City destination</param>
         /// <param name="carrierName">string carrierName</param>
-        /// <returns>List<Carrier></returns>
+        /// <returns></returns>
         public List<Carrier> GetCarrierCitiesNameMatch(City origin, City destination, string carrierName)
         {
             List<Carrier> carriers = new List<Carrier>();
@@ -1134,8 +1134,8 @@ namespace TMS.Data
         /// This method updates a trip row in the database with new values. It takes a Trip as a parameter
         /// and updates the travel time and distance.
         /// </summary>
-        /// <param name="trip">Trip</param>
-        /// <returns>Trip</returns>
+        /// <param name="trip"></param>
+        /// <returns></returns>
         public Trip UpdateTrip(Trip trip)
         {
             const string queryString = "UPDATE `Trip` SET `Trip`.`Time` = @time, `Trip`.`Distance` = @distance;";
@@ -1171,8 +1171,8 @@ namespace TMS.Data
             City.TryParse((string)row["Destination"], out City destination);
             City.TryParse((string)row["CityWest"], out City west);
             City.TryParse((string)row["CityEast"], out City east);
-            trip.TravelTime = (int)(uint)row["Time"];
-            trip.Distance = (int)(uint)row["Distance"];
+            trip.TravelTime = (int)row["Time"];
+            trip.Distance = (int)row["Distance"];
         }
 
         /// <summary>
@@ -1201,11 +1201,15 @@ namespace TMS.Data
         /// <param name="row">DataRow</param>
         private void PopulateContract(ref Contract contract, DataRow row)
         {
-            if (row["CarrierID"] != null)
+            if (!row.IsNull("CarrierID"))
             {
-                contract.Carrier = GetCarrier((uint)row["CarrierID"]);
+                contract.Carrier = GetCarrier((uint)(int)row["CarrierID"]);
             }
-
+            else
+            {
+                contract.Carrier = null;
+            }
+            contract.ContractID = (uint)(int)row["ContractID"];
             contract.Customer = GetCustomerById((uint)row["CustomerID"]);
             contract.Status = (Status)(sbyte)row["Status"];
             contract.Quantity = (int)row["Quantity"];
