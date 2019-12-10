@@ -1,11 +1,11 @@
-﻿/*
-* FILE          : 	File Name
-* PROJECT       : 	Course Code - Assignment Name
-* PROGRAMMER    : 	Alex MacCumber - 8573909
-* FIRST VERSION : 	Date Started YYYY-MM-DD
-* DESCRIPTION   : 	Description of what this file does
-*/
-
+﻿/*===============================================================================================================
+*  FILE          : DBMSConfig.xaml.cs
+*  PROJECT       : TMS 
+*  PROGRAMMER    : Team 404
+*  Date          : 2019-12-09
+*  DESCRIPTION   : This is file containt all logic to select the contract market place using information provided 
+*                  by the Admin.
+*================================================================================================================*/
 
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,8 @@ using MySql.Data;
 using System.Configuration;
 using TMS.Data;
 using System.Text.RegularExpressions;
+using System.Data.OleDb;
+using MySql.Data.MySqlClient;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -37,46 +39,131 @@ namespace TMS.Pages_UI.Pages_Admin
     public partial class DBMSConfig : Page
     {
         public string currentSetting = null;
-        Regex dbName = new Regex(@"^[a-zA-Z]+$");
-        Regex portNum = new Regex(@"^[a-zA-Z]+$");
+        Regex name = new Regex(@"^[a-zA-Z]+$");
+        Regex portNum = new Regex(@"^[+]?\d+([.]\d+)?$");
+        Regex ipNum = new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}");
+
+
         public DBMSConfig()
         {
             InitializeComponent();
             getCurrentDBMS();
         }
-
+        /*================================================================================================
+        *  Function    : btnSave_Edits_Click
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
         {
-            string newsettings = "server" + txtIP_Address.Text + ";user id=" + txtID.Text + ";port=" + txtPort_Number.Text + ";password=" + txtPassword.Text + "!;database=" + txtDatabase.Text + "";
-            CmpDal.connectionString= newsettings;
+            if(CheckAllFields())
+            {
+                string newsettings = "server=" + txtIP_Address.Text + ";user id=" + txtID.Text + ";port=" + txtPort_Number.Text + ";password=" + txtPassword.Text + ";database=" + txtDatabase.Text + "";
+                
+                if(TestConnection(newsettings))
+                {
+                    CmpDal.connectionString = newsettings;
+                    MessageBox.Show("Database Setting Updated Successfully !! ", "Invalid Entry", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+                else
+                {
+                    if (MessageBox.Show("Connection data Incorrect !!\nDo you want to go with previous setting ?", "Invaild Data", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.No)
+                    {
+                        CmpDal.connectionString = currentSetting;
+                    }
+                    else
+                    {
+                        CmpDal.connectionString = currentSetting;
+                        getCurrentDBMS();
+                    }
+                }                                              
+            }
+
+        }
+        /*================================================================================================
+        *  Function    : TestConnection
+        *  Description : This function will search for customer in the database.
+        *  Parameters  : string connection :connection string provided by admin
+        *  Returns     : bool true if connection string can connect otherwise false
+`       ================================================================================================*/
+        private bool TestConnection(string connectionString)
+        {
             try
             {
-                CmpDal cmp = new CmpDal();
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    connection.Close();
+                    return true;
+                }
             }
-            catch(Exception ex)
+            catch
             {
-              if(MessageBox.Show("Connection data Incorrect !!\nDo you want to go with previous setting ?", "Invaild Data", MessageBoxButton.YesNo, MessageBoxImage.Error)==MessageBoxResult.No)
-              {
-                    CmpDal.connectionString = currentSetting;
-              }
-              else
-              {
-                    CmpDal.connectionString = currentSetting;
-                    getCurrentDBMS();
-              }
+                return false;
             }
         }
-
-        private void CheckAllFields()
+        /*================================================================================================
+        *  Function    : CheckAllFields
+        *  Description : This function will validate all the field on the DBMSConfig.xmal page.
+        *  Parameters  : 
+        *  Returns     : bool true if all are in correct format
+`       ================================================================================================*/
+        private bool CheckAllFields()
         {
+            if(name.IsMatch(txtID.Text))
+            {
+                if(ipNum.IsMatch(txtIP_Address.Text))
+                {
+                    if(name.IsMatch(txtDatabase.Text))
+                    {
+                        if(portNum.IsMatch(txtPort_Number.Text))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Port number must be positive number ", "Invalid Entry", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Database Nuame must have only alphabet letters !!", "Invalid Entry", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("IP Address is not in proper Format !!", "Invalid Entry", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("User ID must have only alphabet letters !!", "Invalid Entry", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
+            return false;
         }
+        /*================================================================================================
+        *  Function    : btnEdit_Options_Click
+        *  Description : This function will search for customer in the database.
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
         {
             txtIP_Address.IsReadOnly = false;
             txtPort_Number.IsReadOnly = false;
         }
-
+        /*================================================================================================
+        *  Function    : getCurrentDBMS
+        *  Description : This function will get the current configuration of the contract market palce 
+        *                and populate the fields.
+        *  Parameters  : Nothing
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void getCurrentDBMS()
         {           
             currentSetting = CmpDal.connectionString;

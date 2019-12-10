@@ -10,7 +10,7 @@
 
     <Grid Background="LightGray">
 
-        <TextBlock  Text="DBMS Settings"        Margin="146,-14,120,298"       TextAlignment="Center"     FontSize="60"    
+        <TextBlock  Text="DBMS Settings"        Margin="146,-20,120,298"       TextAlignment="Center"     FontSize="60"    
                     IsEnabled="False"           RenderTransformOrigin="0.681,-5.6" />
 
         <TextBlock  Text="IP Address :"         Margin="168,199,365,126" Height="35" IsEnabled="False"       FontSize="25"/>
