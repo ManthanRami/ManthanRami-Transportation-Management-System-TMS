@@ -1,4 +1,11 @@
-﻿using System;
+﻿//File          : TripsTest.cs
+//Project       : TMS Software Quality Project
+//Course        : SENG2020 Software Quality
+//Programmer    : David Obeda
+//ID            : 8031148
+//Summary       : Test File for backend trip logic classes
+
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMS;
@@ -58,7 +65,12 @@ namespace TMS_Test_Suite
 
             TripTest = new TripLogic(0, 0, 7, CityList);
             Assert.AreEqual(TripTest.BillDays, 1);
+            Assert.AreEqual(TripTest.currentCity, 1);
             Assert.AreEqual(TripTest.distance, 859);
+            TripTest.AddTime(CityList);//day 0, in transit
+            Assert.AreEqual(TripTest.direction, 1);
+            TripTest.AddTime(CityList);//day 1, arrived.
+            Assert.AreEqual(TripTest.direction, 0);
 
             TripTest = new TripLogic(10, 1, 5, CityList);
             Assert.AreEqual(TripTest.BillDays, 1);

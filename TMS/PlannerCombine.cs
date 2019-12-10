@@ -1,4 +1,12 @@
-﻿using System;
+﻿//File          : PlannerCombine.cs
+//Project       : TMS Software Quality Project
+//Course        : SENG2020 Software Quality
+//Programmer    : David Obeda
+//ID            : 8031148
+//Summary       : Break apart total number of pallets into the most
+//              : cost efficient for FTL loads and LTL loads
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -1,4 +1,11 @@
-﻿using System;
+﻿//File          : TripLogic.cs
+//Project       : TMS Software Quality Project
+//Course        : SENG2020 Software Quality
+//Programmer    : David Obeda
+//ID            : 8031148
+//Summary       : TripLogic for individual trucks
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
