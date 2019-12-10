@@ -233,7 +233,7 @@ namespace TMS.Data
         /// <param name="origin">City origin</param>
         /// <param name="destination">City destination</param>
         /// <param name="carrierName">string carrierName</param>
-        /// <returns></returns>
+        /// <returns>List<Carrier></returns>
         public List<Carrier> GetCarrierCitiesNameMatch(City origin, City destination, string carrierName)
         {
             List<Carrier> carriers = new List<Carrier>();
