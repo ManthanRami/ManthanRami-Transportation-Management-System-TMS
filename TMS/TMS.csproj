@@ -109,7 +109,6 @@
     <Compile Include="Data\Admin.cs" />
     <Compile Include="CitiesData.cs" />
     <Compile Include="Data\Customer.cs" />
-    <Compile Include="Data\DataMap.cs" />
     <Compile Include="Data\Trip.cs" />
     <Compile Include="Exceptions\CouldNotFindRateException.cs" />
     <Compile Include="Exceptions\CouldNotDeleteException.cs" />
