@@ -1,4 +1,11 @@
-﻿using System;
+﻿//File          : CitiesData.cs
+//Project       : TMS Software Quality Project
+//Course        : SENG2020 Software Quality
+//Programmer    : David Obeda
+//ID            : 8031148
+//Summary       : CityClass to hold data for trip logic
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +20,7 @@ namespace TMS
     public class CitiesData
     {
         public readonly int CityName;
-        //readonly string WestCity;
-        //readonly string EastCity;
-        //readonly int WestKM;
         public readonly int EastKM;
-        //readonly int WestMinutes;
         public readonly int EastMinutes;
 
         /// <summary>
@@ -34,11 +37,7 @@ namespace TMS
         public CitiesData(int CityN, int EastDis, int EastTime)
         {
             CityName = CityN;
-            //WestCity = WestName;
-            //EastCity = EastName;
-            //WestKM = WestDis;
             EastKM = EastDis;
-            //WestMinutes = WestTime;
             EastMinutes = EastTime;
         }
     }
