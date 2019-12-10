@@ -24,9 +24,7 @@ namespace TMS.Pages_UI.Pages_Admin
     //=======================================================================================================================
     public partial class ModifyCarrierData : Page
     {
-        Regex onlyAlphaWithOneSpace = new Regex("^[a-z ,a-z]+$");
-        Regex onlyAlpha = new Regex("^[aA - zZ] +$");
-        Regex onlynumDec = new Regex("^[0-9.]+$");
+
 
         Carrier carrier = new Carrier();
         Carrier checkCarrier = new Carrier();
@@ -34,6 +32,7 @@ namespace TMS.Pages_UI.Pages_Admin
         DataSet ds = new DataSet();
         public uint cID = 0;
         List<Carrier> list = new List<Carrier>();
+
         public ModifyCarrierData()
         {
             InitializeComponent();
@@ -43,52 +42,77 @@ namespace TMS.Pages_UI.Pages_Admin
         }
         /*================================================================================================
         *  Function    : UpdateCarrier
-        *  Description : This function will updates the Contract market place Database Selection
+        *  Description : This function will updates the Carrier according to the information given by admin
         *  Parameters  : object sender:
                          RoutedEventArgs e:
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will updates the Carrier according to the information given by admin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateCarrier(object sender, RoutedEventArgs e)
         {
-            carrier.Name = txtCarrier_Name.Text;
-            
-            TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDepot_City.Text);
-            carrier.DepotCity = city;
-            carrier.FtlAvailability = Convert.ToInt32(txtFTL_Avail.Text);
-            carrier.LtlAvailability = Convert.ToInt32(txtLTL_Avail.Text);
-            carrier.FTLRate         = Convert.ToInt32(txtFTL_Rate.Text);
-            carrier.LTLRate         = Convert.ToInt32(txtLTL_Rate.Text);
-            carrier.ReeferCharge    = Convert.ToInt32(txtReefer_Rate.Text);
-            
-            list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
-            if (list.Count != 0)
+            if(CheckFields())
             {
-                tms.UpdateCarrier(Convert.ToUInt32(cID), carrier);
-                MessageBox.Show("Carrier Updated Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
-                GetCarrierList();
-                MakeFieldEmpty();
+                carrier.Name = txtCarrier_Name.Text;
+
+                TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDepot_City.Text);
+                carrier.DepotCity = city;
+                carrier.FtlAvailability = Convert.ToInt32(txtFTL_Avail.Text);
+                carrier.LtlAvailability = Convert.ToInt32(txtLTL_Avail.Text);
+                carrier.FTLRate = Convert.ToInt32(txtFTL_Rate.Text);
+                carrier.LTLRate = Convert.ToInt32(txtLTL_Rate.Text);
+                carrier.ReeferCharge = Convert.ToInt32(txtReefer_Rate.Text);
+
+                list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
+                if (list.Count != 0)
+                {
+                    tms.UpdateCarrier(Convert.ToUInt32(cID), carrier);
+                    MessageBox.Show("Carrier Updated Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+                    GetCarrierList();
+                    MakeFieldEmpty();
+                }
+                else if (MessageBox.Show("Carrier does not exist !\n Do you want to add ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                {
+                    tms.CreateCarrier(carrier);
+                    MessageBox.Show("Carrier Added Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MakeFieldEmpty();
+                    GetCarrierList();
+                }
             }
-            else if (MessageBox.Show("Carrier does not exist !\n Do you want to add ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
-            {
-                tms.CreateCarrier(carrier);
-                MessageBox.Show("Carrier Added Successfully ", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
-                MakeFieldEmpty();
-                GetCarrierList();
-            }
+
         }
         /*================================================================================================
         *  Function    : GetCarrierList
-        *  Description : This function will updates the Contract market place Database Selection
-        *  Parameters  : object sender:
-                         RoutedEventArgs e:
+        *  Description : This function will get all the carriers from the TMS database and Load it to 
+        *                data grid.
+        *  Parameters  : Nothing
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will get all the carriers from the TMS database and Load it to data grid.
+        /// </summary>
         private void GetCarrierList()
         {
             list = tms.GetCarriers();
             CarrierList.ItemsSource = list;
         }
-
+        /*================================================================================================
+        *  Function    : SelectCarrier
+        *  Description : This function will get selected row from the data grid and load it valiues to 
+        *                appropriate text box.
+        *                data grid.
+        *  Parameters  : Nothing
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
+        /// <summary>
+        /// This function will get selected row from the data grid and load it valiues to 
+        ///                appropriate text box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectCarrier(object sender, SelectionChangedEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
@@ -112,11 +136,13 @@ namespace TMS.Pages_UI.Pages_Admin
         }
         /*================================================================================================
         *  Function    : MakeFieldEmpty
-        *  Description : This function will updates the Contract market place Database Selection
-        *  Parameters  : object sender:
-                         RoutedEventArgs e:
+        *  Description : This function will makae all the fields of this page empty.
+        *  Parameters  : Nothing
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will makae all the fields of this page empty.
+        /// </summary>
         private void MakeFieldEmpty()
         {
             txtCarrier_Name.Text = "";
@@ -129,11 +155,16 @@ namespace TMS.Pages_UI.Pages_Admin
         }
         /*================================================================================================
         *  Function    : Searchbtn_Click
-        *  Description : This function will updates the Contract market place Database Selection
+        *  Description : This function will search the carrier from the database upon given data.
         *  Parameters  : object sender:
                          RoutedEventArgs e:
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will search the carrier from the database upon given data.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Searchbtn_Click(object sender, RoutedEventArgs e)
         {
             if (cityList.SelectedIndex > 0)
@@ -154,11 +185,13 @@ namespace TMS.Pages_UI.Pages_Admin
         }
         /*================================================================================================
         *  Function    : LoadCity
-        *  Description : This function will updates the Contract market place Database Selection
-        *  Parameters  : object sender:
-                         RoutedEventArgs e:
+        *  Description : This function will load cities name to the combo box of select city
+        *  Parameters  : Nothing
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will load cities name to the combo box of select city
+        /// </summary>
         private void LoadCity()
         {
             cityList.Items.Add("Select City");
@@ -178,23 +211,67 @@ namespace TMS.Pages_UI.Pages_Admin
                          RoutedEventArgs e:
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will updates the Contract market place Database Selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowCarrier_Click(object sender, RoutedEventArgs e)
         {
             GetCarrierList();
         }
-        private void CheckFields()
+        /*================================================================================================
+        *  Function    : CheckFields
+        *  Description : This function will check all the fields of the carrier information to be updated 
+        *  Parameters  : Nothing
+        *  Returns     : return true if everything is in appropriate format else false
+`       ================================================================================================*/
+        /// <summary>
+        /// This function will check all the fields of the carrier information to be updated 
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckFields()
         {
-            if(onlyAlphaWithOneSpace.IsMatch( txtCarrier_Name.Text))
+            Regex nameValidation = new Regex("[a-zA-Z]+");
+            if (txtCarrier_Name.Text!="")
             {
-                if(onlyAlpha.IsMatch((txtDepot_City.Text)))
+                if(nameValidation.IsMatch(txtDepot_City.Text))
                 {
-                    if(onlynumDec.IsMatch(txtFTL_Rate.Text))
+                    if(txtFTL_Rate.Text!="")
                     {
+                        if(txtLTL_Rate.Text!="")
+                        {
+                            if(txtReefer_Rate.Text!="")
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Reefer Rate must be Positive integer or decimal !!", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("LTL Rate must be Positive integer or decimal !!", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
 
                     }
+                    else
+                    {
+                        MessageBox.Show("FLT Rate must be Positive integer or decimal !!", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Depote City must have only alphabetical letters !!", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
+            else
+            {
+                MessageBox.Show("Carrier Name must be of Alphabetical Letters !!", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return false;
         }
+
     }
 }

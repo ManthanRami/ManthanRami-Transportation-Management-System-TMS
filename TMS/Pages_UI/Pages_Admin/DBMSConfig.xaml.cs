@@ -56,6 +56,11 @@ namespace TMS.Pages_UI.Pages_Admin
                          RoutedEventArgs e:
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will updates the Contract market place Database Selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Edits_Click(object sender, RoutedEventArgs e)
         {
             if(CheckAllFields())
@@ -89,6 +94,11 @@ namespace TMS.Pages_UI.Pages_Admin
         *  Parameters  : string connection :connection string provided by admin
         *  Returns     : bool true if connection string can connect otherwise false
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will search for customer in the database.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
         private bool TestConnection(string connectionString)
         {
             try
@@ -111,9 +121,13 @@ namespace TMS.Pages_UI.Pages_Admin
         *  Parameters  : 
         *  Returns     : bool true if all are in correct format
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will validate all the field on the DBMSConfig.xmal page.
+        /// </summary>
+        /// <returns></returns>
         private bool CheckAllFields()
         {
-            if(name.IsMatch(txtID.Text))
+            if(txtID.Text!="")
             {
                 if(ipNum.IsMatch(txtIP_Address.Text))
                 {
@@ -152,6 +166,11 @@ namespace TMS.Pages_UI.Pages_Admin
                          RoutedEventArgs e:
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will search for customer in the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEdit_Options_Click(object sender, RoutedEventArgs e)
         {
             txtIP_Address.IsReadOnly = false;
@@ -164,6 +183,9 @@ namespace TMS.Pages_UI.Pages_Admin
         *  Parameters  : Nothing
         *  Returns     : Nothing as return type is void
 `       ================================================================================================*/
+        /// <summary>
+        /// This function will get the current configuration of the contract market palce and populate the fields.
+        /// </summary>
         private void getCurrentDBMS()
         {           
             currentSetting = CmpDal.connectionString;

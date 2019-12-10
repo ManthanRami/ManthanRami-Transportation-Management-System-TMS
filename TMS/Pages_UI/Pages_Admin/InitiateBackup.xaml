@@ -10,11 +10,15 @@
 
     <Grid Background="LightGray">
         <Label  Content="TMS Backup Settings"       Margin="26,12,26,243"       HorizontalContentAlignment="Center"  Foreground="Black" FontSize="60" />
-        <Button Content="Select New Location" x:Name="ChangeLocation"  HorizontalAlignment="Center" Width="129" Click="ChangeLocation_Click" Height="25" Margin="278,220,258,115"/>
-        <RichTextBox x:Name="CurrentLocation" HorizontalAlignment="Center" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="84" VerticalAlignment="Center" Width="377" Margin="144,117,144,159"/>
-        <Button     x:Name="btnSave_Edits"      HorizontalAlignment="Center"     Height="25" Content="Save New Location" Click="btnSave_Edits_Click" Margin="412,220,144,115" Width="109" />
-        <Button     x:Name="btnCurrent_Location" HorizontalAlignment="Center"   Height="25" Content="Current Location" FontSize="12" 
-                    ToolTip="Gets the current file path for the backup" Click="btnCurrent_Settings_Click" Margin="144,220,392,115" Width="129" />
+        <Button Content="Select New Location" x:Name="ChangeLocation"  HorizontalAlignment="Center" Width="129" Click="ChangeLocation_Click" Height="25" Margin="144,214,392,121"/>
+        <RichTextBox x:Name="CurrentLocation" IsEnabled="False" HorizontalAlignment="Center" IsReadOnly="True" IsReadOnlyCaretVisible="False" Height="84" VerticalAlignment="Center" Width="377" Margin="144,117,144,159">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button     x:Name="btnSave_Edits"      HorizontalAlignment="Center"     Height="25" Content="Save New Location" Click="btnSave_Edits_Click" Margin="305,214,251,121" Width="109" />
         <Button x:Name="btnRun_Backup" Content="Run Backup" FontSize="25" Margin="258,267,258,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="btnRun_Backup_Click"/>
 
     </Grid>

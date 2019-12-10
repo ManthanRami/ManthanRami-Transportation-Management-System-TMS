@@ -37,18 +37,28 @@ namespace TMS.Pages_UI.Pages_Buyer
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// This funciton will call tms function and get all the lis of customer and load it to grid
+        /// </summary>
         private void LoadCurrentCustomerData()
         {
             ccl = td.GetCustomers();
             CustomerData.ItemsSource = ccl;
         }
-
+        /// <summary>
+        /// This function will call another function to load all the adaata to data grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCurrent_Customers_Click(object sender, RoutedEventArgs e)
         {
             LoadCurrentCustomerData();
         }
-
+        /// <summary>
+        /// This function will load all the list of customer from the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CurrentCustomerData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;

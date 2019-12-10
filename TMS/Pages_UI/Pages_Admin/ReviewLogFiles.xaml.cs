@@ -23,6 +23,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMS.Utils;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -40,7 +41,15 @@ namespace TMS.Pages_UI.Pages_Admin
             InitializeComponent();
             LoadToLogReview();
         }
-
+        /*================================================================================================
+        *  Function    : LoadToLogReview
+        *  Description : This function will Load all the data of the log file to the UI
+        *  Parameters  : Nothing
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
+        /// <summary>
+        /// This function will Load all the data of the log file to the UI
+        /// </summary>
         private void LoadToLogReview()
         {
             string description = null;
@@ -51,7 +60,18 @@ namespace TMS.Pages_UI.Pages_Admin
             LogData.AppendText(description);
         }
 
-
+        /*================================================================================================
+        *  Function    : btnNew_Log_Click
+        *  Description : This function will allow admin to select and open another log file to review
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
+        /// <summary>
+        /// This function will allow admin to select and open another log file to review
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNew_Log_Click(object sender, RoutedEventArgs e)
         {
 
@@ -64,8 +84,16 @@ namespace TMS.Pages_UI.Pages_Admin
                 LogReviewFile(logString);
             }
         }
-
-
+        /*================================================================================================
+        *  Function    : LogReviewFile
+        *  Description : This function will Load all the data of the log file to the UI
+        *  Parameters  : string LogString
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
+        /// <summary>
+        ///  This function will Load all the data of the log file to the UI
+        /// </summary>
+        /// <param name="logString"></param>
         private void LogReviewFile(string logString)
         {
             string location = logString;
@@ -81,7 +109,7 @@ namespace TMS.Pages_UI.Pages_Admin
             }
             catch (Exception e)
             {
-                //do something
+                MessageBox.Show("File Not Found !!", "File Invalid",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
     }

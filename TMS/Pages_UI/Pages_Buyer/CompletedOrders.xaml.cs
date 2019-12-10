@@ -38,7 +38,11 @@ namespace TMS.Pages_UI.Pages_Buyer
         {
 
         }
-
+        /// <summary>
+        /// this function will grab completed data from the databse and load it to the data grid so buyer can select it and proceed for invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCompleteOrders_Click(object sender, RoutedEventArgs e)
         {
             contracts = new List<Contract>();

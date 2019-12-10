@@ -30,7 +30,11 @@ namespace TMS.Pages_UI.Pages_Buyer
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// this function will get the order from the contract market place and load it to the data grid 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetOrder_Click(object sender, RoutedEventArgs e)
         {
             cmp = new CmpDal();
@@ -38,7 +42,11 @@ namespace TMS.Pages_UI.Pages_Buyer
             crt = cmp.GetContracts();
             contractData.ItemsSource = crt;
         }
-
+        /// <summary>
+        /// This function will fill the fields on this paage according to the selection of data grid 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void contractData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
@@ -53,7 +61,11 @@ namespace TMS.Pages_UI.Pages_Buyer
                 vanType.Text = rowView.VanType.ToString();
             }
         }
-
+        /// <summary>
+        /// This function initiate order and send to the planner for further process
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
             if(!string.IsNullOrEmpty(ClientName.Text)||!string.IsNullOrEmpty(txtDestinationCity.Text)||!string.IsNullOrEmpty(txtOriginCity.Text)||!string.IsNullOrEmpty(JobType.Text)||!string.IsNullOrEmpty(vanType.Text))
@@ -83,7 +95,9 @@ namespace TMS.Pages_UI.Pages_Buyer
                 MessageBox.Show("Please Select an order first !!", "Empty Selection", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+        /// <summary>
+        /// This function will Make all the field empty on this screen 
+        /// </summary>
         public void MakeFileEmpty()
         {
             ClientName.Text = "";

@@ -1,11 +1,11 @@
-﻿/*
-* FILE          : 	File Name
-* PROJECT       : 	Course Code - Assignment Name
-* PROGRAMMER    : 	Alex MacCumber - 8573909
-* FIRST VERSION : 	Date Started YYYY-MM-DD
-* DESCRIPTION   : 	Description of what this file does
-*/
-
+﻿/*===============================================================================================================
+*  FILE          : ModifyCarrierData.xaml.cs
+*  PROJECT       : TMS 
+*  PROGRAMMER    : Team 404
+*  Date          : 2019-12-09
+*  DESCRIPTION   : This is file containt all logic to change the log file saving directory according to the admin
+*                  selection provided.
+*================================================================================================================*/
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +31,12 @@ namespace TMS.Pages_UI.Pages_Admin
             CurrentLocation.AppendText(location);
             LoadLogFileDetails();
         }
-        
+        /*================================================================================================
+        *  Function    : LoadLogFileDetails
+        *  Description : This function will Load all the data of the log file to the UI
+        *  Parameters  : Nothing
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void LoadLogFileDetails()
         {
             logfileDetails.Document.Blocks.Clear();
@@ -39,6 +44,14 @@ namespace TMS.Pages_UI.Pages_Admin
             string details = "File Name: TMS.log\nFile Location :"+location+"\nDate : "+ DateTime.Now.ToShortDateString();
             logfileDetails.AppendText(details);
         }
+        /*================================================================================================
+        *  Function    : ChangeLocation_Click
+        *  Description : This function will open and Folder browser box to select the directory to select
+        *                to save log file.
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void ChangeLocation_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new FolderBrowserDialog();
@@ -51,9 +64,13 @@ namespace TMS.Pages_UI.Pages_Admin
                 CurrentLocation.AppendText(location);
             }
         }
-
-
-
+        /*================================================================================================
+        *  Function    : Confirm_Click
+        *  Description : This function will Create log into log file about directory changed.
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
             Logger.ChangeLogPath(location);
