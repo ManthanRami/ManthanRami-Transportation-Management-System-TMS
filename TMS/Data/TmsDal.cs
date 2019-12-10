@@ -1201,12 +1201,17 @@ namespace TMS.Data
         /// <param name="row">DataRow</param>
         private void PopulateContract(ref Contract contract, DataRow row)
         {
-            if (row["CarrierID"] != null)
+            if (!row.IsNull("CarrierID"))
             {
-                contract.Carrier = GetCarrier((uint)row["CarrierID"]);
+                contract.Carrier = GetCarrier((uint) (int) row["CarrierID"]);
+            }
+            else
+            {
+                contract.Carrier = null;
             }
 
-            contract.Customer = GetCustomerById((uint)row["CustomerID"]);
+            contract.ContractID = (uint) (int) row["ContractID"];
+            contract.Customer = GetCustomerById((uint) row["CustomerID"]);
             contract.Status = (Status)(sbyte)row["Status"];
             contract.Quantity = (int)row["Quantity"];
             contract.JobType = (JobType)(sbyte)row["LoadType"];
