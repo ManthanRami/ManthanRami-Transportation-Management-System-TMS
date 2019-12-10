@@ -1,16 +1,18 @@
-﻿/*
-* FILE          : 	File Name
-* PROJECT       : 	Course Code - Assignment Name
-* PROGRAMMER    : 	Alex MacCumber - 8573909
-* FIRST VERSION : 	Date Started YYYY-MM-DD
-* DESCRIPTION   : 	Description of what this file does
-*/
+﻿/*===============================================================================================================
+*  FILE          : ModifyCarrierData.xaml.cs
+*  PROJECT       : TMS 
+*  PROGRAMMER    : Team 404
+*  Date          : 2019-12-09
+*  DESCRIPTION   : This is file containt all logic to Modify the Carrier data as oer the Admin selection and 
+*                  data provided.
+*================================================================================================================*/
 using TMS.Data;
 using System.Windows;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace TMS.Pages_UI.Pages_Admin
 {
@@ -22,6 +24,10 @@ namespace TMS.Pages_UI.Pages_Admin
     //=======================================================================================================================
     public partial class ModifyCarrierData : Page
     {
+        Regex onlyAlphaWithOneSpace = new Regex("^[a-z ,a-z]+$");
+        Regex onlyAlpha = new Regex("^[aA - zZ] +$");
+        Regex onlynumDec = new Regex("^[0-9.]+$");
+
         Carrier carrier = new Carrier();
         Carrier checkCarrier = new Carrier();
         TmsDal tms = new TmsDal();
@@ -35,7 +41,13 @@ namespace TMS.Pages_UI.Pages_Admin
             LoadCity();
             cityList.SelectedIndex = 0;
         }
-
+        /*================================================================================================
+        *  Function    : UpdateCarrier
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void UpdateCarrier(object sender, RoutedEventArgs e)
         {
             carrier.Name = txtCarrier_Name.Text;
@@ -64,7 +76,13 @@ namespace TMS.Pages_UI.Pages_Admin
                 GetCarrierList();
             }
         }
-
+        /*================================================================================================
+        *  Function    : GetCarrierList
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void GetCarrierList()
         {
             list = tms.GetCarriers();
@@ -92,6 +110,13 @@ namespace TMS.Pages_UI.Pages_Admin
             }
 
         }
+        /*================================================================================================
+        *  Function    : MakeFieldEmpty
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void MakeFieldEmpty()
         {
             txtCarrier_Name.Text = "";
@@ -102,6 +127,13 @@ namespace TMS.Pages_UI.Pages_Admin
             txtLTL_Rate.Text = "";
             txtReefer_Rate.Text = "";
         }
+        /*================================================================================================
+        *  Function    : Searchbtn_Click
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void Searchbtn_Click(object sender, RoutedEventArgs e)
         {
             if (cityList.SelectedIndex > 0)
@@ -120,8 +152,13 @@ namespace TMS.Pages_UI.Pages_Admin
                 MessageBox.Show("Please Select City !!", "Empty Selction", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
+        /*================================================================================================
+        *  Function    : LoadCity
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void LoadCity()
         {
             cityList.Items.Add("Select City");
@@ -134,10 +171,30 @@ namespace TMS.Pages_UI.Pages_Admin
             cityList.Items.Add("Kingston");
             cityList.Items.Add("Ottawa");
         }
-
+        /*================================================================================================
+        *  Function    : ShowCarrier_Click
+        *  Description : This function will updates the Contract market place Database Selection
+        *  Parameters  : object sender:
+                         RoutedEventArgs e:
+        *  Returns     : Nothing as return type is void
+`       ================================================================================================*/
         private void ShowCarrier_Click(object sender, RoutedEventArgs e)
         {
             GetCarrierList();
+        }
+        private void CheckFields()
+        {
+            if(onlyAlphaWithOneSpace.IsMatch( txtCarrier_Name.Text))
+            {
+                if(onlyAlpha.IsMatch((txtDepot_City.Text)))
+                {
+                    if(onlynumDec.IsMatch(txtFTL_Rate.Text))
+                    {
+
+                    }
+                }
+            }
+
         }
     }
 }
