@@ -56,18 +56,42 @@ namespace TMS.Pages_UI.Pages_Buyer
 
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
-            TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDestinationCity.Text);
-            contract.Destination = city;
-            contract.Customer=new Customer();
-            contract.Customer.Name = ClientName.Text;
-            city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtOriginCity.Text);
-            contract.Origin = city;
-            JobType job = (JobType)Enum.Parse(typeof(JobType), JobType.Text);
-            contract.JobType = job;
-            VanType van = (VanType)Enum.Parse(typeof(VanType), vanType.Text);
-            contract.VanType = van;
-            contract.Quantity = Convert.ToInt32(Quantity.Text);
-           // tms.CreateContract(contract);
+
+            if(!string.IsNullOrEmpty(ClientName.Text)||!string.IsNullOrEmpty(txtDestinationCity.Text)||!string.IsNullOrEmpty(txtOriginCity.Text)||!string.IsNullOrEmpty(JobType.Text)||!string.IsNullOrEmpty(vanType.Text))
+            {
+                TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDestinationCity.Text);
+                contract.Destination = city;
+                contract.Customer = new Customer();
+                contract.Customer.Name = ClientName.Text;
+                tms.CreateCustomer(contract.Customer);
+                city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtOriginCity.Text);
+                contract.Origin = city;
+                JobType job = (JobType)Enum.Parse(typeof(JobType), JobType.Text);
+                contract.JobType = job;
+                VanType van = (VanType)Enum.Parse(typeof(VanType), vanType.Text);
+                contract.VanType = van;
+                contract.Quantity = Convert.ToInt32(Quantity.Text);
+                TMS.Data.Status status = (TMS.Data.Status)Enum.Parse(typeof(TMS.Data.Status), "1");
+                contract.Status = status;
+                tms.CreateContract(contract);
+                MessageBox.Show("Order Started", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+                MakeFileEmpty();
+            }
+            else
+            {
+                MessageBox.Show("Please Select an order first !!", "Empty Selection", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        public void MakeFileEmpty()
+        {
+            ClientName.Text = "";
+            txtDestinationCity.Text = "";
+            txtOriginCity.Text = "";
+            Quantity.Text = "";
+            vanType.Text = "";
+            JobType.Text = "";
+
         }
     }
 }
