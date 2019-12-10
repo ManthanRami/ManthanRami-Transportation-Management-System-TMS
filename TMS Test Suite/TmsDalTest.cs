@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySql.Data.MySqlClient;
 using TMS.Data;
@@ -546,6 +547,21 @@ namespace TMS_Test_Suite
             List<Trip> trips = dal.GetTrips();
 
             Assert.IsTrue(trips.Count > 0);
+        }
+
+        [TestMethod]
+        public void TestBackupDatabase()
+        {
+            TmsDal dal = new TmsDal();
+
+            if (!Directory.Exists("testbackups"))
+            {
+                Directory.CreateDirectory("testbackups");
+            }
+
+            dal.BackupDatabase("testbackups");
+
+            Directory.Delete("testbackups", true);
         }
     }
 }

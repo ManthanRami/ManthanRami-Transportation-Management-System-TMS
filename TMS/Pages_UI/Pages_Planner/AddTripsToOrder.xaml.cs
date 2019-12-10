@@ -58,7 +58,6 @@ namespace TMS.Pages_UI.Pages_Planner
             validCarriers = tms.GetCarriersByCity(originCity);
 
             listOfCarriers.ItemsSource = validCarriers;
-                
             listOfCarriers.IsEnabled = true;
         }
 
