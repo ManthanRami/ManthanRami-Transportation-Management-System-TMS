@@ -18,7 +18,6 @@
             <Button x:Name ="btnTrips_To_Orders" Content="Add Trips to Orders" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,109,0,0" Click="btnTrips_To_Orders_Click"/>
             <Button Content="Logout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="677,-43,0,0" Click="btnPlanner_Logout_Click"/>
             <Frame  x:Name="PlannerMain"   Content="" Margin="126, 7, 5, -38" NavigationUIVisibility="Hidden" Background="Gainsboro"/>
-            <Button x:Name ="btnIncompleteOrders_Copy" Content="Simulate Time (1 Day)" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="46" Margin="2,310,0,-18" Click="btnActive_Orders_Click"/>
         </Grid>
     </Viewbox>
 </Window>

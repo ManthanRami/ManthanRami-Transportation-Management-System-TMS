@@ -7,11 +7,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="360" d:DesignWidth="665"
       Title="ViewActiveOrders">
+    
+    <Viewbox>
+        <Grid Background="LightGray">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="122,10,0,0">
+                <DataGrid AutoGenerateColumns="true" CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="ActiveOrderData"
+                          FontSize="16" Height="340" Width="533" />
+                </ScrollViewer>
+            <Button x:Name ="btnSimulate_Time" Content="Simulate Time" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="46" Margin="10,300,0,0" Click="btnSimulate_Time_Click"/>
+            <Button x:Name ="btnToggleComplete" Content="Confirm Complete" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="46" Margin="10,249,0,0" Click="btnToggleComplete_Click"/>
 
-    <Grid Background="LightGray">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="112,0,0,0">
-            <DataGrid AutoGenerateColumns="true" CanUserAddRows="False" AlternatingRowBackground="LavenderBlush" x:Name="ActiveOrderData"
-                      FontSize="16" />
-            </ScrollViewer>
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Page>

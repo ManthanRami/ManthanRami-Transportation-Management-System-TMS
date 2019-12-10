@@ -7,25 +7,6 @@
 */
 
 
-//=======================================================================================================================
-// WIP NOTES
-//=======================================================================================================================
-// Planner needs to be able to:
-// Get orders from buyers that are waiting for a carrier / carriers to be applied to the order
-    // Trip Management? Fulfill Order?  Fetch Awaiting Orders?
-// Produce reports of aggregate activity in the OHST
-// Confirm Complete Orders
-// Active order Summary screen
-// Generate Summary report of all invoice data for
-    // All time
-    // or
-    // Past two weeks of simulated Time
-// Simulate time has passed
-    // Buttons with increments? Dropdown to select number of hours to simulate?
-//=======================================================================================================================
-//=======================================================================================================================
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,13 +91,12 @@ namespace TMS
             btnAggregate_Activity.Background = Brushes.LightBlue;
             PlannerMain.Content = new AggregateActivity();
         }
-       
+
         private void UnselectButtons()
         {
             btnActive_Orders.Background = Brushes.LightGray;
             btnTrips_To_Orders.Background = Brushes.LightGray;
             btnAggregate_Activity.Background = Brushes.LightGray;
         }
-
     }
 }

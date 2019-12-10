@@ -1195,8 +1195,8 @@ namespace TMS.Data
             City.TryParse((string)row["Destination"], out City destination);
             City.TryParse((string)row["CityWest"], out City west);
             City.TryParse((string)row["CityEast"], out City east);
-            trip.TravelTime = (int)row["Time"];
-            trip.Distance = (int)row["Distance"];
+            trip.TravelTime = (int)(uint)row["Time"];
+            trip.Distance = (int)(uint)row["Distance"];
         }
 
         /// <summary>
