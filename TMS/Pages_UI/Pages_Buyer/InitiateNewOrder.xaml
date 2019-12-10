@@ -27,7 +27,7 @@
         </ScrollViewer>
 
         <TextBox HorizontalAlignment="Left" x:Name="ClientName" Height="20" Margin="96,39,0,0"  TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" />
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>
 
         <TextBox HorizontalAlignment="Left" x:Name="JobType"    Height="21" Margin="96,97,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="105" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="Black" BorderThickness="1" IsReadOnly="True"/>

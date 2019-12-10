@@ -56,7 +56,6 @@ namespace TMS.Pages_UI.Pages_Buyer
 
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
-
             if(!string.IsNullOrEmpty(ClientName.Text)||!string.IsNullOrEmpty(txtDestinationCity.Text)||!string.IsNullOrEmpty(txtOriginCity.Text)||!string.IsNullOrEmpty(JobType.Text)||!string.IsNullOrEmpty(vanType.Text))
             {
                 TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDestinationCity.Text);
@@ -91,7 +90,6 @@ namespace TMS.Pages_UI.Pages_Buyer
             Quantity.Text = "";
             vanType.Text = "";
             JobType.Text = "";
-
         }
     }
 }

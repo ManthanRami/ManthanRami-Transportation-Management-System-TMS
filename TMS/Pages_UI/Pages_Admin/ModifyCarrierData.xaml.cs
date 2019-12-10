@@ -43,7 +43,11 @@ namespace TMS.Pages_UI.Pages_Admin
             TMS.Data.City city = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDepot_City.Text);
             carrier.DepotCity = city;
             carrier.FtlAvailability = Convert.ToInt32(txtFTL_Avail.Text);
-            carrier.LtlAvailability = Convert.ToInt32(txtLTL_Avail.Text);           
+            carrier.LtlAvailability = Convert.ToInt32(txtLTL_Avail.Text);
+            carrier.FTLRate         = Convert.ToInt32(txtLTL_Avail.Text);
+            carrier.LTLRate         = Convert.ToInt32(txtLTL_Avail.Text);
+            carrier.ReeferCharge    = Convert.ToInt32(txtLTL_Avail.Text);
+            
             list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
             if (list.Count != 0)
             {
@@ -67,7 +71,7 @@ namespace TMS.Pages_UI.Pages_Admin
             CarrierList.ItemsSource = list;
         }
 
-        private void SelectCustomer(object sender, SelectionChangedEventArgs e)
+        private void SelectCarrier(object sender, SelectionChangedEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
             dynamic rowView = gd.SelectedItem;
@@ -81,6 +85,9 @@ namespace TMS.Pages_UI.Pages_Admin
                     txtDepot_City.Text = carrier.DepotCity.ToString();
                     txtFTL_Avail.Text = carrier.FtlAvailability.ToString();
                     txtLTL_Avail.Text = carrier.LtlAvailability.ToString();
+                    txtFTL_Rate.Text = carrier.FTLRate.ToString();
+                    txtLTL_Rate.Text = carrier.LTLRate.ToString();
+                    txtReefer_Rate.Text = carrier.ReeferCharge.ToString();
                 }
             }
 
@@ -91,6 +98,9 @@ namespace TMS.Pages_UI.Pages_Admin
             txtDepot_City.Text = "";
             txtFTL_Avail.Text = "";
             txtLTL_Avail.Text = "";
+            txtFTL_Rate.Text = "";
+            txtLTL_Rate.Text = "";
+            txtReefer_Rate.Text = "";
         }
         private void Searchbtn_Click(object sender, RoutedEventArgs e)
         {
@@ -100,6 +110,10 @@ namespace TMS.Pages_UI.Pages_Admin
                 string city = cityList.Text;
                 list = tms.SearchCarriers(name, city);
                 CarrierList.ItemsSource = list;
+            }
+            else if (cityList.SelectedIndex == 0)
+            {
+                GetCarrierList();
             }
             else
             {
