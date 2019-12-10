@@ -15,7 +15,7 @@
             <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="orderData" CanUserAddRows="False" AutoGenerateColumns="false" Height="340" 
                        Width="364" IsReadOnly="true" SelectionChanged="SelectContract">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header=" Contract ID"     Width="auto"      Binding="{Binding Path=Contract.ContractID}"/>
+                    <DataGridTextColumn Header=" Contract ID"     Width="auto"      Binding="{Binding Path=ContractID}"/>
                     <DataGridTextColumn Header=" Client Name"     Width="auto"      Binding="{Binding Path=Customer.Name}"/>
                     <DataGridTextColumn Header=" Job Type"        Width="auto"      Binding="{Binding Path=JobType}"/>
                     <DataGridTextColumn Header=" Quantity"        Width="auto"      Binding="{Binding Path=Quantity}"/>

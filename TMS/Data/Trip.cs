@@ -7,6 +7,9 @@ using System.Xaml;
 
 namespace TMS.Data
 {
+    /// <summary>
+    /// This class models a possible trip stored within the database
+    /// </summary>
     public class Trip
     {
         public uint TripID { get; set; }
