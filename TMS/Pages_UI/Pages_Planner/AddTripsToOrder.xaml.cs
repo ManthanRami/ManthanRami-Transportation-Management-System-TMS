@@ -39,7 +39,7 @@ namespace TMS.Pages_UI.Pages_Planner
         private void SelectContract(object sender, SelectionChangedEventArgs e)
         {
             // Populates text boxes with current information except for the Carrier, which will be selected from a dropdown list of valid carriers
-            List<Carrier> matching = new List<Carrier>();
+            List<Carrier> validCarriers = new List<Carrier>();
 
             DataGrid gd = (DataGrid)sender;
             dynamic rowView = gd.SelectedItem;
@@ -54,23 +54,25 @@ namespace TMS.Pages_UI.Pages_Planner
             }
 
             TMS.Data.City originCity = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtOrigin.Text.ToString());
-            TMS.Data.City destinationCity = (TMS.Data.City)Enum.Parse(typeof(TMS.Data.City), txtDestination.Text.ToString());
 
-            matching = tms.GetCarrierCitiesNameMatch(originCity, destinationCity, listOfCarriers.SelectedIndex.ToString());
+            validCarriers = tms.GetCarriersByCity(originCity);
 
-            listOfCarriers.ItemsSource = matching;
-
-
+            listOfCarriers.ItemsSource = validCarriers;
             listOfCarriers.IsEnabled = true;
         }
 
         private void btnLoadOrders_Click(object sender, RoutedEventArgs e)
         {
             List<Contract> contracts = new List<Contract>();
-            Status status = 0;
+            Status status = Status.PENDING;
 
             contracts = tms.GetContractsByStatus(status);
             orderData.ItemsSource = contracts;
+        }
+
+        private void btnAdd_Trip_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

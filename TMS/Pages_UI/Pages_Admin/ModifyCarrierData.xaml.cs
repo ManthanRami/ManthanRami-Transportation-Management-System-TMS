@@ -44,9 +44,9 @@ namespace TMS.Pages_UI.Pages_Admin
             carrier.DepotCity = city;
             carrier.FtlAvailability = Convert.ToInt32(txtFTL_Avail.Text);
             carrier.LtlAvailability = Convert.ToInt32(txtLTL_Avail.Text);
-            carrier.FTLRate         = Convert.ToInt32(txtLTL_Avail.Text);
-            carrier.LTLRate         = Convert.ToInt32(txtLTL_Avail.Text);
-            carrier.ReeferCharge    = Convert.ToInt32(txtLTL_Avail.Text);
+            carrier.FTLRate         = Convert.ToInt32(txtFTL_Rate.Text);
+            carrier.LTLRate         = Convert.ToInt32(txtLTL_Rate.Text);
+            carrier.ReeferCharge    = Convert.ToInt32(txtReefer_Rate.Text);
             
             list = tms.SearchCarriers(carrier.Name, txtDepot_City.Text);
             if (list.Count != 0)

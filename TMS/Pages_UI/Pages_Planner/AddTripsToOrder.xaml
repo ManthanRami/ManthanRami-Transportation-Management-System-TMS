@@ -9,7 +9,7 @@
       Title="AddTripsToOrder">
 
     <Grid Background="LightGray">
-        <Button x:Name="btnAdd_Trip"    Content="Add Trip To Order" Height="30" Width="106" Margin="164,320,395,10" />
+        <Button x:Name="btnAdd_Trip"    Content="Add Carrier To Order" Height="30" Margin="150,320,395,10" />
 
         <ScrollViewer Margin="275,0,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <DataGrid  Background="Gainsboro" HeadersVisibility="All" BorderBrush="Gainsboro" x:Name="orderData" CanUserAddRows="False" AutoGenerateColumns="false" Height="340" 
@@ -25,7 +25,7 @@
             </DataGrid>
         </ScrollViewer>
         <Label Content="Contract ID :"            Height="25"  Margin="30,10,550,325" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-        <TextBox x:Name="txtContractID"              Height="25" Width="150" Margin="120,10,395,325" BorderBrush="Black"/>
+        <TextBox x:Name="txtContractID"           Height="25" Width="150" Margin="120,10,395,325" BorderBrush="Black"/>
         <Label Content="Client Name :"            Height="25" Width="75"  Margin="40,55,550,280" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="txtClientName"           Height="25" Width="150" Margin="120,55,395,280" BorderBrush="Black"/>
         <Label Content="Job Type :"               Height="25" Width="75"  Margin="40,104,550,231" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -37,7 +37,7 @@
         <Label Content="Destination :"            Height="25" Width="75"  Margin="40,244,550,91" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="txtDestination"          Height="25" Width="150" Margin="120,244,395,91" BorderBrush="Black"/>
         <Label Content="Select Carrier :"         HorizontalAlignment="Left" Margin="25,284,0,0" VerticalAlignment="Top" Width="90" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <ComboBox x:Name="listOfCarriers"         HorizontalAlignment="Left" Margin="120,284,0,0" VerticalAlignment="Top" Width="150" IsEditable="False" BorderBrush="Black" BorderThickness="1" Height="25"/>
+        <ComboBox x:Name="listOfCarriers"         DisplayMemberPath ="Name"  HorizontalAlignment="Left" Margin="120,284,0,0" VerticalAlignment="Top" Width="150" IsEditable="false" BorderBrush="Black" BorderThickness="1" Height="25"/>
         <Button x:Name="btnLoadOrders"            Content="Pending Orders" Height="30" Width="106" Margin="30,320,529,10" Click="btnLoadOrders_Click"/>
     </Grid>
 </Page>

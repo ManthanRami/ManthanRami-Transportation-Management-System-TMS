@@ -42,7 +42,7 @@ namespace TMS.Pages_UI.Pages_Buyer
         private void btnCompleteOrders_Click(object sender, RoutedEventArgs e)
         {
             contracts = new List<Contract>();
-            TMS.Data.Status status = (TMS.Data.Status)Enum.Parse(typeof(TMS.Data.Status),"3");
+            TMS.Data.Status status = (TMS.Data.Status)Enum.Parse(typeof(TMS.Data.Status), Status.FINISHED.ToString());
             contracts = tms.GetContractsByStatus(status);
             orderData.ItemsSource = contracts;
         }
