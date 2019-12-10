@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using TMS.Utils;
 
 namespace TMS.Pages_UI.Pages_Buyer
 {
@@ -77,6 +78,8 @@ namespace TMS.Pages_UI.Pages_Buyer
                 tms.CreateContract(contract);
                 MessageBox.Show("Order Started", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
                 MakeFileEmpty();
+
+                Invoice.GenerateInvoice(contract);
             }
             else
             {

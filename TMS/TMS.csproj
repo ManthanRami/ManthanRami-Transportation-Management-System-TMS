@@ -122,9 +122,9 @@
     <Compile Include="Pages_UI\Pages_Planner\ViewActiveOrders.xaml.cs">
       <DependentUpon>ViewActiveOrders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PlannerCombine.cs" />
     <Compile Include="TripLogic.cs" />
     <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\Invoice.cs" />
     <Compile Include="Windows_UI\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
