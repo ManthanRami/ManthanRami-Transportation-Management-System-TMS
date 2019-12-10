@@ -9,19 +9,6 @@ namespace TMS_Test_Suite
     [TestClass]
     public class TripsTest
     {
-        //CitiesData[] CityList;
-        //public TripsTest()
-        //{
-        //    TmsDal CityData = new TmsDal();
-        //    List<Trip> CityInfo = CityData.GetTrips();
-        //    CitiesData[] CityList = new CitiesData[CityInfo.Count];
-        //    int indexNum = 0;
-        //    foreach (Trip City in CityInfo)
-        //    {
-        //        CityList[indexNum] = new CitiesData(indexNum, City.Distance, City.TravelTime);
-        //        indexNum++;
-        //    }
-        //}
         [TestMethod]
         public void CityListValid()
         {
