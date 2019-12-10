@@ -162,6 +162,8 @@ INSERT INTO FTLRate VALUE (13, 5.2);
 INSERT INTO LTLRate VALUE (13, 0);
 INSERT INTO ReeferCharge VALUE (13, 0.065);
 
+SELECT * FROM Contract;
+
 /*SELECT
 c.`Name`,
 c.DepotCity,

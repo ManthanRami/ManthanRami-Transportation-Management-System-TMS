@@ -1160,6 +1160,30 @@ namespace TMS.Data
         }
 
         /// <summary>
+        /// This method runs a backup on the MySQL Database
+        /// </summary>
+        /// <param name="path">string</param>
+        public void BackupDatabase(string path)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                using (MySqlCommand query = new MySqlCommand())
+                {
+                    using (MySqlBackup backup = new MySqlBackup(query))
+                    {
+                        query.Connection = conn;
+
+                        conn.Open();
+
+                        backup.ExportToFile(path + "\\" + DateTime.Now.ToString("MM-dd-yyyy") + ".sql");
+
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// PopulateTrip() takes a reference to a trip object and a data row and parses
         /// the data row into the trip object.
         /// </summary>
