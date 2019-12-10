@@ -33,17 +33,19 @@ namespace TMS
         /// The trip class maintains the calculations for figuring out how long and far a delivery will take
         /// </summary>
         /// <param name="Quantity">int, quantity of pallets on truck for LTL, 0 for FTL</param>
-        /// <param name="dest">int, index of destination city in CityList</param>
         /// <param name="originCity">int, index of origin city in CityList</param>
+        /// <param name="dest">int, index of destination city in CityList</param>
         /// <param name="CityList">Ordered Array of CitiesData classes, west[0] to east[length]</param>
-        public TripLogic(int Quantity, int dest, int originCity, CitiesData[] CityList)
+        public TripLogic(int Quantity, int originCity, int dest, CitiesData[] CityList)
         {
             workTime = 0;
             driveToday = 0;
             destination = dest;                  //destination city
             currentCity = originCity;           //change to next city
+          
             if (destination > currentCity)      //Headed east
             {
+                distance = CityList[currentCity].EastKM;
                 CurrentDrive = CityList[currentCity].EastMinutes;
                 direction = 1;
             }
@@ -51,22 +53,23 @@ namespace TMS
             {
                 direction = -1;
                 CurrentDrive = CityList[currentCity - 1].EastMinutes;
+                distance = CityList[currentCity - 1].EastKM;
             }
             currentCity += direction;
             daytotal = -1;
             quantity = Quantity;        //0 = FTL >0 = # of pallets
             unloading = LoadTime;       //truck has to be loaded before it can leave
 
-            distance = CurrentDrive;
+            
             while (currentCity != destination)
             {
                 if (direction > 0)      //Headed east
                 {
-                    distance += CityList[currentCity].EastMinutes;
+                    distance += CityList[currentCity].EastKM;
                 }
                 else
                 {
-                    distance += CityList[currentCity - 1].EastMinutes;
+                    distance += CityList[currentCity - 1].EastKM;
                 }
                 currentCity += direction;
             }
@@ -107,7 +110,7 @@ namespace TMS
         {
             int addMinutes = 1440; //minutes in 1 day, the planner time advancement interval
             //Time left in day, time left in driving limit, time left in working limit
-            while (addMinutes > 0 && (driveToday < DrivingMax || workTime < MaxHours))
+            while ((direction != 0) && addMinutes > 0 && (driveToday < DrivingMax || workTime < MaxHours))
             {
                 if (unloading > 0)//load or unload the truck
                 {
@@ -119,12 +122,12 @@ namespace TMS
                             addMinutes -= unloading;
                             unloading = 0;
                             //finished unloading truck.
-                            if (destination == currentCity)//Truck arived at destination
+                            if ((destination == currentCity) && CurrentDrive == 0)//Truck arived at destination
                             {
                                 direction = 0;
                                 addMinutes = 0;
                             }
-                            else //Truck must drive on (should never trigger for FTL)
+                            else if (CurrentDrive == 0) //Truck must drive on (should never trigger for FTL)
                             {
                                 if (direction == 1)//LTL moving to next city east
                                 {
@@ -151,48 +154,60 @@ namespace TMS
                         addMinutes = 0;
                     }
                 }
-                else //not loading, driving to next city
+                //Done loading/unloading Drive!
+                if (CurrentDrive >= addMinutes && (CurrentDrive + driveToday) <= DrivingMax)//should never trigger with full day increments
                 {
-                    if (CurrentDrive >= addMinutes && (CurrentDrive + driveToday) <= DrivingMax)//should never trigger with full day increments
+                    if (CurrentDrive == addMinutes)//arrived
                     {
-                        if (CurrentDrive == addMinutes)//arrived
-                        {
-                            //Get next city
-                        }
-                        CurrentDrive -= addMinutes;
-                        workTime += addMinutes;
-                        addMinutes = 0;
+                        //Get next city
                     }
-                    else if (((CurrentDrive + driveToday) <= DrivingMax) && ((CurrentDrive + workTime) <= MaxHours))// this is what is expected to run
+                    CurrentDrive -= addMinutes;
+                    workTime += addMinutes;
+                    addMinutes = 0;
+                }
+                else if (((CurrentDrive + driveToday) <= DrivingMax) && ((CurrentDrive + workTime) <= MaxHours))// this is what is expected to run
+                {
+                    driveToday += CurrentDrive; //update drive time for day
+                    workTime += CurrentDrive;
+                    addMinutes -= CurrentDrive;
+                    CurrentDrive = 0;
+                    if (quantity == 0)//FTL
                     {
-                        driveToday += CurrentDrive; //update drive time for day
-                        workTime += CurrentDrive;
-                        addMinutes -= CurrentDrive;
-                        CurrentDrive = 0;
-                        if (quantity == 0)//FTL
-                        {
-                            if (currentCity == destination)
-                            {
-                                unloading = LoadTime;
-                            }
-                        }
-                        else //LTL
+                        if (currentCity == destination)
                         {
                             unloading = LoadTime;
                         }
+                        else
+                        {
+                            if (direction == 1)//LTL moving to next city east
+                            {
+                                CurrentDrive = CityList[currentCity].EastMinutes;
+                                currentCity++;
+                            }
+                            else
+                            {
+                                currentCity--;
+                                CurrentDrive = CityList[currentCity].EastMinutes;
+                            }
+                        }
                     }
-                    else if ((CurrentDrive + driveToday - DrivingMax) <= (CurrentDrive + workTime - MaxHours))//figure out the limiter, DrivingMax or Max Hours
+                    else //LTL
                     {
-                        //driving time is the limiting factor, or at least equal with workTime
-                        CurrentDrive = CurrentDrive - (DrivingMax - driveToday);
-                        addMinutes = 0;
-                        driveToday = DrivingMax;
+                        unloading = LoadTime;
                     }
-                    else //cannot finish the drive, not enough worktime/Maxhours
-                    {
-                        CurrentDrive = CurrentDrive - (MaxHours - workTime);
-                        addMinutes = 0;
-                    }
+
+                }
+                else if ((CurrentDrive + driveToday - DrivingMax) <= (CurrentDrive + workTime - MaxHours))//figure out the limiter, DrivingMax or Max Hours
+                {
+                    //driving time is the limiting factor, or at least equal with workTime
+                    CurrentDrive = CurrentDrive - (DrivingMax - driveToday);
+                    addMinutes = 0;
+                    driveToday = DrivingMax;
+                }
+                else //cannot finish the drive, not enough worktime/Maxhours
+                {
+                    CurrentDrive = CurrentDrive - (MaxHours - workTime);
+                    addMinutes = 0;
                 }
             }
             //Add a day to trip, reset work hours and drive hours for a new workday
