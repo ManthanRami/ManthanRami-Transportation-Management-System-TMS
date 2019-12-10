@@ -24,5 +24,15 @@ namespace TMS.Pages_UI.Pages_Planner
         {
             InitializeComponent();
         }
+
+        private void LastDay_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LastWeek_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

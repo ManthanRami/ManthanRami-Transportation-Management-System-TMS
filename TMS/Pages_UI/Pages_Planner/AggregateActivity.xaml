@@ -9,6 +9,44 @@
       Title="AggregateActivity">
 
     <Grid Background="LightGray">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" FontSize="16" VerticalAlignment="Center">Orders Completed</TextBlock>
+            <TextBlock Name="Data_OrdersCompleted" FontSize="16" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
+
+            <TextBlock Grid.Row="1" FontSize="16" VerticalAlignment="Center">Orders Completed</TextBlock>
+            <TextBlock Name="Data_OrdersInProgress" FontSize="16" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+
+            <TextBlock Grid.Row="2" FontSize="16" VerticalAlignment="Center">Profit</TextBlock>
+            <TextBlock Name="Data_Profit" FontSize="16" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="LastDay" Grid.Column="0" Click="LastDay_OnClick">View Report: Last Day</Button>
+            <Button Name="LastWeek" Grid.Column="1" Click="LastWeek_OnClick">View Report: Last Week</Button>
+        </Grid>
     </Grid>
 </Page>
